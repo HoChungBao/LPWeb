@@ -1,0 +1,372 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+@model LienPhatERP.ViewModels.PrintOrderModel
+@{
+    ViewData["Title"] = "PrintHospitalApprove";
+    Layout = null;
+}
+
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!--[if !mso]><!-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <!--<![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title></title>
+    <style type="text/css">
+        * {
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            Margin: 0;
+            padding: 0;
+            min-width: 100%;
+            font-family: Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            mso-line-height-rule: exactly;
+        }
+
+        table {
+            border-spacing: 0;
+            color: #333333;
+            font-family: Arial, sans-serif;
+        }
+
+        img {
+            border: 0;
+        }
+
+        .wrapper {
+            width: 100%;
+            table-layout: fixed;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+
+        .webkit {
+            max-width: 600px;
+        }
+
+        .outer {
+            Margin: 0 auto;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .full-width-image img {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+        }
+
+        .inner {
+            padding: 10px;
+        }
+
+        p {
+            Margin: 0;
+            padding-bottom: 10px;
+        }
+
+        .h1 {
+            font-size: 21px;
+            font-weight: bold;
+            Margin-top: 15px;
+            Margin-bottom: 5px;
+            font-family: Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .h2 {
+            font-size: 18px;
+            font-weight: bold;
+            Margin-top: 10px;
+            Margin-bottom: 5px;
+            font-family: Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .one-column .contents {
+            text-align: left;
+            font-family: Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .one-column p {
+            font-size: 14px;
+            Margin-bottom: 10px;
+            font-family: Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .two-column {
+            text-align: center;
+            font-size: 0;
+        }
+
+        .two-column .column {
+            width: 100%;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .contents {
+            width: 100%;
+        }
+
+        .two-column .contents {
+            font-size: 14px;
+            text-align: left;
+        }
+
+        .two-column img {
+            width: 100%;
+            max-width: 280px;
+            height: auto;
+        }
+
+        .two-column .text {
+            padding-top: 10px;
+        }
+
+        .three-column {
+            text-align: center;
+            font-size: 0;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .three-column .column {
+            width: 100%;
+            max-width: 200px;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .three-column .contents {
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .three-column img {
+            width: 100%;
+            max-width: 180px;
+            height: auto;
+        }
+
+        .three-column .text {
+            padding-top: 10px;
+        }
+
+        .img-align-vertical img {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        media only screen and ( max-device-width: 480px ) {
+        table[class=hide],
+        img[class=hide],
+        td[class=hide] {
+            display: none !important;
+        }
+        .contents1 {
+            width: 100%;
+        }
+        .contents1 {
+            width: 100%;
+        }
+    </style>
+    <!--[if (gte mso 9)|(IE)]>
+        <style type="text/css">
+            table { border-collapse: collapse !important; }
+        </style>
+    <![endif]-->
+</head>
+
+<body onload="window.print()" style="Margin: 0; padding-top: 0; padding-bottom: 0px; padding-right: 0; padding-left: 0; min-width: 100%; background-color: #f3f2f0;">
+<svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <symbol id="icon-link" viewbox="0 0 32 32">
+            <title>link</title>
+            <path d="M13.757 19.868c-0.416 0-0.832-0.159-1.149-0.476-2.973-2.973-2.973-7.81 0-10.783l6-6c1.44-1.44 3.355-2.233 5.392-2.233s3.951 0.793 5.392 2.233c2.973 2.973 2.973 7.81 0 10.783l-2.743 2.743c-0.635 0.635-1.663 0.635-2.298 0s-0.635-1.663 0-2.298l2.743-2.743c1.706-1.706 1.706-4.481 0-6.187-0.826-0.826-1.925-1.281-3.094-1.281s-2.267 0.455-3.094 1.281l-6 6c-1.706 1.706-1.706 4.481 0 6.187 0.635 0.635 0.635 1.663 0 2.298-0.317 0.317-0.733 0.476-1.149 0.476z"></path>
+            <path d="M8 31.625c-2.037 0-3.952-0.793-5.392-2.233-2.973-2.973-2.973-7.81 0-10.783l2.743-2.743c0.635-0.635 1.664-0.635 2.298 0s0.635 1.663 0 2.298l-2.743 2.743c-1.706 1.706-1.706 4.481 0 6.187 0.826 0.826 1.925 1.281 3.094 1.281s2.267-0.455 3.094-1.281l6-6c1.706-1.706 1.706-4.481 0-6.187-0.635-0.635-0.635-1.663 0-2.298s1.663-0.635 2.298 0c2.973 2.973 2.973 7.81 0 10.783l-6 6c-1.44 1.44-3.355 2.233-5.392 2.233z"></path>
+        </symbol>
+        <symbol id="icon-attachment" viewbox="0 0 32 32">
+            <title>attachment</title>
+            <path d="M20.807 10.22l-2.030-2.029-10.15 10.148c-1.682 1.681-1.682 4.408 0 6.089s4.408 1.681 6.090 0l12.18-12.178c2.804-2.802 2.804-7.346 0-10.148-2.802-2.803-7.347-2.803-10.149 0l-12.788 12.787c-0.009 0.009-0.019 0.018-0.027 0.026-3.909 3.909-3.909 10.245 0 14.153 3.908 3.908 10.246 3.908 14.156 0 0.009-0.009 0.016-0.018 0.026-0.027l0.001 0.001 8.729-8.728-2.031-2.029-8.729 8.727c-0.009 0.008-0.018 0.018-0.026 0.026-2.784 2.783-7.312 2.783-10.096 0-2.783-2.783-2.783-7.31 0-10.093 0.010-0.009 0.019-0.018 0.028-0.026l-0.001-0.002 12.79-12.786c1.678-1.679 4.411-1.679 6.090 0s1.678 4.411 0 6.089l-12.18 12.178c-0.56 0.56-1.47 0.56-2.030 0-0.559-0.559-0.559-1.47 0-2.029l10.15-10.149z"></path>
+        </symbol>
+    </defs>
+</svg>
+<center class="wrapper" style="width: 100%; table-layout: fixed; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; background-color: #f3f2f0;">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f3f2f0;" bgcolor="#f3f2f0;">
+        <tr>
+            <td width="100%">
+                <div class="webkit" style="max-width: 600px; Margin: 0 auto;">
+
+                    <!--[if (gte mso 9)|(IE)]>
+
+                        <table width="600" align="center" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0" >
+                        <tr>
+                        <td style="padding-top: 0; padding-bottom: 0; padding-right: 0; padding-left: 0;" >
+                    <![endif]-->
+                    <!-- ======= start main body ======= -->
+                    <table class="outer" align="center" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; Margin: 0 auto; width: 100%; max-width: 600px; margin-top: 30px">
+                        <tr>
+                            <td style="padding-top: 0; padding-bottom: 0; padding-right: 0; padding-left: 0;">
+                                <!-- ======= start header ======= -->
+
+                                <table border="0" width="100%" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td>
+                                            <table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+                                                <tbody>
+                                                <tr>
+                                                    <td align="center">
+                                                        <center>
+                                                            <table border="0" align="center" width="100%" cellpadding="0" cellspacing="0" style="Margin: 0 auto;">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td class="one-column" style="padding-top: 0; padding-bottom: 0; padding-right: 0; padding-left: 0;" bgcolor="#FFFFFF">
+                                                                        <!-- ======= start header ======= -->
+
+                                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#ffffff" style="border-top: 1px solid #e8e7e5; border-left: 1px solid #e8e7e5; border-right: 1px solid #e8e7e5;">
+                                                                            <tr>
+                                                                                <td>&nbsp;</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="two-column" style="padding-top: 0; padding-bottom: 0; padding-right: 0; padding-left: 0; text-align: left; font-size: 0;">
+                                                                                    <!--[if (gte mso 9)|(IE)]>
+                                                                                        <table width="100%" style="border-spacing: 0" >
+                                                                                        <tr>
+                                                                                        <td width="20%" valign="top" style="padding-top: 0; padding-bottom: 0; padding-right: 0; padding-left: 30px;" >
+                                                                                    <![endif]-->
+
+                                                                                    <div class="column" style="width: 100%; display: inline-block; vertical-align: top;">
+                                                                                        <table class="contents" style="border-spacing: 0; width: 100%">
+                                                                                            <tr>
+                                                                                                <td align="center" style="padding-top: 0; padding-bottom: 0; padding-right: 0; padding-left: 5px;" align="center">
+                                                                                                    <img src="https://cdn2.medihub.vn/ImagesUpload/2018/02/07/ea33fab6-0174-491c-8c98-881db6343197_logo-medihub.png" alt="" style="border-width: 0; max-width: 220px; height: auto; display: block"/>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        </table>
+                                                                                    </div>
+
+                                                                                    <!--[if (gte mso 9)|(IE)]>
+                                                                                        </td><td width="80%" valign="top" style="padding-top: 0; padding-bottom: 0; padding-right: 0; padding-left: 0;" >
+                                                                                    <![endif]-->
+                                                                                    <!--[if (gte mso 9)|(IE)]>
+                                                                                        </td>
+                                                                                        </tr>
+                                                                                        </table>
+                                                                                    <![endif]-->
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>&nbsp;</td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </center>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <!-- ======= end header ======= -->
+                                <!-- ======= start hero image ======= -->
+                                <!-- ======= end hero image ======= -->
+                                <!-- ======= start hero article ======= -->
+
+                                <table class="one-column" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-spacing: 0; border-left: 1px solid #e8e7e5; border-right: 1px solid #e8e7e5; border-bottom: 50px solid #716aca; border-top: 1px solid #e8e7e5"
+                                       bgcolor="#FFFFFF">
+                                    <tr>
+                                        <td align="left" style="padding: 50px 50px 50px 50px">
+                                            <p style="color: #262626; font-size: 20px; text-align: left; font-family: Verdana, Geneva, sans-serif">
+                                                <strong>Kính gửi Bệnh viện @Model.Name</strong>
+                                            </p>
+                                            <p style="color: #595959; font-size: 16px; font-family: Verdana, Geneva, sans-serif">
+                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                            </p>
+                                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-spacing: 0; border-bottom: 1px solid #cccccc">
+                                                <tr>
+                                                    <td style="padding: 0.75em 0.75em 0.75em 0.75em">
+                                                        <Strong>Thông tin sản phẩm: </Strong>
+                                                    </td>
+                                                    <td style="padding: 0.75em 0.75em 0.75em 0.75em">@Model.ProductName</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding: 0.75em 0.75em 0.75em 0.75em">
+                                                        <Strong>Loại sản phẩm:</Strong>
+                                                    </td>
+                                                    <td style="padding: 0.75em 0.75em 0.75em 0.75em">@Model.ProductType</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding: 0.75em 0.75em 0.75em 0.75em">
+                                                        <Strong>Link video sản phẩm:</Strong>
+                                                    </td>
+                                                    <td style="padding: 0.75em 0.75em 0.75em 0.75em">
+                                                        <a href="#" style="color: #716aca; text-decoration: none;">
+                                                            <svg class="icon icon-link mail__files-icon" style="width: 15px; height: 15px;"><use href="#icon-link"></use></svg>
+                                                            @Model.LinkVideo
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding: 0.75em"></td>
+                                                </tr>
+                                            </table>
+                                            <br/>
+                                            <div>
+                                                <p style="margin: 0px 0px 15px 0px; padding: 0px 0px 0px 0px">Dưới đây bao gồm những tài liệu và hình ảnh đính kèm:</p>
+                                                <ul style="list-style: none; padding: 0px 0px 0px 15px">
+                                                    @if (Model.Documents.Count > 0)
+                                                    {
+                                                        foreach (var item in Model.Documents)
+                                                        {
+                                                           <li style='margin: 0px 0px 10px 0px'><a href = '@item.Url' style = 'color: #716aca; text-decoration: none;'>
+                                                            <svg class='icon icon-attachment mail__files-icon' style='width: 15px;height: 15px;'>
+                                                            <use href='#icon-attachment'></use></svg>@item.FileName</a> </li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </div>
+   
+                                            <br/>
+
+                                            <p style="color: #000000; font-size: 16px; text-align: left; font-family: Verdana, Geneva, sans-serif; line-height: 22px">
+                                                <br/>
+                                                <br/>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <!-- ======= end hero article ======= -->
+                                <!-- ======= start footer ======= -->
+                                <!-- ======= end footer ======= -->
+                            </td>
+                        </tr>
+                    </table>
+                    <!--[if (gte mso 9)|(IE)]>
+                        </td>
+                        </tr>
+                        </table>
+                    <![endif]-->
+                </div>
+            </td>
+        </tr>
+    </table>
+</center>
+</body>
+
+</html>
+

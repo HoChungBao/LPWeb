@@ -1,0 +1,67 @@
+﻿@using LienPhatERP.ViewModels
+@model List<LienPhatERP.ViewModels.UploadFileApiResult>
+@{
+    ViewData["Title"] = "ReviewImage";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="m-content">
+
+    <div class="m-portlet m-portlet--mobile">
+        <div class="m-portlet__head">
+            <div class="m-portlet__head-caption">
+                <div class="m-portlet__head-title">
+                    <h3 class="m-portlet__head-text">
+                        Danh sách hình ảnh
+
+                    </h3>
+                </div>
+            </div>
+
+        </div>
+        <div class="m-portlet__body">
+            <!--begin: Datatable -->
+            <div class="table-responsive">
+                <div class="m-form__section m-form__section--first">
+
+                    <table class="table table-bordered m-table m-table--border-brand m-table--head-bg-brand">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Tên Hình Ảnh
+                                </th>
+                                <th>
+                                    Link Hình Ảnh
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="campaignTable">
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.FileName
+                                    </td>
+                                    <td>
+                                        <a href="@item.Url" class="btn btn-danger m-btn m-btn--icon" target="_blank">
+                                            <span>
+                                                <i class="fa flaticon-medical"></i>
+                                                <span>
+                                                    Xem Hình
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+            <!--end: Datatable -->
+        </div>
+    </div>
+</div>

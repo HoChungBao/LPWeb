@@ -1,0 +1,33 @@
+
+.services {
+  &__item {
+    padding: $space-m;
+    transition: .3s box-shadow;
+    height: 100%;
+    &:hover {
+      box-shadow: 0px 1px 30px -2px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  &__img {
+    height: 65px;
+    width: 70px;
+    margin-bottom: $space-m;
+  }
+
+  &__title {
+    font-size: 24px;
+    font-family: 'Muli', sans-serif;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin-bottom: $space-m;
+    @media (max-width: 767px) {
+      font-size: 18px;
+    }
+  }
+
+  &__description {
+    opacity: .6;
+    margin-bottom: 0;
+  }
+}

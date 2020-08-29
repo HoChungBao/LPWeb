@@ -1,0 +1,22 @@
+
+.scroll__top{
+    bottom: 100px;
+    cursor: pointer;
+    display: none;
+    height: 40px;
+    width: 40px;
+    position: fixed;
+    background-color: $brand-06;
+    right: 20px;
+    bottom: 20px;
+    border-radius: 50%;
+    z-index: 100;
+    &:hover {
+        background-color: $brand-01;
+        transition: .3s;
+    }
+    i {
+        color: $inverse-01;
+        margin: 9.5px 12px;
+    }
+}

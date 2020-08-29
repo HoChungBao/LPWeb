@@ -1,0 +1,294 @@
+﻿/*CSS DrugStore*/
+tbody#DmDrugStoreTable > tr > td > span.DrugStoreStyle {
+    border: 2px solid #34bfa3;
+    padding: 10px;
+    border-radius: 0.25rem;
+    background-color: #34bfa3;
+    color: white;
+    display: inline-block;
+    font-size: 15px;
+}
+tbody#DmDrugStoreTable > tr > td.Drughospital {
+    text-align: center;
+    font-size: 20px;
+}
+tbody#DmDrugStoreTable > tr > td > span.HospitalStyle {
+    border: 2px solid #f4516c;
+    padding: 10px;
+    border-radius: 0.25rem;
+    background-color: #f4516c;
+    color: white;
+    display: inline-block;
+    font-size: 15px;
+}
+
+
+/*CSS RegisterCampaign*/
+tbody#DataRegisterCampaignTable > tr > td > span.RegisterCampaign {
+    border: 2px solid #34bfa3;
+    padding: 10px;
+    border-radius: 0.25rem;
+    background-color: #34bfa3;
+    color: white;
+    display: inline-block;
+    font-size: 15px;
+}
+tbody#DataRegisterCampaignTable > tr > td.RegisterCampaignStyle {
+    text-align: center;
+    font-size: 20px;
+}
+tbody#DataSaleCampaign > tr > td > span.SaleCampaign {
+    border: 2px solid #34bfa3;
+    padding: 10px;
+    border-radius: 0.25rem;
+    background-color: #047bf8;
+    color: white;
+    display: inline-block;
+    font-size: 15px;
+}
+tbody#DataSaleCampaign > tr > td.SaleCampaignStyle {
+    text-align: center;
+    font-size: 20px;
+}
+tbody#DataSaleCampaign > tr > td > span.SaleCampaignSUCCESS {
+    border: 2px solid #34bfa3;
+    padding: 10px;
+    border-radius: 0.25rem;
+    background-color: #34bfa3;
+    color: white;
+    display: inline-block;
+    font-size: 15px;
+}
+tbody#DataSaleCampaign > tr > td.SaleCampaignSUCCESSStyle {
+    text-align: center;
+    font-size: 20px;
+}
+
+/*CSS AppSetup*/
+tbody#AppSetupTable > tr > td > span.AppSetupStyle {
+    border: 2px solid #34bfa3;
+    padding: 10px;
+    border-radius: 0.25rem;
+    background-color: #34bfa3;
+    color: white;
+    display: inline-block;
+    font-size: 15px;
+}
+tbody#AppSetupTable > tr > td.AppSetup {
+    text-align: center;
+    font-size: 20px;
+}
+
+.progress-chart .progress-bar {
+    background: #6f42c1;
+}
+
+.progress-chart .progress-bar2 {
+    background: #34bfa3;
+}
+
+.progress-chart .progress-bar3 {
+    background: #e83e8c;
+    
+}
+.progress-chart .progress-bar4 {
+    background: #fd7e14;
+}
+.progress-chart {
+    background: transparent;
+    font-size: 12px;
+}
+.m--font-success33 {
+    color: #716aca !important;
+}
+.el-chart-w + .el-legend {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding-top: 1.5rem;
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+.el-legend .legend-pin {
+    width: 10px;
+    height: 10px;
+    border-radius: 4px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 0.7rem;
+}
+
+.el-legend .legend-value {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.element-overbox {
+    padding: 25px;
+    border-radius: 4px;
+    padding: 1rem 1.5rem;
+    -webkit-animation-name: fadeUp;
+    animation-name: fadeUp;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+}
+
+.element-overbox--1 {
+    background-color: #6BCBCA;
+    border: 25px solid #6BCBCA;
+}
+.element-overbox--2 {
+    background-color: #FF9900;
+    border: 25px solid #FF9900;
+}
+.element-overbox--3 {
+    background-color: #97CE68;
+    border: 25px solid #97CE68;
+}
+.element-overbox--4 {
+    background-color: #FF6766;
+    border: 25px solid #FF6766;
+}
+.element-box--1,
+.element-box--2,
+.element-box--3,
+.element-box--4 {
+    color: white;
+    padding-right: 0px;
+    padding-left: 0px;
+    text-align: center;
+}
+
+el-tablo {
+    padding-right: 5px;
+}
+
+
+.value-elmentbox {
+    font-size: 2.43rem;
+    font-weight: 500;
+    /*font-family: "Proxima Nova W01", "Rubik", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;*/
+    font-family: Roboto, Arial, sans-serif;
+    letter-spacing: -1px;
+    line-height: 1.2;
+    display: inline-block;
+    vertical-align: middle;
+    text-decoration: none;
+    
+}
+
+.text-light {
+    color: white !important;
+    
+}
+
+label-elementbox {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.4);
+    color: white;
+}
+@-webkit-keyframes fadeUp {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(30px);
+        transform: translateY(30px);
+    }
+
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0px);
+        transform: translateY(0px);
+    }
+}
+
+@keyframes fadeUp {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(30px);
+        transform: translateY(30px);
+    }
+
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0px);
+        transform: translateY(0px);
+    }
+}
+    
+.text-left {
+    text-align: left !important;
+}
+
+
+.os-progress-bar {
+    margin-bottom: 1rem;
+}
+
+    .os-progress-bar .bar-labels {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        margin-bottom: 5px;
+    }
+
+        .os-progress-bar .bar-labels span {
+            font-size: 0.72rem;
+        }
+
+    .os-progress-bar .bar-label-left span {
+        margin-right: 5px;
+    }
+
+        .os-progress-bar .bar-label-left span.positive {
+            color: #619B2E;
+        }
+
+        .os-progress-bar .bar-label-left span.negative {
+            color: #D83536;
+        }
+
+    .os-progress-bar .bar-label-right span {
+        margin-left: 5px;
+    }
+
+        .os-progress-bar .bar-label-right span.info {
+            color: #456CF9;
+        }
+
+    .os-progress-bar .bar-level-1,
+    .os-progress-bar .bar-level-2,
+    .os-progress-bar .bar-level-3 {
+        border-radius: 12px;
+        height: 6px;
+    }
+
+    .os-progress-bar.blue .bar-level-1, .os-progress-bar.primary .bar-level-1 {
+        background-color: #F2F2F2;
+    }
+
+    .os-progress-bar.blue .bar-level-2, .os-progress-bar.primary .bar-level-2 {
+        background-color: #98c9fd;
+    }
+
+    .os-progress-bar.blue .bar-level-3, .os-progress-bar.primary .bar-level-3 {
+        background-color: #047bf8;
+    }
+
+    .os-progress-bar.floated {
+        float: right;
+        width: 220px;
+    }
+
+
+    @media (max-width: 1199px) {
+        .element-overbox {
+            margin-bottom: 20px;
+        }
+    }
+
+
+

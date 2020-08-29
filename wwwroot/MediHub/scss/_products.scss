@@ -1,0 +1,122 @@
+$product-title-size: 24px;
+$product-title-space: 3px;
+$product-title-cl: #575757;
+$product-list-cl: #575757;
+$product-cricle-d: 400px;
+
+.product {
+  $b: &;
+  &__item {
+    &:not(:last-of-type) {
+      margin-bottom: $space-xxl;
+      @media (max-width: 991px) {
+        margin-bottom: $space-xl;
+      }
+    }
+    &--reverse {
+      #{$b}__label:before {
+        border-color: #e7441e;
+        left: 0;
+        right: initial;
+        @media (max-width: 991px) {
+        }
+        @media (max-width: 575px) {
+          left: initial;
+        }
+      }
+    }
+  }
+  &__description {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 20%;
+    @media (max-width: 991px) {
+      margin-left: 0;
+    }
+  }
+
+  &__title {
+    font-family: 'Muli', sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: $product-title-size;
+    letter-spacing: $product-title-space;
+    color: $product-title-cl;
+    margin-bottom: 8px;
+    @media (max-width: 767px) {
+      $product-title-size: 20px;
+      font-size: $product-title-size;
+    } 
+    @media (max-width: 575px) {
+      $product-title-size: 18px;
+      font-size: $product-title-size;
+    }
+  }
+  &__list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    margin-bottom: $space-m;
+    color: $product-list-cl;
+    opacity: .7;
+  }
+  &__list-item {
+    
+  }
+  &__list-title {
+    color: $brand-01;
+    font-family: 'Droid Serif', serif;
+    font-weight: 900;
+  }
+  &__label {
+    position: relative;
+    height: 100%;
+    min-height: $product-cricle-d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:before {
+      content: "";
+      position: absolute;
+      width: $product-cricle-d;
+      height: $product-cricle-d;
+      border-radius: 50%;
+      border: 50px solid #9be448;
+      z-index: -1;
+      bottom: 0;
+      right: 0;
+      opacity: .8;
+      @media (max-width: 576px) {
+        $product-cricle-d: 290px;
+        width: $product-cricle-d;
+        height: $product-cricle-d;
+        border-width: 40px; 
+        right: initial;
+      }
+    }
+    img {
+      max-height: $product-cricle-d - 50px;
+      max-width: 80%;
+    }
+    @media (max-width: 991px) {
+      height: initial;
+      margin-bottom: $space-l;
+    }
+    @media (max-width: 576px) {
+      $product-cricle-d: 320px;
+      min-height: $product-cricle-d;
+      img {
+        max-height: $product-cricle-d - 50px;
+      }
+    }
+  }
+  &__link {
+    align-self: flex-start;
+    @media (max-width: 991px) {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}

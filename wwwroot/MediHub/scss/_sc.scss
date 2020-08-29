@@ -1,0 +1,22 @@
+.sc {
+  &__intro {
+
+  }
+  &__video {
+    margin: auto;
+    @media (max-width: 991px) {
+      margin: 30px auto 0 auto;
+    }
+  }
+  &__title {
+    text-align: center;
+    @media (max-width: 991px) {
+      text-align: initial;
+      font-size: 18px;
+    }
+  }
+  &__content {
+    font-size: 15px;
+    text-align: justify;
+  }
+}

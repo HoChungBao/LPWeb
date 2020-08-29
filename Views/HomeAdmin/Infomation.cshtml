@@ -1,0 +1,100 @@
+﻿@model List<LienPhatERP.Entities.Infomation>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link href="~/assets/vendors/base/blueimp-gallery-min.css" rel="stylesheet" />
+<div class="m-content" id="app">
+
+    <div class="m-portlet m-portlet--mobile">
+        <div class="m-portlet__head">
+            <div class="m-portlet__head-caption">
+                <div class="m-portlet__head-title">
+                    <h3 class="m-portlet__head-text">
+                        Quản lý liên hệ
+                    </h3>
+
+                </div>
+            </div>
+            <div class="m-portlet__head-tools">
+                
+            </div>
+        </div>
+        <div class="m-portlet__body">
+            <!--begin: Search Form -->
+            <div class="m-form m-form--label-align-right m--margin-bottom-5">
+                <div class="row align-items-center">
+                    <div class="col-xl-12 ">
+                    </div>
+
+                </div>
+            </div>
+            <!--end: Search Form -->
+            <!--begin: Datatable -->
+            <div class="m_datatable m-datatable m-datatable--default m-datatable--brand m-datatable--subtable m-datatable--loaded" id="scrolling_vertical" style="">
+                <table class="m-datatable__table" style="display: block; min-height: 300px; overflow-x: auto;">
+                    <thead class="m-datatable__head">
+                        <tr class="m-datatable__row">
+                            <th class="m-datatable__cell m-datatable__cell--sort">
+                                #
+                            </th>
+                            <th class="m-datatable__cell m-datatable__cell--sort">
+                                <span style="width: 110px;">Địa chỉ</span>
+                            </th>
+                            <th class="m-datatable__cell m-datatable__cell--sort">
+                                <span style="width: 110px;">Số điện thoại</span>
+                            </th>
+                            <th class="m-datatable__cell m-datatable__cell--sort">
+                                <span style="width: 110px;">Email</span>
+                            </th>
+                          
+                            <th class="m-datatable__cell m-datatable__cell--sort">
+                                <span style="width: 110px;"></span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="m-datatable__body" id="customerTable">
+                        @foreach (var item in Model)
+                        {
+                            <tr class="m-datatable__row m-datatable__row--even">
+                                <td class="m-datatable__cell">
+                                    @int.Parse((Model.FindIndex(a => a.Id == item.Id) + 1).ToString())
+                                </td>
+                                <td class="m-datatable__cell">
+                                    <span style="width: 110px;">@item.Address</span>
+                                </td>
+                                <td class="m-datatable__cell">
+                                    <span style="width: 110px;">@item.MainPhone</span>
+                                </td>
+                                <td class="m-datatable__cell">
+                                    <span style="width: 110px;">@item.Email</span>
+                                </td>
+                                <td class="m-datatable__cell">
+                                    <span style="width: 110px;">
+                                        <a href="/HomeAdmin/CreateInfomation?id=@item.Id" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Update">
+                                            <i class="flaticon-edit"></i>
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+}
+
+
+
+
+
+
+
+
+
+
+

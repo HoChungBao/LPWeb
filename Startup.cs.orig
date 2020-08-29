@@ -1,0 +1,202 @@
+﻿using System.IO;
+using LienPhatERP.Contants;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using LienPhatERP.Data;
+using LienPhatERP.Entities;
+using LienPhatERP.Models;
+using LienPhatERP.Services;
+using LienPhatERP.ViewModels;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.ResponseCompression;
+
+namespace LienPhatERP
+{
+    public class Startup
+    {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("LienPhatERPDBConnectionString")));
+            services.AddDbContext<MediGroupContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("LienPhatERPDBConnectionString")));
+            services.AddIdentity<ApplicationUser,IdentityRole>()
+                
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+            // ===== Add Jwt Authentication ========
+            //JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // => remove default claims
+            //services
+            //    .AddAuthentication(options =>
+            //    {
+            //        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            //        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            //    })
+            //    .AddJwtBearer(cfg =>
+            //    {
+            //        cfg.RequireHttpsMetadata = false;
+            //        cfg.SaveToken = true;
+            //        cfg.TokenValidationParameters = new TokenValidationParameters
+            //        {
+            //            ValidIssuer = Configuration["Jwt:JwtIssuer"],
+            //            ValidAudience = Configuration["Jwt:JwtIssuer"],
+            //            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:JwtKey"])),
+            //            ClockSkew = TimeSpan.Zero // remove delay of token when expire
+            //        };
+            //    });
+
+            // Add application services.
+            services.AddScoped<IMemberService, MemberService>();
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<ICommonService, CommonService>();
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.AddScoped<INewsService, NewsService>();
+
+            // services.AddMvc();
+            services.AddResponseCaching();
+
+            services.AddMvc(options =>
+            {
+                options.CacheProfiles.Add("default", new CacheProfile
+                {
+                    Duration = 120,
+                    Location = ResponseCacheLocation.Any
+                });
+            });
+            services.Configure<GzipCompressionProviderOptions>(options => options.Level = System.IO.Compression.CompressionLevel.Optimal);
+           
+            services.AddResponseCompression(options =>
+            {
+                options.MimeTypes = new[]
+                {
+                    // Default
+                    "text/plain",
+                    "text/css",
+                    "application/javascript",
+                    "text/html",
+                    "application/xml",
+                    "text/xml",
+                    "application/json",
+                    "text/json",
+                    // Custom
+                    "image/svg+xml",
+                    "image/png",
+                    "image/jpeg",
+                    "image/jpg"
+
+                };
+                options.EnableForHttps = true;
+            });
+<<<<<<< HEAD
+            services.AddAntiforgery(o => o.SuppressXFrameOptionsHeader = true);
+            services.AddSingleton<IHostedService, DataRefreshService>();
+=======
+            // services.AddSingleton<IHostedService, DataRefreshService>();
+>>>>>>> master/CSDev
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
+                options.AddPolicy("RequireOrderRole", policy =>
+                    policy.RequireRole(RoleBase.Admin.ToString(), RoleBase.ClientService.ToString(),
+                        RoleBase.Accountant.ToString(),RoleBase.SystemOperator.ToString()));
+                options.AddPolicy("RequireHospitalAprove", policy =>
+                    policy.RequireRole(RoleBase.Admin.ToString(), RoleBase.HospitalCoodinator.ToString(),
+                        RoleBase.Accountant.ToString(), RoleBase.HospitalPartner.ToString()));
+                options.AddPolicy("RequireInputData", policy =>
+                    policy.RequireRole(RoleBase.Admin.ToString(), RoleBase.HospitalCoodinator.ToString(),
+                        RoleBase.Accountant.ToString(), RoleBase.SystemOperator.ToString()));
+            });
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseBrowserLink();
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
+            app.UseResponseCaching();
+            app.UseResponseCompression();
+            app.Use(async  (context, next) =>
+            {
+                context.Response.Headers.Remove("Server");
+                context.Response.Headers.Remove("X-Powered-By");
+               
+                context.Response.Headers.Add("X-Frame-Options", "ALLOW-FROM https://www.facebook.com/");
+                await next();
+            });
+            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot", "UploadFiles")),
+                RequestPath = new PathString("/Files")
+            });
+          
+            app.UseFileServer();
+            // app.UseFileServer(enableDirectoryBrowsing: true);
+            app.UseFileServer(new FileServerOptions()
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot", "UploadFiles")),
+                RequestPath = new PathString("/Files"),
+                EnableDirectoryBrowsing = true
+            });
+            app.UseAuthentication();
+            AutoMapper.Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<AspNetUsers, MemberViewModel>();
+                cfg.CreateMap<AspNetRoles, RoleViewModel>();
+                cfg.CreateMap<Orders, OrderViewModel>();
+                cfg.CreateMap<OrderModel, Orders>();
+                cfg.CreateMap<CsCreens, CsreenModel>();
+                cfg.CreateMap<CsreenModel, CsreenModel>();
+                cfg.CreateMap<ContactFormPlan, ContactFormPlanModel>();
+                cfg.CreateMap<Category, CategotyViewModel>();
+            });
+        
+          
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "Guest",
+                    template: "danh-sach",
+                    defaults: new { controller = "Home", action = "Dashboard" });
+                routes.MapRoute(
+                    name: "MediaChannels",
+                    template: "MediaChannels",
+                    defaults: new { controller = "Home", action = "MediaChanel" });
+                //routes.MapRoute(
+                //    name: "gio-hang",
+                //    template: "Orders/gio-hang",
+                //    defaults: new { controller = "Orders", action = "CreateNewOrder" });
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Main}/{id?}");
+            });
+        }
+    }
+}

@@ -1,0 +1,129 @@
+﻿
+@{
+    ViewData["Title"] = "ErpModule";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    .m-portlet .m-portlet__body.m-card {
+        text-decoration: none;
+    }
+    .m-card {
+        min-height: 200px;
+        display: flex;
+        position: relative;
+        /* justify-content: center; */
+        align-items: center;
+        overflow: hidden;
+    }
+      
+    .m-card--1 {
+        background: linear-gradient(-33deg, #34e89e, #73c1e0);
+    }
+    .m-card--2 {
+        background: linear-gradient(to right, #d1913c, #ffd194);
+    }
+    .m-card--3 {
+        background: linear-gradient(to left, #185a9d, #43cea2);
+    }
+    .m-card--4 {
+        background: linear-gradient(to left, #b6fbff, #83a4d4);
+    }
+    .m-card--5 {
+        background: linear-gradient(to left, #ff6b6b, #f4516c);
+    }
+
+    .m-card__icon {
+        position: absolute;
+        font-size: 180px;
+        right: -15%;
+        color: white;
+        opacity: 0.5;
+    }
+    .m-card__name {
+        font-size: 30px;
+        max-width: 70%;
+        color: white;
+        font-weight: 600;
+    }
+    .m-card:hover .m-card__name {
+        text-decoration: none;
+    }
+</style>
+
+<div class="m-content">
+    <!--Begin::Section-->
+    <div class="row">
+        <div class="col-xl-3 col-md-4">
+            <div class="m-portlet m-portlet--fit ">
+                <a href="/Customer/Index" class="m-portlet__body m-card m-card--1">
+                    <div class="m-card__name">
+                        CRM
+                    </div>
+                    <i class="flaticon-users m-card__icon"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-4">
+            <div class="m-portlet m-portlet--fit ">
+                <a href="/Common/PersonnelManagement" class="m-portlet__body m-card m-card--2">
+                    <div class="m-card__name">
+                        HRM
+                    </div>
+                    <i class="flaticon-settings m-card__icon"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-4">
+            <div class="m-portlet m-portlet--fit ">
+                <a href="/News/DetailNewsPost" class="m-portlet__body m-card m-card--3">
+                    <div class="m-card__name">
+                        Post
+                    </div>
+                    <i class="flaticon-edit m-card__icon"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-4">
+            <div class="m-portlet m-portlet--fit ">
+                <a href="/Account/GetDataAllRegisterDateOff" class="m-portlet__body m-card m-card--4">
+                    <div class="m-card__name">
+                        Quản trị hệ thống
+                    </div>
+                    <i class="flaticon-analytics m-card__icon"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-4">
+            <div class="m-portlet m-portlet--fit ">
+                <a href="/Common/DsPlayer" class="m-portlet__body m-card m-card--5">
+                    <div class="m-card__name">
+                        Monitoring System
+                    </div>
+                    <i class="flaticon-layers m-card__icon"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-4">
+            <div class="m-portlet m-portlet--fit ">
+                <a href="#" class="m-portlet__body m-card m-card--1">
+                    <div class="m-card__name">
+                        Quản lý tài nguyên
+                    </div>
+                    <i class="flaticon-map m-card__icon"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-4">
+            <div class="m-portlet m-portlet--fit ">
+                <a href="http://scbeta.medihub.vn" class="m-portlet__body m-card m-card--5">
+                    <div class="m-card__name">
+                        MediHub SC
+                    </div>
+                    <i class="flaticon-medical m-card__icon"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+

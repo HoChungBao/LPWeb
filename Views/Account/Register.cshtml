@@ -1,0 +1,62 @@
+﻿@using LienPhatERP.Services
+@inject IMemberService MemberService
+@model RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_LayoutAccount.cshtml";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+
+<div class="m-login__signin">
+
+    <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class=" m-form">
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group m-form__group">
+
+            <input asp-for="Name" class="form-control m-input " placeholder="User Name" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group m-form__group">
+
+            <input asp-for="Email" placeholder="Email" class="form-control m-input" autocomplete="off" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group m-form__group">
+
+            <input asp-for="Password" class="form-control m-input m-login__form-input--last" placeholder="Password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="form-group m-form__group">
+
+            <input asp-for="ConfirmPassword" class="form-control m-input m-login__form-input--last" placeholder="ConfirmPassword" />
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+        <div class="form-group m-form__group col">
+            <label asp-for="IsManager" class="m-checkbox m-checkbox--focus">
+                <input asp-for="IsManager"  class="text-danger"/>
+                @Html.DisplayNameFor(m => m.IsManager)
+                <span></span>
+            </label>
+        </div>
+        <div class="form-group m-form__group">
+            <label class="">Role</label>
+            <select name="RoleId" class="form-control m-input">
+                <option value="">Chọn Role</option>
+                @foreach (var item in MemberService.GetAllRole())
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+
+            </select>
+        </div>
+
+        <div class="m-login__form-action">
+            <button type="submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">Register</button>
+        </div>
+
+    </form>
+
+</div>

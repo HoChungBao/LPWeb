@@ -1,0 +1,115 @@
+﻿@using LienPhatERP.ViewModels
+@using LienPhatERP.Entities
+@model List<LienPhatERP.Entities.Files>
+@{
+    ViewData["Title"] = "FileUploadUser";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@functions{
+    List<UploadFileApiResult> convertFile(string value) {
+        if (!string.IsNullOrEmpty(value)){
+            return LienPhatERP.Helper.JsonHelper.DeserializeObject<List<UploadFileApiResult>>(value);
+        }
+        return new List<UploadFileApiResult>();
+    }
+}
+<link href="~/assets/vendors/base/blueimp-gallery-min.css" rel="stylesheet" />
+<div class="m-content">
+    <div class="m-portlet m-portlet--mobile">
+        <div class="m-portlet__head">
+            <div class="row align-items-center">
+                <div class="col-xl-12 order-2 order-xl-1">
+                    <div class="form-group m-form__group row align-items-center m--margin-top-15">
+                        <div class="col-md-3">
+                            <div class="m-input-icon m-input-icon--left">
+                                <input type="text" class="form-control m-input m-input--solid" placeholder="Search..." id="generalSearch">
+                                <span class="m-input-icon__icon m-input-icon__icon--left">
+                                    <span>
+                                        <i class="la la-search"></i>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="m-portlet__head-tools">
+
+            </div>
+        </div>
+        <div class="m-portlet__body">
+            <!--begin: Search Form -->
+            <div class="m-form m-form--label-align-right">
+                <div class="row align-items-center">
+                    <div class="col-xl-8 order-2 order-xl-1">
+
+                    </div>
+
+                </div>
+            </div>
+            <!--end: Search Form -->
+            <!--begin: Datatable -->
+            <div class="table-responsive">
+                <div class="m-form__section m-form__section--first">
+
+                    <table class="table table-bordered m-table m-table--border-metal m-table--head-bg-metal">
+                        <thead class="m-datatable__head">
+                            <tr class="m-datatable__row">
+                                <th class="m-datatable__cell m-datatable__cell--sort">
+                                    <span style="width: 31px;">Id</span>
+                                </th>
+                                <th class="m-datatable__cell m-datatable__cell--sort">
+                                    <span style="width: 110px;">Tên</span>
+                                </th>
+                                <th class="m-datatable__cell m-datatable__cell--sort">
+                                    <span style="width: 110px;">File</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="m-datatable__body" id="customerTable">
+                            @foreach (var d in Model)
+                            {
+                                <tr class="m-datatable__row m-datatable__row--even">
+                                    <td class="m-datatable__cell">
+                                        <span style="width: 41px;">@int.Parse((Model.FindIndex(a => a.Id == d.Id) + 1).ToString())</span>
+                                    </td>
+                                    <td class="m-datatable__cell">
+                                        <span style="width: 110px;">@d.FileName</span>
+                                    </td>
+                                    <td class="m-datatable__cell">
+                                        @foreach (var item in convertFile(d.Url))
+                                        {
+                                            <a href="ReadFileUpload?id=@d.Id&filename=@item.FileName" target="_blank">@item.FileName</a> <br>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+                <!--end: Datatable -->
+            </div>
+        </div>
+</div>
+
+<
+@section Scripts {
+    <script>
+        $('#generalSearch').on('keyup', function () {
+            var inputValue = $('#generalSearch').val().toLowerCase();
+            $("#customerTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(inputValue) > -1)
+            });
+        });
+    </script>
+}
+
+
+
+
+
+
+
+
+

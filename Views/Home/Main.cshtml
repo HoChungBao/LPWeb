@@ -1,0 +1,405 @@
+﻿
+@{
+    ViewData["Title"] = "Main";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<cache expires-sliding="@TimeSpan.FromSeconds(60)">
+
+<div class="banner" id="banner">
+    <div class="banner__desktop">
+
+        <div class="banner__slogans">
+            <h2 class="banner__slogan js-typed"></h2>
+        </div>
+        <div class="banner__icons">
+            <a href="/MediaChannels" id="LinkMediaChannels">
+                <img src="/MediHubTheme/images/banner-i1.png" data-number="0" alt="" class="banner__icon banner__icon--1 bounceInDown wow"
+                     data-wow-delay="0.75s">
+            </a>
+            <a href="/#services" id="LinkHealthcareContent">
+                <img src="/MediHubTheme/images/banner-i2.png" data-number="1" alt="" class="js-banner banner__icon banner__icon--2 bounceInDown wow"
+                     data-wow-delay="0.25s">
+            </a>
+            <a href="/#services" id="LinkPosServices">
+                <img src="/MediHubTheme/images/banner-i3.png" data-number="2" alt="" class="js-banner banner__icon banner__icon--3 bounceInDown wow"
+                     data-wow-delay="0.5s">
+            </a>
+        </div>
+    </div>
+</div>
+<nav class="navbar fixed-top navbar-expand-lg navbar-light">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <img src="/MediHubTheme/images/logo.svg" alt="Medihub logo" class="navbar-brand__logo">
+        </a>
+        <span class="nav-toggle js-menuToggle" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+              aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">toggle navigation</span>
+            <span class="nav-toggle__icon">
+            </span>
+        </span>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#banner">TRANG CHỦ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#intro">GIỚI THIỆU</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#services">SẢN PHẨM & DỊCH VỤ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#news">TIN TỨC</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#clients">KHÁCH HÀNG</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">LIÊN HỆ</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<section class="section" id="intro">
+    <h2 class="section__headline">
+        <span class="section__headline-box">GIỚI THIỆU</span>
+    </h2>
+    <div class="section__content">
+        <div class="container">
+
+            <div class="intro">
+                <div class="intro__items">
+                    <div class="intro__item wow fadeInLeftSubtle wow" data-wow-delay="0s">
+                        <svg class="icon intro__icon">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-intro03"></use>
+                        </svg>
+                        <p class="intro__description">
+                            MediHub Media là công ty truyền thông tiếp thị B2C & B2B phát triển nhanh nhất, tập trung chuyên ngành chăm sóc Y tế - Sức
+                            khỏe thông qua các nền tảng kỹ thuật số và công nghệ.
+                        </p>
+                    </div>
+                    <div class="intro__item wow fadeInLeftSubtle wow" data-wow-delay="0s">
+                        <svg class="icon intro__icon">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-intro02"></use>
+                        </svg>
+                        <p class="intro__description">
+                            Chúng tôi tin tưởng rằng sức khoẻ của mỗi người sẽ tốt hơn nhờ tiếp cận được các thông tin Y tế - Sức khỏe đáng tin cậy từ công nghệ truyền thông hiện đại.
+                        </p>
+                    </div>
+                    <div class="intro__item wow fadeInLeftSubtle wow" data-wow-delay="0s">
+                        <svg class="icon intro__icon">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-intro01"></use>
+                        </svg>
+                        <p class="intro__description">
+                            Chúng tôi tồn tại để kết nối các chuyên gia chăm sóc sức khoẻ và cung cấp các thông tin chính thống qua mạng xã hội và các kênh truyền thông tại các Bệnh viện hạng đặc biệt, hạng I và II, các chuỗi Nhà thuốc hàng đầu và loại A tại các thành phố lớn.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="services">
+    <h2 class="section__headline">
+        <span class="section__headline-box">SẢN PHẨM & DỊCH VỤ</span>
+    </h2>
+    <div class="section__content">
+        <div class="services">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-7 services__left">
+                        <div class="js-servicesFor services__items">
+                            <figure class="services__item">
+                                <img src="/MediHubTheme/images/slide-1.jpg" alt="" class="img-fluid">
+                                <figcaption>
+                                    Màn hình truyền thông kênh y tế
+                                </figcaption>
+                            </figure>
+                            <figure class="services__item">
+                                <img src="/MediHubTheme/images/slide-4.jpg" alt="" class="img-fluid">
+                                <figcaption>
+                                    M-WIFI
+                                </figcaption>
+                            </figure>
+                            <figure class="services__item">
+                                <img src="/MediHubTheme/images/slide-3.jpg" alt="" class="img-fluid">
+                                <figcaption>
+                                    Mạng xã hội MediHub.vn
+                                </figcaption>
+                            </figure>
+                            <figure class="services__item">
+                                <img src="/MediHubTheme/images/slide-2.jpg" alt="" class="img-fluid">
+                                <figcaption>
+                                    MEDIHUB OOH
+                                </figcaption>
+                            </figure>
+
+
+                        </div>
+                        <div class="js-servicesNav services__thumbs">
+                            <img src="/MediHubTheme/images/slide-1.jpg" alt="" class="img-fluid">
+                            <img src="/MediHubTheme/images/slide-4.jpg" alt="" class="img-fluid">
+                            <img src="/MediHubTheme/images/slide-3.jpg" alt="" class="img-fluid">
+                            <img src="/MediHubTheme/images/slide-2.jpg" alt="" class="img-fluid">
+                        </div>
+                        <div class="text-center d-md-none d-block mt-3">
+                            <a href="/MediaChannels" class="btn btn-red"  id="Home_butMediaChannels">Xem Thêm</a>
+                        </div>
+                    </div>
+                    <div class="col-md-5 services__right wow fadeInRightSubtle" data-wow-delay="0.1s">
+                        <h3 class="fs-title">
+                            MEDIHUB
+                            <span class="fs-title__big">MEDIA CHANNELS</span>
+                        </h3>
+                        <p>
+                            Chúng tôi sở hữu các kênh truyền thông giúp các doanh nghiệp tiếp cận hàng triệu khách hàng mục tiêu với chi phí hợp lý nhất.
+                        </p>
+                        <div class="text-right d-md-block d-none">
+                            <a href="/MediaChannels" class="btn btn-red" id="Home_butMediaChannels">Xem Thêm</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section section--healthcare">
+    <div class="section__content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 wow fadeInLeftSubtle" data-wow-delay="0.1s">
+                    <h3 class="fs-title">
+                        HEALTHCARE
+                        <span class="fs-title__big">CONTENT</span>
+                    </h3>
+                    <p>
+                        Chúng tôi cung cấp toàn diện các hoạt động Phát triển, Sáng tạo và Sản xuất nội dung liên quan Y tế - Sức khỏe và các hoạt
+                        động PR, Digital Marketing cho các sản phẩm, thương hiệu với các thế mạnh riêng có mà bạn không thể tìm thấy
+                        ở nơi khác.
+                    </p>
+
+                    <div class="text-right d-md-block d-none">
+                        <a href="#" onclick="showUpdateAlert(event);" class="btn btn-red" id="Home_butHealthcareContent" >Xem Thêm</a>
+                    </div>
+                </div>
+                <div class="col-md-6 wow fadeInRightSubtle">
+                    <img src="/MediHubTheme/images/connect01.jpg" alt="" class="img-fluid">
+                    <div class="text-center d-md-none d-block mt-3">
+                        <a href="#" onclick="showUpdateAlert(event);" class="btn btn-red"  id="Home_butHealthcareContent">Xem Thêm</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section section--marketing">
+    <div class="section__content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 wow fadeInLeftSubtle">
+                    <h3 class="fs-title">
+                        <span class="fs-title__big">POS</span> MARKETING SERVICE
+                    </h3>
+                    <p>
+                        Tiếp thị tại điểm bán hàng qua các kênh truyền thống và hiện đại là cách mà các dịch vụ của chúng tôi có thể giúp doanh nghiệp bạn tiếp cận và tương tác trực tiếp với khách hàng mục tiêu, đặc biệt là những người dược sĩ là chủ nhà thuốc và nhân viên quầy thuốc - những người đóng vai trò quan trọng cho sự sống còn của sản phẩm của bạn.
+                    </p>
+
+                    <div class="text-right d-md-block d-none">
+                        <a href="#" onclick="showUpdateAlert(event);" class="btn btn-red" id="Home_butMarketingService">Xem Thêm</a>
+                    </div>
+                </div>
+                <div class="col-md-6 wow fadeInRightSubtle">
+                    <img src="/MediHubTheme/images/connect02.jpg" alt="" class="img-fluid">
+                    <div class="text-center d-md-none d-block mt-3">
+                        <a href="#" onclick="showUpdateAlert(event);" class="btn btn-red" id="Home_butMarketingService">Xem Thêm</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section" id="news">
+    <h2 class="section__headline">
+        <span class="section__headline-box">TIN TỨC</span>
+    </h2>
+    <div class="section__content">
+        <div class="play">
+            <div class="container">
+                <img src="https://img.youtube.com/vi/4tQw3C6bvQM/maxresdefault.jpg" alt="" class="w-100">
+                <div class="play__wrap wow bounceIn">
+                    <a class="play__btn" data-fancybox="" href="https://www.youtube.com/watch?v=4tQw3C6bvQM&amp;feature=youtu.be" id="Home_butVideo">
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="news" id="projects">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="news__item">
+                    <a href="https://medihub.vn/news/medihub-trien-khai-man-hinh-truyen-thong-y-te-khong-lo-tai-benh-vien-tu-du-1/" target="_blank" class="news__img">
+                        <img src="https://cdn2.medihub.vn/image/500/w/ImagesUpload/2018/01/26/0570a65d-0232-4074-8813-18acc2fdc5a7_khanh-thanh.jpg" alt=""
+                             class="img-fluid w-100">
+                    </a>
+                    <div class="news__des">
+                        <a href="https://medihub.vn/news/medihub-trien-khai-man-hinh-truyen-thong-y-te-khong-lo-tai-benh-vien-tu-du-1/" class="news__title">MediHub triển khai màn hình truyền thông y tế khổng lồ tại Bệnh viện Từ Dũ</a>
+
+                        <p class="news__summary">
+                            MediHub Led, do MediHub và bệnh viện Từ Dũ hợp tác triển khai, được xem là màn hình truyền thông y tế bán ngoài trời đặt tại bệnh viện lớn nhất thành phố Hồ Chí Minh. Đây là nỗ lực nhằm đưa các thông tin, hướng dẫn y tế - sức khỏe đến “tận mắt” người dân.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="news__item news__item--sub">
+                    <a href="https://medihub.vn/news/trien-lam-anh-alexandre-yersin-cuoc-hoi-ngo-the-ky-cua-nguoi-thay-thuoc-vi-dai-yeu-viet-nam/" target="_blank" class="news__img">
+                        <img src="https://cdn2.medihub.vn/image/500/w/ImagesUpload/2018/03/12/705f092a-c0cd-4845-a091-85ef2ca7b861_stichtagseptemberzweiundzwanzig100__v-ARDFotogalerie.jpg" alt=""
+                             class="img-fluid">
+                    </a>
+                    <div class="news__des">
+                        <a href="https://medihub.vn/news/trien-lam-anh-alexandre-yersin-cuoc-hoi-ngo-the-ky-cua-nguoi-thay-thuoc-vi-dai-yeu-viet-nam/" target="_blank" class="news__title">Triển lãm ảnh Alexandre Yersin: Cuộc hội ngộ thế kỷ của người thầy thuốc vĩ đại yêu Việt Nam</a>
+
+                        <p class="news__summary">
+                            Thời kỳ Pháp thuộc, hiếm có người Pháp nào lại nhận được nhiều sự yêu mến và kính trọng của người dân Việt Nam như bác sĩ Yersin.
+                        </p>
+                    </div>
+                </div>
+                <div class="news__item news__item--sub">
+                    <a href="https://medihub.vn/news/benh-vien-nhi-dong-tp-hcm-trien-khai-ky-thuat-y-hoc-hat-nhan/" class="news__img" target="_blank">
+                        <img src="https://cdn2.medihub.vn/image/500/w/ImagesUpload/2018/03/08/9bb1e77a-6937-421a-8ab7-3d61efa91272_a.jpg" alt=""
+                             class="img-fluid">
+                    </a>
+                    <div class="news__des">
+                        <a href="https://medihub.vn/news/benh-vien-nhi-dong-tp-hcm-trien-khai-ky-thuat-y-hoc-hat-nhan/" class="news__title" target="_blank">Bệnh viện Nhi Đồng TP.HCM triển khai kỹ thuật y học hạt nhân</a>
+
+                        <p class="news__summary">
+                            Bệnh viện Nhi Đồng TP.HCM là nơi triển khai Đơn vị Y học hạt nhân đầu tiên trong trong lĩnh vực y khoa nhi ở các tỉnh phía nam.
+                        </p>
+                    </div>
+                </div>
+                <div class="news__item news__item--sub">
+                    <a href="https://medihub.vn/news/4-dieu-khong-the-bo-qua-khi-dung-thuoc-theo-toa/" target="_blank" class="news__img">
+                        <img src="https://cdn2.medihub.vn/image/500/w/ImagesUpload/2018/03/08/c92ddb8d-ec3a-491e-9068-71e5d22cfcdf_thuoc-theo-toa.jpg" alt=""
+                             class="img-fluid">
+                    </a>
+                    <div class="news__des">
+                        <a href="https://medihub.vn/news/4-dieu-khong-the-bo-qua-khi-dung-thuoc-theo-toa/" target="_blank" class="news__title">4 điều không thể bỏ qua khi dùng thuốc theo toa</a>
+
+                        <p class="news__summary">
+                            Một nghiên cứu đã chỉ ra rằng những sai lầm trong việc viết hoặc phân phát thuốc có thể phải trả giá bằng 22.000 sinh mạng mỗi năm.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="section" id="clients">
+    <h2 class="section__headline">
+        <span class="section__headline-box">KHÁCH HÀNG</span>
+    </h2>
+    <div class="section__content">
+        <div class="clients js-client-slide">
+            <div class="clients__item">
+                <img src="/MediHubTheme/images/clients/cogaiHL@2x.png" alt="" class="img-fluid">
+            </div>
+            <div class="clients__item">
+                <img src="/MediHubTheme/images/clients/aj.png" alt="" class="img-fluid">
+            </div>
+            <div class="clients__item">
+                <img src="/MediHubTheme/images/clients/b1.png" alt="" class="img-fluid">
+            </div>
+            <div class="clients__item">
+                <img src="/MediHubTheme/images/clients/bayer.png" alt="" class="img-fluid">
+            </div>
+            <div class="clients__item">
+                <img src="/MediHubTheme/images/clients/urgo.png" alt="" class="img-fluid">
+            </div>
+            <div class="clients__item">
+                <img src="/MediHubTheme/images/clients/dksh.png" alt="" class="img-fluid">
+            </div>
+            <div class="clients__item">
+                <img src="/MediHubTheme/images/clients/fonterra.png" alt="" class="img-fluid">
+            </div>
+            <div class="clients__item">
+                <img src="/MediHubTheme/images/clients/groupm.png" alt="" class="img-fluid">
+            </div>
+            <div class="clients__item">
+                <img src="/MediHubTheme/images/clients/gsk.png" alt="" class="img-fluid">
+            </div>
+            <div class="clients__item">
+                <img src="/MediHubTheme/images/clients/ipsen.png" alt="" class="img-fluid">
+            </div>
+            <div class="clients__item">
+                <img src="/MediHubTheme/images/clients/meadJonhson.png" alt="" class="img-fluid">
+            </div>
+            <div class="clients__item">
+                <img src="/MediHubTheme/images/clients/kotra.png" alt="" class="img-fluid">
+            </div>
+            <div class="clients__item">
+                <img src="/MediHubTheme/images/clients/DHG.png" alt="" class="img-fluid">
+            </div>
+            <div class="clients__item">
+                <img src="/MediHubTheme/images/clients/merck.png" alt="" class="img-fluid">
+            </div>
+
+            <div class="clients__item">
+                <img src="/MediHubTheme/images/clients/nhatnhat.png" alt="" class="img-fluid">
+            </div>
+            <div class="clients__item">
+                <img src="/MediHubTheme/images/clients/nundi.png" alt="" class="img-fluid">
+            </div>
+            <div class="clients__item">
+                <img src="/MediHubTheme/images/clients/nutifood.png" alt="" class="img-fluid">
+            </div>
+            <div class="clients__item">
+                <img src="/MediHubTheme/images/clients/pfizer.png" alt="" class="img-fluid">
+            </div>
+            <div class="clients__item">
+                <img src="/MediHubTheme/images/clients/roche.png" alt="" class="img-fluid">
+            </div>
+
+            <div class="clients__item">
+                <img src="/MediHubTheme/images/clients/sanofi.png" alt="" class="img-fluid">
+            </div>
+
+            <div class="clients__item">
+                <img src="/MediHubTheme/images/clients/united.png" alt="" class="img-fluid">
+            </div>
+            <div class="clients__item">
+                <img src="/MediHubTheme/images/clients/unza.png" alt="" class="img-fluid">
+            </div>
+            <div class="clients__item">
+                <img src="/MediHubTheme/images/clients/vinamilk.png" alt="" class="img-fluid">
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@Html.Partial("_ContactForm")
+
+</cache>
+
+<div class="popup animated">
+    <a class="popup__content" href="/MediaChannels">
+        <span class="popup__close">
+            <i class="fa fa-times" aria-hidden="true"></i>
+        </span>
+        <img src="/MediHubTheme/images/popup.png" alt="">
+    </a>
+</div>

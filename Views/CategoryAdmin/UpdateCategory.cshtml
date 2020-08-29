@@ -1,0 +1,197 @@
+﻿@using LienPhatERP.Services
+@inject ICategoryService CategoryService
+@model LienPhatERP.Entities.Category
+@{
+    ViewData["Title"] = "CreateCategory";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="m-content">
+    <div class="row" id="app">
+        <div class="col-xl-12">
+            <!--Begin::Main Portlet-->
+            <div class="m-portlet">
+                <!--begin: Portlet Head-->
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                            <h3 class="m-portlet__head-text">
+                               Tạo mục
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <!--end: Portlet Head-->
+                <!--begin: Form Wizard-->
+                <div class="m-wizard m-wizard--1 m-wizard--success" id="m_wizard">
+                    <!--begin: Message container -->
+                    <div class="m-portlet__padding-x">
+                        <!-- Here you can put a message or alert -->
+                    </div>
+                    <!--end: Message container -->
+                    <!--begin: Form Wizard Head -->
+                    <!--end: Form Wizard Head -->
+                    <!--begin: Form Wizard Form-->
+                    <div class="m-wizard__form">
+                        <!--
+                        1) Use m-form--label-align-left class to alight the form input lables to the right
+                        2) Use m-form--state class to highlight input control borders on form validation
+                        -->
+                        <form class="m-form m-form--label-align-left- m-form--state-" id="m_form">
+                            <!--begin: Form Body -->
+                            <!--begin: Form Wizard -->
+                            <div class="m-portlet__foot m-portlet__foot--fit">
+                                <div class="m-form__actions m-form__actions">
+                                    <div class="row">
+                                        <div class="col-xl-8 offset-xl-2">
+                                            <div class="m-form__section m-form__section--first">
+                                                <div class="m-form__heading">
+                                                    <h3 class="m-form__heading-title">
+                                                        Tạo mục
+                                                    </h3>
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Danh mục:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <select class="form-control m-input" name="CategoryId">
+                                                            <option value="">Chọn danh mục</option>
+                                                            @foreach (var item in CategoryService.GetCategorie())
+                                                            {
+                                                                if (Model.CategoryId == item.Id)
+                                                                {
+                                                                    <option value="@item.Id" selected>@item.Name</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@item.Id">@item.Name</option>
+                                                                }
+                                                            }
+                                                        </select>
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền tên hạng mục
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Tên danh mục:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <input type="text" name="Name" class="form-control m-input" required value="@Model.Name">
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền tên hạng mục
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Mô tả:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <input type="text" name="Description" class="form-control m-input" required value="@Model.Description">
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền tên hạng mục
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!--end: Form Wizard Step 2-->
+                                <!--end: Form Body -->
+                            </div>
+                            <!--begin: Form Actions -->
+                            <div class="m-portlet__foot m-portlet__foot--fit">
+                                <div class="m-form__actions m-form__actions">
+                                    <div class="row">
+                                        <div class="col-lg-2"></div>
+                                        <div class="col-lg-4 m--align-right">
+                                            <a href="#" class="btn btn-warning m-btn m-btn--custom m-btn--icon" id="butSubmit">
+                                                <span>
+                                                    <span>
+                                                        Submit
+                                                    </span>
+                                                    &nbsp;&nbsp;
+                                                    <i class="la la-arrow-right"></i>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end: Form Actions -->
+                        </form>
+
+                    </div>
+                    <!--end: Form Wizard Form-->
+                </div>
+                <!--end: Form Wizard-->
+            </div>
+            <!--End::Main Portlet-->
+        </div>
+
+    </div>
+</div>
+@section Scripts {
+    <script>
+
+        $(document).ready(function () {
+            function ajaxSubmitCreate(event) {
+                event.preventDefault();
+                $("#butSubmit").addClass("m-loader m-loader--light m-loader--right disable");
+                var formData = new FormData($('#m_form')[0]);
+                formData.append("Id",@Model.Id);
+                $.ajax({
+                    url: '/CategoryAdmin/CreateCategory/',
+                    type: 'POST',
+                    data: formData, // serializes the form's elements.
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+
+                        if (response != null) {
+                            $("#js-reason").text("");
+                            $("#butSubmit").removeClass("m-loader m-loader--light m-loader--right disable");
+                            if (!response.result) {
+
+                                swal("", response.message, "warning");
+
+
+                            } else {
+
+                                swal("", response.message, "success");
+                                setTimeout(function () {
+
+                                    //window.location.href = window.location.origin + "/Outlet/Component";
+
+                                    //End
+                                }, 5000);
+
+
+                            }
+                        }
+                    },
+                    fail: function () {
+                    }
+                });
+            }
+
+            $("#butSubmit").on("click", ajaxSubmitCreate);
+        });
+    </script>
+}
+
+
+
+
+
+
+

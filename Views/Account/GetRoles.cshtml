@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewData["Title"] = "GetRoles";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var odd = true;
+}
+@section scripts{ 
+    @await Html.PartialAsync("JS");
+}
+<div class="m-content" id="app">
+
+    <div class="m-portlet m-portlet--mobile">
+        <div class="m-portlet__head">
+            <div class="m-portlet__head-caption">
+                <div class="m-portlet__head-title">
+                    <h3 class="m-portlet__head-text">
+                        Quản lý Role
+
+                    </h3>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="m-portlet">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <span class="m-portlet__head-icon m--hide">
+                                    <i class="la la-gear"></i>
+                                </span>
+                                <h3 class="m-portlet__head-text">
+                                    Role Details
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!--begin::Form-->
+                    <form class="m-form">
+                        <div class="m-portlet__body">
+                            <div class="form-group m-form__group">
+                                <label for="example_input_full_name" >
+                                    Role Name:
+                                </label>
+                                <input type="email" class="form-control m-input" placeholder="Enter full name" v-model="selectedRole">
+                                <span class="m-form__help">
+                                    Please enter Role Name
+                                </span>
+                            </div>
+                            <div class="form-group m-form__group">
+                                <label for="exampleInputEmail1">
+                                   Description Role:
+                                </label>
+                                <input type="email" class="form-control m-input" placeholder="Enter email">
+                                <span class="m-form__help">
+                                    We'll never share your email with anyone else
+                                </span>
+                            </div>
+                           
+                        </div>
+                        <div class="m-portlet__foot m-portlet__foot--fit">
+                            <div class="m-form__actions m-form__actions">
+                                <button type="reset" class="btn btn-primary" v-on:click="AddRoles()" >
+                                    Submit
+                                </button>
+                                <button type="reset" class="btn btn-secondary">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <!--end::Form-->
+                </div>
+            </div>
+            <div class="col-md-6" >
+                <div class="m-portlet__body">
+
+                    <!--begin: Datatable -->
+                    <div class="m_datatable m-datatable m-datatable--default m-datatable--loaded" id="local_data" style="" >
+
+                        <table class="m-datatable__table" style="display: block; min-height: 300px; overflow-x: auto;">
+                            <thead class="m-datatable__head">
+                                <tr class="m-datatable__row">
+                                    <th data-field="RecordID" class="m-datatable__cell--center m-datatable__cell m-datatable__cell--check">
+                                        <span style="width: 50px;">
+                                            <label class="m-checkbox m-checkbox--single m-checkbox--all m-checkbox--solid m-checkbox--brand"><input type="checkbox" v-on:click="onCheckAll"  :checked="checkAll" ><span></span></label>
+                                        </span>
+                                    </th>
+                                  
+                                    <th data-field="UserName" class="m-datatable__cell"><span style="width: 132px;">RoleName</span></th>
+                                    <th data-field="Email" class="m-datatable__cell"><span style="width: 100px;">Decription</span></th>
+                                 
+                                    <th data-field="Action" class="m-datatable__cell"><span style="width: 132px;">Action</span></th>
+                                </tr>
+                            </thead>
+                            <tbody class="m-datatable__body" style="" v-for="Role in Roles1" >                                                              
+                                    <tr class="m-datatable__row ">
+                                        <td class="m-datatable__cell--center m-datatable__cell m-datatable__cell--check">
+                                            <span style="width: 50px;">
+                                                <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand">
+                                                    <input type="checkbox" :value="Role.id" v-model="selected"><span ></span> 
+                                                </label>
+                                            </span>
+                                        </td>
+                                       
+                                        <td class="m-datatable__cell"><span style="width: 132px;">{{ Role.name }}</span></td>
+                                        <td class="m-datatable__cell"><span style="width: 100px;">{{ Role.normalizedName }}</span></td>
+                                    
+
+                                        <td data-field="Actions" class="m-datatable__cell">
+                                            
+                                                <button  class="btn btn-default" v-on:click="RemoveRole(Role)"> Xóa </button>
+                                            
+                                        </td>
+                                    </tr>                                                                   
+                            </tbody>
+                        </table>
+                    
+                    </div>
+                    <!--end: Datatable -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+

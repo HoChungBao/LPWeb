@@ -1,0 +1,391 @@
+﻿@model LienPhatERP.ViewModels.FileServiceModel
+@{
+    ViewData["Title"] = "Service";
+    Layout = "~/Views/Shared/_LayoutMainLP.cshtml";
+}
+
+<section class="section about-us" id="about-us">
+    <div class="section__headline">
+    </div>
+    <div class="section__content">
+        <div class="container">
+            @foreach(var item in Model.Category)
+            {
+            <div class="services">
+                <div class="services__service">
+                    <h3 class="services__title">
+                        @item.Name
+                    </h3>
+                    <p class="services__summary">
+                        @item.Description
+                    </p>
+                    <div class="row">
+                        @{ var file = Model.File.Where(x => x.CategoryId == item.Id);}
+                        @foreach (var f in file)
+                        {
+                            <div class="col-md-4">
+                                <div class="services__item">
+                                    <img src="@f.Url" alt="@item.Name" class="services__item-img img-fluid">
+                                </div>
+                            </div>
+                        }
+                        @*<div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/Sx/sx15.jpg" alt="Sản Xuất vật phẩm quảng cáo tại các điểm bán " class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/Sx/sx17.jpg" alt="Sản Xuất vật phẩm quảng cáo tại các điểm bán " class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/Sx/sx1.jpg" alt="Sản Xuất vật phẩm quảng cáo tại các điểm bán " class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/Sx/sx2.jpg" alt="Sản Xuất vật phẩm quảng cáo tại các điểm bán " class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/Sx/sx3.jpg" alt="Sản Xuất vật phẩm quảng cáo tại các điểm bán " class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/Sx/sx4.jpg" alt="Sản Xuất vật phẩm quảng cáo tại các điểm bán " class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/Sx/sx5.jpg" alt="Sản Xuất vật phẩm quảng cáo tại các điểm bán " class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/Sx/sx6.jpg" alt="Sản Xuất vật phẩm quảng cáo tại các điểm bán " class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/Sx/sx7.jpg" alt="Sản Xuất vật phẩm quảng cáo tại các điểm bán " class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/Sx/sx9.png" alt="Sản Xuất vật phẩm quảng cáo tại các điểm bán " class="services__item-img img-fluid">
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/Sx/sx11.png" alt="Sản Xuất vật phẩm quảng cáo tại các điểm bán " class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/Sx/sx12.jpg" alt="Sản Xuất vật phẩm quảng cáo tại các điểm bán " class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/Sx/sx13.jpg" alt="Sản Xuất vật phẩm quảng cáo tại các điểm bán " class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/Sx/sx14.jpg" alt="Sản Xuất vật phẩm quảng cáo tại các điểm bán " class="services__item-img img-fluid">
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/Sx/sx16.jpg" alt="Sản Xuất vật phẩm quảng cáo tại các điểm bán " class="services__item-img img-fluid">
+                            </div>
+                        </div>*@
+                    </div>
+                </div>
+            </div>
+
+            }
+
+            @*<div class="services">
+                <div class="services__service">
+                    <h3 class="services__title">
+                        Sản xuất tại hệ thống bán lẻ
+                    </h3>
+                    <p class="services__summary">
+                        Sản xuất tủ, kệ trưng bày tại các hệ thống bán lẻ
+                    </p>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/indoor/id1.jpg" alt="Sản xuất Tủ, Kệ trưng bày tại các hệ thống bán lẻ" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/indoor/id2.jpg" alt="Sản xuất Tủ, Kệ trưng bày tại các hệ thống bán lẻ" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/indoor/id5.jpg" alt="Sản xuất Tủ, Kệ trưng bày tại các hệ thống bán lẻ" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/indoor/id6.jpg" alt="Sản xuất Tủ, Kệ trưng bày tại các hệ thống bán lẻ" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/indoor/id7.jpg" alt="Sản xuất Tủ, Kệ trưng bày tại các hệ thống bán lẻ" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/indoor/id9.jpg" alt="Sản xuất Tủ, Kệ trưng bày tại các hệ thống bán lẻ" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/indoor/id8.jpg" alt="Sản xuất Tủ, Kệ trưng bày tại các hệ thống bán lẻ" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/indoor/id10.jpg" alt="Sản xuất Tủ, Kệ trưng bày tại các hệ thống bán lẻ" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/indoor/id11.jpg" alt="Sản xuất Tủ, Kệ trưng bày tại các hệ thống bán lẻ" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/indoor/id14.jpg" alt="Sản xuất Tủ, Kệ trưng bày tại các hệ thống bán lẻ" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/indoor/id12.jpg" alt="Sản xuất Tủ, Kệ trưng bày tại các hệ thống bán lẻ" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/indoor/id15.jpg" alt="Sản xuất Tủ, Kệ trưng bày tại các hệ thống bán lẻ" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="services">
+                <div class="services__service">
+                    <h3 class="services__title">
+                        Sản xuất Hội nghị, Event, Hội chợ, Triển lãm
+                    </h3>
+                    <p class="services__summary">
+                        Sản xuất cổng chào, mô hình quảng cáo 2D-3D, décor xe tải – lắp dựng gian hàng hội chợ, hội nghị, sự kiện …vv"
+                    </p>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/Lienphat/assets/img/portfolio/Service/mer/mer1.jpg" alt="" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/Lienphat/assets/img/portfolio/Service/mer/mer2.jpg" alt="" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/Lienphat/assets/img/portfolio/Service/mer/mer3.jpg" alt="" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/Lienphat/assets/img/portfolio/Service/Gate2D/2d3.jpg" alt="" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/Lienphat/assets/img/portfolio/Service/Gate2D/2d4.jpg" alt="" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/Lienphat/assets/img/portfolio/Service/mer/mer7.jpg" alt="" class="services__item-img  img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/Gate2D/2d6.jpg" alt="Sản Xuất cổng chào, mô hình quảng cáo 2D-3D, décor xe tải…vv" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/Gate2D/2d7.jpg" alt="Sản Xuất cổng chào, mô hình quảng cáo 2D-3D, décor xe tải…vv" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/Gate2D/2d10.jpg" alt="Sản Xuất cổng chào, mô hình quảng cáo 2D-3D, décor xe tải…vv" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                     
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/Gate2D/2d9.jpg" alt="Sản Xuất cổng chào, mô hình quảng cáo 2D-3D, décor xe tải…vv" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/Gate2D/2d11.jpg" alt="Sản Xuất cổng chào, mô hình quảng cáo 2D-3D, décor xe tải…vv" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/mer/mee15.png" alt="Sản Xuất cổng chào, mô hình quảng cáo 2D-3D, décor xe tải…vv" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/Lienphat/assets/img/portfolio/Service/mer/mer10.jpg" alt="" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/Lienphat/assets/img/portfolio/Service/mer/mer12.png" alt="" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/Lienphat/assets/img/portfolio/Service/mer/mer14.jpg" alt="" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/Gate2D/2d5.jpg" alt="Sản Xuất cổng chào, mô hình quảng cáo 2D-3D, décor xe tải…vv" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/Gate2D/2d8.jpg" alt="Sản Xuất cổng chào, mô hình quảng cáo 2D-3D, décor xe tải…vv" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+          
+            <div class="services">
+                <div class="services__service">
+                    <h3 class="services__title">
+                        In ấn quảng cáo 
+                    </h3>
+                    <p class="services__summary">
+                        In ấn quảng cáo trên mọi chất liệu PP, Decal, Vải silk, Bạt hiflex, Mica…vv
+                    </p>
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/print/pri1.jpg" alt="In ấn quảng cáo trên mọi chất liệu PP, Decal, vải silk, bạt Hiflex, mica…vv" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/print/pri2.jpg" alt="In ấn quảng cáo trên mọi chất liệu PP, Decal, vải silk, bạt Hiflex, mica…vv" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/print/pri3.jpg" alt="In ấn quảng cáo trên mọi chất liệu PP, Decal, vải silk, bạt Hiflex, mica…vv" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/print/pri4.jpeg" alt="In ấn quảng cáo trên mọi chất liệu PP, Decal, vải silk, bạt Hiflex, mica…vv" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/LienPhat/assets/img/portfolio/Service/print/pri5.jpg" alt="In ấn quảng cáo trên mọi chất liệu PP, Decal, vải silk, bạt Hiflex, mica…vv" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="services">
+                <div class="services__service">
+                    <h3 class="services__title">
+                        Cung cấp dịch vụ quảng cáo trọn gói
+                    </h3>
+                    <p class="services__summary">
+                        Cung cấp các dịch vụ  quảng cáo trọn gói tại điểm bán: cho thuê vị trí quảng cáo, sản xuất xây dựng điểm bán, xin cấp phép quảng cáo tại điểm bán. Cho thuê trình chiếu TVC tại điểm bán, Nhà Thuốc, Bệnh Viện trên Toàn Quốc.
+                    </p>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/Lienphat/assets/img/portfolio/Service/all/all1.jpg" alt="" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/Lienphat/assets/img/portfolio/Service/all/all2.png" alt="" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/Lienphat/assets/img/portfolio/Service/all/all3.jpg" alt="" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/Lienphat/assets/img/portfolio/Service/all/all4.jpg" alt="" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/Lienphat/assets/img/portfolio/Service/all/all5.jpg" alt="" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/Lienphat/assets/img/portfolio/Service/all/all6.jpg" alt="" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/Lienphat/assets/img/portfolio/Service/all/all7.jpg" alt="" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/Lienphat/assets/img/portfolio/Service/all/all8.jpg" alt="" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/Lienphat/assets/img/portfolio/Service/all/all9.jpg" alt="" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="services__item">
+                                <img src="~/Lienphat/assets/img/portfolio/Service/all/all10.jpg" alt="" class="services__item-img img-fluid">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+           
+        </div>
+    </div>
+</section>

@@ -1,0 +1,54 @@
+﻿@using System.Collections.Generic
+@using System.Linq
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Authentication
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    ViewData["Title"] = "Log in";
+    Layout = "~/Views/Shared/_LayoutAccount.cshtml";
+}
+
+<div class="m-login__signin">
+
+    <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="m-login__form m-form">
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group m-form__group">
+        
+            <input asp-for="Email" placeholder="Email" class="form-control m-input" autocomplete="off" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group m-form__group">
+
+            <input asp-for="Password" class="form-control m-input m-login__form-input--last" placeholder="Password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="row m-login__form-sub">
+            <div class="col m--align-left">
+                <label asp-for="RememberMe" class="m-checkbox m-checkbox--focus">
+                    <input asp-for="RememberMe" />
+                    @Html.DisplayNameFor(m => m.RememberMe)
+                    <span></span>
+                </label>
+            </div>
+            <div class="col m--align-right">
+
+                <a asp-action="ForgotPassword" class="m-link">Forgot your password?</a>
+
+            </div>
+        </div>
+
+        <div class="m-login__form-action">
+            <button type="submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">Log in</button>
+        </div>
+        <div class="form-group m-form__group">
+
+            <p>
+                <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Register as a new user?</a>
+            </p>
+        </div>
+    </form>
+
+</div>

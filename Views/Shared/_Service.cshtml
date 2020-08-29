@@ -1,0 +1,194 @@
+﻿@using LienPhatERP.Services
+@inject ICategoryService CategoryService
+@inject IFileService FileService
+@{
+    var cate = CategoryService.GetCategoryBySlug("dich-vu");
+    var categorie = CategoryService.GetAllSubCategory(cate.Id);
+    var file = FileService.GetAllFileByTypeCategoryPrioritize(categorie.Select(x=>x.Id).ToList(),"Image",true);
+}
+<div class="section__content">
+
+    <div class="portfolio">
+        <div class="portfolio__controls">
+            <button class="portfolio__control portfolio__control--active" data-category="*" data-cap="">Tất cả</button>
+            @foreach (var item in categorie)
+            {
+                <button class="portfolio__control" data-category="@item.Slug" data-cap="@item.Description">@item.Name</button>
+            }
+            @*<button class="portfolio__control" data-category="indoor" data-cap="Sản xuất tủ, kệ trưng bày tại các hệ thống bán lẻ">Sản xuất tại hệ thống bán lẻ </button>
+
+            <button class="portfolio__control" data-category="machinery" data-cap="Sản xuất – lắp dựng gian hàng hội chợ, hội nghị, sự kiện …vv">Sản xuất Hội nghị, Event, Hội chợ, Triển lãm </button>
+            <button class="portfolio__control" data-category="printing" data-cap="In ấn quảng cáo trên mọi chất liệu PP, Decal, Vải silk, Bạt hiflex, Mica…vv">In ấn quảng cáo</button>
+            <button class="portfolio__control" data-category="all" data-cap="Cung cấp các dịch vụ  quảng cáo trọn gói tại điểm bán: cho thuê vị trí quảng cáo, sản xuất xây dựng điểm bán, xin cấp phép quảng cáo tại điểm bán. Cho thuê trình chiếu TVC tại điểm bán, Nhà Thuốc, Bệnh Viện trên Toàn Quốc.">Cung cấp dịch vụ quảng cáo trọn gói</button>*@
+        </div>
+
+        <div class="portfolio__items">
+            @*@foreach (var item in file)
+            {
+                <div class="portfolio__item" data-category="all">
+                    <img src="@item.Url" alt="Sản Xuất vật phẩm quảng cáo tại các điểm bán " />
+                </div>
+            }*@
+            @foreach (var item in file)
+            {
+                <div class="portfolio__item" data-category="@item.Category.Slug">
+                    <img src="@item.Url" alt="@item.Category.Description" />
+
+                </div>
+            }
+            @*<div class="portfolio__item" data-category="all">
+                <img src="~/LienPhat/assets/img/portfolio/Service/all/all10.jpg" alt="Sản Xuất vật phẩm quảng cáo tại các điểm bán " />
+
+            </div>
+            <div class="portfolio__item" data-category="all">
+                <img src="~/LienPhat/assets/img/portfolio/Service/all/all2.png" alt="Sản Xuất vật phẩm quảng cáo tại các điểm bán " />
+
+            </div>
+            <div class="portfolio__item" data-category="all">
+                <img src="~/LienPhat/assets/img/portfolio/Service/all/all3.jpg" alt="Sản Xuất vật phẩm quảng cáo tại các điểm bán " />
+
+            </div>
+            <div class="portfolio__item" data-category="all">
+                <img src="~/LienPhat/assets/img/portfolio/Service/all/all4.jpg" alt="Sản Xuất vật phẩm quảng cáo tại các điểm bán " />
+
+            </div>
+            <div class="portfolio__item" data-category="all">
+                <img src="~/LienPhat/assets/img/portfolio/Service/all/all5.jpg" alt="Sản Xuất vật phẩm quảng cáo tại các điểm bán " />
+
+            </div>
+            <div class="portfolio__item" data-category="all">
+                <img src="~/LienPhat/assets/img/portfolio/Service/all/all6.jpg" alt="Sản Xuất vật phẩm quảng cáo tại các điểm bán " />
+
+            </div>
+
+
+
+            <div class="portfolio__item" data-category="productionAtOutlet">
+                <img src="~/LienPhat/assets/img/portfolio/Service/Sx/sx1.jpg" alt="Sản Xuất vật phẩm quảng cáo tại các điểm bán " />
+
+            </div>
+            <div class="portfolio__item" data-category="productionAtOutlet">
+                <img src="~/LienPhat/assets/img/portfolio/Service/Sx/sx3.jpg" alt="Sản Xuất vật phẩm quảng cáo tại các điểm bán " />
+
+            </div>
+            <div class="portfolio__item" data-category="productionAtOutlet">
+                <img src="~/LienPhat/assets/img/portfolio/Service/Sx/sx7.jpg" alt="Sản Xuất vật phẩm quảng cáo tại các điểm bán " />
+
+            </div>
+            <div class="portfolio__item" data-category="productionAtOutlet">
+                <img src="~/LienPhat/assets/img/portfolio/Service/Sx/sx12.jpg" alt="Sản Xuất vật phẩm quảng cáo tại các điểm bán " />
+
+            </div>
+            <div class="portfolio__item" data-category="productionAtOutlet">
+                <img src="~/LienPhat/assets/img/portfolio/Service/Sx/sx11.png" alt="Sản Xuất vật phẩm quảng cáo tại các điểm bán " />
+
+            </div>
+            <div class="portfolio__item" data-category="productionAtOutlet">
+                <img src="~/LienPhat/assets/img/portfolio/Service/Sx/sx9.png" alt="Sản Xuất vật phẩm quảng cáo tại các điểm bán " />
+
+            </div>
+
+
+            <div class="portfolio__item" data-category="indoor">
+                <img src="~/LienPhat/assets/img/portfolio/Service/indoor/id1.jpg" alt="Sản xuất Tủ, Kệ trưng bày tại các hệ thống bán lẻ" />
+
+            </div>
+            <div class="portfolio__item" data-category="indoor">
+                <img src="~/LienPhat/assets/img/portfolio/Service/indoor/id2.jpg" alt="Sản xuất Tủ, Kệ trưng bày tại các hệ thống bán lẻ" />
+
+            </div>
+            <div class="portfolio__item" data-category="indoor">
+                <img src="~/LienPhat/assets/img/portfolio/Service/indoor/id5.jpg" alt="Sản xuất Tủ, Kệ trưng bày tại các hệ thống bán lẻ" />
+
+            </div>
+            <div class="portfolio__item" data-category="indoor">
+                <img src="~/LienPhat/assets/img/portfolio/Service/indoor/id6.jpg" alt="Sản xuất Tủ, Kệ trưng bày tại các hệ thống bán lẻ" />
+
+            </div>
+
+            <div class="portfolio__item" data-category="indoor">
+                <img src="~/LienPhat/assets/img/portfolio/Service/indoor/id7.jpg" alt="Sản xuất Tủ, Kệ trưng bày tại các hệ thống bán lẻ" />
+
+            </div>
+
+            <div class="portfolio__item" data-category="indoor">
+                <img src="~/LienPhat/assets/img/portfolio/Service/indoor/id9.jpg" alt="Sản xuất Tủ, Kệ trưng bày tại các hệ thống bán lẻ" />
+
+            </div>
+            <div class="portfolio__item" data-category="machinery">
+                <img src="~/LienPhat/assets/img/portfolio/Service/Gate2D/2d1.jpg" alt="Sản Xuất cổng chào, mô hình quảng cáo 2D-3D, décor xe tải…vv" />
+
+            </div>
+            <div class="portfolio__item" data-category="machinery">
+                <img src="~/LienPhat/assets/img/portfolio/Service/Gate2D/2d2.jpg" alt="Sản Xuất cổng chào, mô hình quảng cáo 2D-3D, décor xe tải…vv" />
+
+            </div>
+            <div class="portfolio__item" data-category="machinery">
+                <img src="~/LienPhat/assets/img/portfolio/Service/Gate2D/2d3.jpg" alt="Sản Xuất cổng chào, mô hình quảng cáo 2D-3D, décor xe tải…vv" />
+
+            </div>
+            <div class="portfolio__item" data-category="machinery">
+                <img src="~/LienPhat/assets/img/portfolio/Service/Gate2D/2d4.jpg" alt="Sản Xuất cổng chào, mô hình quảng cáo 2D-3D, décor xe tải…vv" />
+
+            </div>
+
+            <div class="portfolio__item" data-category="machinery">
+                <img src="~/LienPhat/assets/img/portfolio/Service/Gate2D/2d14.jpg" alt="Sản Xuất cổng chào, mô hình quảng cáo 2D-3D, décor xe tải…vv">
+            </div>
+            <div class="portfolio__item" data-category="machinery">
+                <img src="~/LienPhat/assets/img/portfolio/Service/Gate2D/2d15.jpg" alt="Sản Xuất cổng chào, mô hình quảng cáo 2D-3D, décor xe tải…vv">
+            </div>
+            <div class="portfolio__item" data-category="machinery">
+                <img src="~/LienPhat/assets/img/portfolio/Service/mer/mer1.jpg" alt="Sản xuất – lắp đựng gian hàng hội chợ, hội nghị, sự kiện …vv">
+            </div>
+            <div class="portfolio__item" data-category="machinery">
+                <img src="~/LienPhat/assets/img/portfolio/Service/mer/mer2.jpg" alt="Sản xuất – lắp đựng gian hàng hội chợ, hội nghị, sự kiện …vv">
+            </div>
+            <div class="portfolio__item" data-category="machinery">
+                <img src="~/LienPhat/assets/img/portfolio/Service/mer/mer3.jpg" alt="Sản xuất – lắp đựng gian hàng hội chợ, hội nghị, sự kiện …vv">
+            </div>
+
+            <div class="portfolio__item" data-category="machinery">
+                <img src="~/LienPhat/assets/img/portfolio/Service/mer/mer4.jpg" alt="Sản xuất – lắp đựng gian hàng hội chợ, hội nghị, sự kiện …vv">
+            </div>
+            <div class="portfolio__item" data-category="machinery">
+                <img src="~/LienPhat/assets/img/portfolio/Service/mer/mer6.jpg" alt="Sản xuất – lắp đựng gian hàng hội chợ, hội nghị, sự kiện …vv">
+            </div>
+
+            <div class="portfolio__item" data-category="machinery">
+                <img src="~/LienPhat/assets/img/portfolio/Service/mer/mer7.jpg" alt="Sản xuất – lắp đựng gian hàng hội chợ, hội nghị, sự kiện …vv">
+            </div>
+
+            <div class="portfolio__item" data-category="printing">
+                <img src="~/LienPhat/assets/img/portfolio/Service/print/pri1.jpg" alt="In ấn quảng cáo trên mọi chất liệu PP, Decal, vải silk, bạt Hiflex, mica…vv">
+            </div>
+            <div class="portfolio__item" data-category="printing">
+                <img src="~/LienPhat/assets/img/portfolio/Service/print/pri2.jpg" alt="In ấn quảng cáo trên mọi chất liệu PP, Decal, vải silk, bạt Hiflex, mica…vv">
+            </div>
+            <div class="portfolio__item" data-category="printing">
+                <img src="~/LienPhat/assets/img/portfolio/Service/print/pri3.jpg" alt="In ấn quảng cáo trên mọi chất liệu PP, Decal, vải silk, bạt Hiflex, mica…vv">
+            </div>
+            <div class="portfolio__item" data-category="printing">
+                <img src="~/LienPhat/assets/img/portfolio/Service/print/pri4.jpeg" alt="In ấn quảng cáo trên mọi chất liệu PP, Decal, vải silk, bạt Hiflex, mica…vv">
+            </div>
+            <div class="portfolio__item" data-category="printing">
+                <img src="~/LienPhat/assets/img/portfolio/Service/print/pri5.jpg" alt="In ấn quảng cáo trên mọi chất liệu PP, Decal, vải silk, bạt Hiflex, mica…vv">
+            </div>
+            <div class="portfolio__item" data-category="printing">
+                <img src="~/LienPhat/assets/img/portfolio/Service/print/pri6.jpg" alt="In ấn quảng cáo trên mọi chất liệu PP, Decal, vải silk, bạt Hiflex, mica…vv">
+            </div>*@
+        </div>
+
+        <div class="portfolio__caption">
+            <div class="portfolio__caption--text"></div>
+        </div>
+        <div class="text-center mt-5">
+            <a class="btn btn-warning btn-lg" id="Service" href="/Home/Service">
+                Hiển thị thêm
+            </a>
+        </div>
+    </div>
+</div>
+<script>
+    var _cate;
+</script>

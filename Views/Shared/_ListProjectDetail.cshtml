@@ -1,0 +1,70 @@
+﻿<style>
+    @Html.Raw("@")media (min-width: 1280px) {
+      .modal-lager {
+        max-width: 1280px; } }
+</style>
+<div class="modal fade" id="projectDetail-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lager" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered m-table m-table--border-metal m-table--head-bg-metal">
+                    <thead class="m-datatable__head">
+                        <tr class="m-datatable__row">
+                            <th class="m-datatable__cell m-datatable__cell--sort">
+                                <span style="width: 110px;">Tên dự án</span>
+                            </th>
+                            <th class="m-datatable__cell m-datatable__cell--sort">
+                                <span style="width: 110px;">Địa chỉ</span>
+                            </th>
+                            <th class="m-datatable__cell m-datatable__cell--sort">
+                                <span style="width: 110px;">Nhãn hàng</span>
+                            </th>
+                            <th class="m-datatable__cell m-datatable__cell--sort">
+                                <span style="width: 110px;">Hạng mục</span>
+                            </th>
+                            <th class="m-datatable__cell m-datatable__cell--sort">
+                                <span style="width: 110px;">Vị trí</span>
+                            </th>
+                            <th class="m-datatable__cell m-datatable__cell--sort">
+                                <span style="width: 110px;">Chiều ngang</span>
+                            </th>
+                            <th class="m-datatable__cell m-datatable__cell--sort">
+                                <span style="width: 110px;">Chiều dọc</span>
+                            </th>
+                            <th class="m-datatable__cell m-datatable__cell--sort">
+                                <span style="width: 110px;">Diện tích</span>
+                            </th>
+                            <th class="m-datatable__cell m-datatable__cell--sort">
+                                <span style="width: 110px;">Chi phí nhà thuốc</span>
+                            </th>
+                            <th class="m-datatable__cell m-datatable__cell--sort">
+                                <span style="width: 110px;">Chi phí sản xuất</span>
+                            </th>
+                            <th class="m-datatable__cell m-datatable__cell--sort">
+                                <span style="width: 110px;">Ngày thuê</span>
+                            </th>
+                            <th class="m-datatable__cell m-datatable__cell--sort">
+                                <span style="width: 110px;">Thời gian thuê</span>
+                            </th>
+                            <th class="m-datatable__cell m-datatable__cell--sort">
+                                <span style="width: 110px;">Image</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="modalTable">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+
+            </div>
+        </div>
+    </div>
+</div>

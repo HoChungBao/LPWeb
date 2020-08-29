@@ -1,0 +1,313 @@
+﻿@using LienPhatERP.Services
+@inject ICategoryService CategoryService
+@model LienPhatERP.Entities.Files
+@{
+    ViewData["Title"] = "UpdateFile";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="m-content">
+    <div class="row" id="app">
+        <div class="col-xl-12">
+            <!--Begin::Main Portlet-->
+            <div class="m-portlet">
+                <!--begin: Portlet Head-->
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                            <h3 class="m-portlet__head-text">
+                                Tạo file
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <!--end: Portlet Head-->
+                <!--begin: Form Wizard-->
+                <div class="m-wizard m-wizard--1 m-wizard--success" id="m_wizard">
+                    <!--begin: Message container -->
+                    <div class="m-portlet__padding-x">
+                        <!-- Here you can put a message or alert -->
+                    </div>
+                    <!--end: Message container -->
+                    <!--begin: Form Wizard Head -->
+                    <!--end: Form Wizard Head -->
+                    <!--begin: Form Wizard Form-->
+                    <div class="m-wizard__form">
+                        <!--
+                        1) Use m-form--label-align-left class to alight the form input lables to the right
+                        2) Use m-form--state class to highlight input control borders on form validation
+                        -->
+                        <form class="m-form m-form--label-align-left- m-form--state-" id="m_form">
+                            <!--begin: Form Body -->
+                            <!--begin: Form Wizard -->
+                            <div class="m-portlet__foot m-portlet__foot--fit">
+                                <div class="m-form__actions m-form__actions">
+                                    <div class="row">
+                                        <div class="col-xl-8 offset-xl-2">
+                                            <div class="m-form__section m-form__section--first">
+                                                <div class="m-form__heading">
+                                                    <h3 class="m-form__heading-title">
+                                                        Tạo file
+                                                    </h3>
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Danh mục:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <select class="form-control m-input" id="cateId">
+                                                            <option value="">Chọn danh mục</option>
+                                                            @foreach (var item in CategoryService.GetCategorie())
+                                                            {
+                                                                if (Model.Category.CategoryId== item.Id)
+                                                                {
+                                                                    <option value="@item.Id" selected>@item.Name</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@item.Id">@item.Name</option>
+                                                                }
+                                                            }
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Danh mục:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <select class="form-control m-input" id="categoryId" name="categoryId">
+                                                            <option value="">Chọn danh mục</option>
+                                                            @foreach (var item in CategoryService.GetAllSubCategory(Model.Category.CategoryId??Guid.Empty))
+                                                            {
+                                                                if (Model.CategoryId == item.Id)
+                                                                {
+                                                                    <option value="@item.Id" selected>@item.Name</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@item.Id">@item.Name</option>
+                                                                }
+                                                            }
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Tên file:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <input type="text" name="FileName" class="form-control m-input" required value="@Model.FileName">
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền tên hạng mục
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Loại:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <select class="form-control m-input" name="Type" asp-for="@Model.Type">
+                                                            <option value="Image">Image</option>
+                                                            <option value="Word">Word</option>
+                                                            <option value="Excel">Excel</option>
+                                                            <option value="PowerPoint">PowerPoint</option>
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Url:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <a href="@Model.Url">File</a>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * File:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <div class="custom-file">
+                                                            <input type="file" class="custom-file-input" id="fileupload" multiple required>
+                                                            <label class="custom-file-label" for="customFile">
+                                                                Chọn file
+                                                            </label>
+                                                        </div>
+                                                        @*<div class="col-lg-2 m--padding-left-5">
+                                                            <a class="btn btn-outline-info active btnUploadVideo" id="btnUpload"><span>Upload</span></a>
+                                                        </div>*@
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!--end: Form Wizard Step 2-->
+                                <!--end: Form Body -->
+                            </div>
+                            <!--begin: Form Actions -->
+                            <div class="m-portlet__foot m-portlet__foot--fit">
+                                <div class="m-form__actions m-form__actions">
+                                    <div class="row">
+                                        <div class="col-lg-2"></div>
+                                        <div class="col-lg-4 m--align-right">
+                                            <a href="#" class="btn btn-warning m-btn m-btn--custom m-btn--icon" id="butSubmit">
+                                                <span>
+                                                    <span>
+                                                        Submit
+                                                    </span>
+                                                    &nbsp;&nbsp;
+                                                    <i class="la la-arrow-right"></i>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end: Form Actions -->
+                        </form>
+
+                    </div>
+                    <!--end: Form Wizard Form-->
+                </div>
+                <!--end: Form Wizard-->
+            </div>
+            <!--End::Main Portlet-->
+        </div>
+
+    </div>
+</div>
+@section Scripts {
+    <script>
+
+        $(document).ready(function () {
+            function ajaxSubmitCreate(event) {
+                event.preventDefault();
+                $("#butSubmit").addClass("m-loader m-loader--light m-loader--right disable");
+                var formData = new FormData($('#m_form')[0]);
+                //if (!$("input[name='Url']").val()) {
+                //    swal("", "Chưa có file", "warning");
+                //    return;
+                //}
+                formData.append("Id",@Model.Id);
+                $.ajax({
+                    url: '/FileAdmin/UpdateFile/',
+                    type: 'POST',
+                    data: formData, // serializes the form's elements.
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+
+                        if (response != null) {
+                            $("#js-reason").text("");
+                            $("#butSubmit").removeClass("m-loader m-loader--light m-loader--right disable");
+                            if (!response.result) {
+
+                                swal("", response.message, "warning");
+
+
+                            } else {
+
+                                swal("", response.message, "success");
+                                setTimeout(function () {
+
+                                    //window.location.href = window.location.origin + "/Outlet/Component";
+
+                                    //End
+                                }, 5000);
+
+
+                            }
+                        }
+                    },
+                    fail: function () {
+                    }
+                });
+            }
+
+            $("#butSubmit").on("click", ajaxSubmitCreate);
+        });
+
+        $("#cateId").on("change", function (e) {
+            //GetLesson($(this).val());
+            if ($("#cateId").val()) {
+                $.ajax({
+                    url: '/CategoryAdmin/GetCategory?categoryId=' + $("#cateId").val(),
+                    type: 'GET',
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response.result) {
+                            var data = response.data;
+                            var nameHtml = '<option value="">Chọn danh mục</option>';
+                            for (var i = 0; i < data.length; i++) {
+                                nameHtml += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
+                            }
+                            $("#categoryId").html(nameHtml);
+                            $("#categoryId").removeClass("d-none");
+                        }
+                        else {
+                            $("#categoryId").html('<option value="">Không có dữ liệu</option>');
+                            //$("#nameSurvey").removeClass("d-none");
+                        };
+
+                    },
+                    error: function () {
+                        swal("Đã bị lỗi!!");
+                    }
+                });
+            }
+        });
+
+        $("#btnUpload").click(function () {
+            var formData = new FormData($('#m_form')[0]);
+            var uploadFile = $("#fileupload")[0].files;
+            if (uploadFile.length <= 0) {
+                swal("Chưa chọn file", "", "warning");
+                return;
+            }
+            for (var x = 0; x < uploadFile.length; x++) {
+                formData.append("Files", uploadFile[x]);
+            }
+            $(this).addClass("m-loader m-loader--light m-loader--right disable");
+            $.ajax({
+                type: "POST",
+                url: "/Common/FileUpload",
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function (respone) {
+                    $("#btnUpload").removeClass("m-loader m-loader--light m-loader--right disable");
+                    if (respone != null && respone.result) {
+                        $("input[name='Url']").val(respone);
+                        swal("Upload File", respone.message, "success");
+                    }
+                    else {
+                        swal("Upload File", respone.message, "warning");
+                    }
+
+                },
+                error: function () {
+                    window.alert("Upload Error!!");
+                }
+            });
+        });
+    </script>
+}
+
+
+
+
+
+
+

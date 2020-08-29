@@ -1,0 +1,228 @@
+﻿@model List<LienPhatERP.Entities.History>
+@{
+    ViewData["Title"] = "HistoryById";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@*@functions{
+    string convertDeparment(Guid value)
+    {
+        if (value != null)
+        {
+            foreach (var item in CommonService.GetDepartmentAll())
+            {
+                if (item.Id == value)
+                    return item.Name;
+            }
+        }
+        return "";
+    }
+}*@
+<div class="m-content">
+
+    <div class="m-portlet m-portlet--mobile">
+        <div class="m-portlet__head">
+  <!--begin: Search Form -->
+            <div class="m-form m-form--label-align-right  ">
+                <div class="row align-items-center">
+                    <div class="col-xl-8 order-2 order-xl-1">
+                        <div class="form-group m-form__group row align-items-center m--margin-top-10">
+                            @*<div class="row">
+                                *@
+
+                                <div class="col-md-4 mb-3">
+
+                                    <div class="m-input-icon m-input-icon--left">
+                                        <input type="text" class="form-control m-input m-input--solid" placeholder="Search..." id="generalSearch">
+                                        <span class="m-input-icon__icon m-input-icon__icon--left">
+                                            <span>
+                                                <i class="la la-search"></i>
+                                            </span>
+                                        </span>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="#" class="btn btn-accent m-btn m-btn--icon btn-lg m-btn--icon-only  m--margin-bottom-15"
+                                       title="" data-placement="top" data-original-title="Thêm mới" data-dismiss="modal" data-toggle="modal" data-target="#myModalCustomer">
+                                        <i class="fa fa-plus"></i>
+                                    </a>
+                                    @*<a href="/Ds/Download" class="btn btn-success m-btn m-btn--icon btn-lg m-btn--icon-only"
+                                         data-toggle="m-tooltip" title="" data-placement="top" data-original-title="Xuất Excel">
+                                        <i class="la la-file-excel-o"></i>
+                                    </a>*@
+
+                                    <div class="m-separator m-separator--dashed d-xl-none"></div>
+                                </div>
+                                @*
+                            </div>*@
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!--end: Search Form -->
+        </div>
+        <div class="m-portlet__body">
+           
+            <!--begin: Datatable -->
+
+            <div class="table-responsive">
+                <div class="m-form__section m-form__section--first">
+
+                    <table class="table table-bordered m-table m-table--border-brand m-table--head-bg-brand">
+                        <thead>
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    Tên Khách Hàng
+                                </th>
+                                <th>
+                                    Người cập nhật
+                                </th>
+                                <th>
+                                    Ghi Chú
+                                </th>
+                                <th>
+                                    Ngày cập nhật
+                                </th>
+     
+                            </tr>
+                        </thead>
+                        <tbody id="customerTable">
+                      
+                        @foreach (var d in Model.OrderByDescending(x => x.Id).ToList())
+                        {
+                            <tr>
+                                <th scope="row">
+                                   @int.Parse((Model.OrderByDescending(x => x.Id).ToList().IndexOf(d)+1).ToString())
+                                </th>
+                                <th scope="row">
+                                    @d.Customer.Name
+                                </th>
+                                <td>
+                                    @if (d.UserUpdateNavigation != null)
+                                    {
+                                        if (d.UserUpdateNavigation.Name == null)
+                                        {
+                                            @d.UserUpdateNavigation.UserName
+                                        }
+                                        else
+                                        {
+                                            @d.UserUpdateNavigation.Name
+                                        }
+                                    }
+                                </td>
+                                <td> @d.Note</td>
+                                <td> @d.DateUpdate.Value.ToString("dd-MM-yyyy HH:mm:ss")</td>
+
+
+                            </tr>
+                           
+                        }
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <!--end: Datatable -->
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModalCustomer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thêm ghi chú</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="#" method="get" id="m_form1">
+                <div class="modal-body">
+
+                    <fieldset class="fieldset-group">
+                        <legend class="fieldset-group__legend">
+                            <span class="fieldset-group__title"></span>
+                        </legend>
+                        <div class="form-group m-form__group row">
+                            <label class="">Tên khách hàng</label>
+                            <input type="text" name="name" id="nameCustomer" value="@ViewData["Name"]" class="form-control" readonly required />
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <label class="">Ghi chú</label>
+                            <textarea type="text" name="name" id="noteCustomer" class="form-control " required></textarea>
+
+
+                        </div>
+                    </fieldset>
+
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn--size btn-primary js-sendReject" id="butCustomer">Thêm</a>
+                    <button type="button" class="btn btn--size btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        function AjaxSubmitCreateContactFormPlan() {
+            var note = $('#noteCustomer').val();
+            if (note == "") {
+                swal("Điền ghi chú", "", "warning");
+                return;
+            }
+            var formData = new FormData();
+            formData.append("CustomerId", @ViewData["K"]);
+            formData.append("Name", $("#nameCustomer").val());
+            formData.append("Note", note);
+            $.ajax({
+                url: '/Customer/InsertHistoryCustomer',
+                type: 'POST',
+                data: formData, // serializes the form's elements.
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.result) {
+                        swal("", response.message, "success");
+                        setTimeout(function () {
+
+                            location.reload();
+
+                            //End
+                        }, 5000);
+                    }
+                    else {
+                        swal("", response.message, "warning");
+
+                    }
+
+                },
+                error: function (error) {
+                    alert("Đã bị lỗi");
+                }
+            })
+           
+        }
+        $("#butCustomer").on("click", AjaxSubmitCreateContactFormPlan);
+
+        $('#generalSearch').on('keyup', function () {
+            var inputValue = $('#generalSearch').val().toLowerCase();
+            $("#customerTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(inputValue) > -1)
+            });
+        });
+        
+    </script>
+}
+
+
+
+
+

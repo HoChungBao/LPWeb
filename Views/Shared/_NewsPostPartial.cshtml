@@ -1,0 +1,106 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using LienPhatERP.Helper
+@using LienPhatERP.Services
+@using LienPhatERP.ViewModels
+@inject INewsService NewsService
+@model LienPhatERP.Entities.NewsPost
+
+    <section class="section">
+        <div class="container">
+            <div class="box__layout row border">
+                <nav aria-label="breadcrumb" class="breadcrumb__nav col-lg-12">
+                    <ol class="breadcrumb rounded-0">
+                        <li class="breadcrumb-item">
+                            <a href="#" class="breadcrumb-item--link">Trang chủ</a>
+                        </li>
+
+                        <li class="breadcrumb-item active" aria-current="page">Data</li>
+                    </ol>
+                </nav>
+
+                <div class="main col-lg-8 col-md-8">
+
+                    <h4 class="main__title">
+                        @Model.Name
+                    </h4>
+
+                    <p class="main__author">
+                        Bởi
+                        <strong class="main__author__name">@Model.CreatedBy.NormalizedUserName </strong> -
+                        @*<strong class="main__author__name">@Model.CreatedById </strong> -*@
+                        <i class="fa fa-clock-o" aria-hidden="true"> @Model.CreatedOn.ToString("dd-MM-yyyy HH:mm:ss")</i>
+                    </p>
+                    <strong class="main__description">@Html.Raw(Model.ShortContent)</strong>
+                    <div class="main__content">
+                        <p>@Html.Raw(Model.FullContent)</p>
+                    </div>
+
+                    @*<div class="main__share">
+                        <span>Share: </span>
+                        <a href="#" class="link">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                        <a href="#" class="link">
+                            <i class="fa fa-google-plus"></i>
+                        </a>
+                    </div>*@
+                </div>
+
+                <div class="supplement col-lg-4 col-md-4">
+                    <div class="supplement__item mb-4">
+                        <h5 class="supplement__title">TIN NỔI BẬT</h5>
+                        <div class="supplement__content">
+                            <div class="container">
+                                @foreach (var item in NewsService.GetListTopPosts(5))
+                                {
+                                    <div class="supplement__news mt-3 mb-3 row">
+
+                                        <img src="/@item.LinkImage" class="col-lg-4 col-md-12 img-fluid" style="padding: 0 10px;">
+                                        @*<a href="/@LinkImages.FileName" target="_blank"></a>*@
+
+                                        <a href="#" class="supplement__news-title col-lg-8 col-md-12" style="padding: 0 10px;">
+                                            @Html.Raw(item.Name)
+                                            <p class="date__font remove--margin"> @item.CreatedOn.ToString("dd-MM-yyyy")</p>
+                                        </a>
+
+                                    </div>
+                                }
+                              
+                            </div>
+                        </div>
+                    </div>
+                    <div class="supplement__item mb-4">
+                        <h5 class="supplement__title">THÔNG TIN QUẢNG CÁO</h5>
+                        <img src="/MediHubTheme/images/ads2.jpg" class="col-xs-12 clearfix padLR0 marginT10 quang_cao object_fit">
+
+                    </div>
+
+                    <!--
+                    <div class="supplement__item">
+                        <h5 class="supplement__title">VIDEO</h5>
+                        <div class="supplement__content">
+                            <div class="container">
+                                <div class="video__gallery row remove--margin">
+                                    <a data-fancybox href="https://www.youtube.com/watch?v=_sI_Ps7JSEk" class="video__item col-lg-5">
+                                        <i class="fa fa-youtube-play video__play" aria-hidden="true"></i>
+                                    </a>
+                                    <a data-fancybox href="https://www.youtube.com/watch?v=_sI_Ps7JSEk" class="video__item col-lg-5">
+                                        <i class="fa fa-youtube-play video__play" aria-hidden="true"></i>
+                                    </a>
+                                    <a data-fancybox href="https://www.youtube.com/watch?v=_sI_Ps7JSEk" class="video__item col-lg-5">
+                                        <i class="fa fa-youtube-play video__play" aria-hidden="true"></i>
+                                    </a>
+                                    <a data-fancybox href="https://www.youtube.com/watch?v=_sI_Ps7JSEk" class="video__item col-lg-5">
+                                        <i class="fa fa-youtube-play video__play" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    -->
+                </div>
+            </div>
+        </div>
+    </section>

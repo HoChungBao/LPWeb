@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "Access denied";
+}
+
+@*<header>
+    <h2 class="text-danger">@ViewData["Title"]</h2>
+    <p class="text-danger">You do not have access to this resource.</p>
+</header>*@
+
+<div class="m-content">
+    <div class="row">
+        <div class="col-xl-12">
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+            
+                <div class="m-portlet__body">
+                    <!--begin::Section-->
+                    <div class="m-section__content">
+                        <div class="alert alert-warning" role="alert">
+                            <strong>
+                                @ViewData["Title"]!
+                            </strong>
+                            Bạn không có quyền truy cập!!!
+                        </div>
+                    </div>
+                    <!--end::Section-->
+                </div>
+            </div>
+            <!--end::Portlet-->
+          
+        </div>
+        
+    </div>
+</div>

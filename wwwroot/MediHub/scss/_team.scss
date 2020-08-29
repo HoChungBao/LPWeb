@@ -1,0 +1,70 @@
+$team-name-size: 20px;
+.team {
+  &__nember {
+    @media (max-width: 767px) {
+      margin-bottom: 15px;
+    }
+  }
+  &__avatar {
+    width: 100%;
+    padding-top: 100%;
+    background: white;
+    border-radius: 50% 50% 50% 0%;
+    margin-bottom: $space-l;
+    background-repeat: no-repeat;
+    background-position: 100%;
+    background-size: 100%;
+    &-1 {
+      background-image: url('../images/person/mrdinh.jpg');
+    }
+    &-2 {
+      background-image: url('../images/person/mrdung.jpg');
+    }
+    &-3 {
+      background-image: url('../images/person/mrphuong.jpg');
+    }
+    &-4 {
+      background-image: url('../images/person/mrdanh.jpg');
+    }
+  }
+  &__name {
+    font-size: $team-name-size;
+    color: $brand-03;
+    font-weight: 600;
+    margin-bottom: calcStack(20px, 1.5, 8px);
+  }
+  &__position {
+    font-size: $team-name-size * 0.75;
+    font-weight: 600;
+    margin-bottom: calcStack(14px, 1.5, 16px);
+  }
+  &__description {
+    &--mix {
+      position: relative;
+      height: 140px;
+      overflow: hidden;
+    }
+    &--top {
+      margin-top: 0;
+    }
+    &--bottom {
+      margin-bottom: 0;
+    }
+    &--fade-out {
+      position: absolute;
+      bottom: 0;
+      box-shadow: 1px 2px 2px #f8f9fa;
+      height: 80px;
+      width: 100%;  
+      background: linear-gradient( rgba(248, 249, 250, 0.13), rgb(249, 249, 249));
+    }
+    &--btnmore {
+        color: $text-04;
+        cursor: pointer;
+      &:hover {
+        text-decoration: none;  
+        color: $brand-01;
+      }
+    }
+  }
+}

@@ -1,0 +1,436 @@
+﻿@model LienPhatERP.Models.AccountViewModels.RegisterModel
+@using LienPhatERP.ViewModels
+@using LienPhatERP.Services
+@inject ICommonService CommonService
+@functions{
+    List<UploadFileApiResult> convertFile(string value)
+    {
+        if (!string.IsNullOrEmpty(value))
+        {
+            return LienPhatERP.Helper.JsonHelper.DeserializeObject<List<UploadFileApiResult>>(Model.Files);
+        }
+        return new List<UploadFileApiResult>();
+    }
+}
+<form class="m-form m-form--fit m-form--label-align-right" asp-action="MyProfile" method="post" enctype="multipart/form-data">
+    <div class="m-portlet__body">
+        <div class="form-group m-form__group m--margin-top-10 m--hide">
+            <div class="alert m-alert m-alert--default" role="alert">
+                The example form below demonstrates common HTML form elements that receive updated styles from Bootstrap with additional classes.
+            </div>
+        </div>
+        <div class="form-group m-form__group row">
+            <div class="col-10 ml-auto">
+                <h3 class="m-form__section">
+                    1. Personal Details
+                </h3>
+            </div>
+        </div>
+        <input class="form-control m-input" type="text" asp-for="@Model.Email" hidden>
+        <input class="form-control m-input" type="text" asp-for="@Model.Files" id="file" hidden>
+        <input class="form-control m-input" type="text" asp-for="@Model.Image" id="img" hidden>
+        <input class="form-control m-input" type="text" asp-for="@Model.UserName" hidden>
+        <input class="form-control m-input" type="file" asp-for="File" id="fileImg" hidden />
+        <div class="form-group m-form__group row">
+            <label for="example-text-input" class="col-2 col-form-label">
+                Tên đầy đủ :
+            </label>
+            <div class="col-7">
+
+                <input class="form-control m-input" type="text" asp-for="@Model.Name">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group m-form__group row">
+            <label for="example-text-input" class="col-2 col-form-label">
+                Ngày sinh :
+            </label>
+            <div class="col-7">
+                <div class="input-group ">
+                    <input class="form-control m-input" type="date" asp-for="@Model.Date">
+                    <div class="input-group-prepend m-input">
+                        <span class="input-group-text" style="height: 41px;">
+                            <i class="la la-calendar"></i>
+                        </span>
+                    </div>
+                </div>
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group m-form__group row">
+            <label for="example-text-input" class="col-2 col-form-label">
+                Giới tính :
+            </label>
+            <div class="col-7">
+                <select class="form-control m-input" asp-for="@Model.Male">
+                    <option value="0">Nam</option>
+                    <option value="1">Nữ</option>
+                </select>
+                <span asp-validation-for="Male" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group m-form__group row">
+            <label for="example-text-input" class="col-2 col-form-label">
+                Dân tộc :
+            </label>
+            <div class="col-7">
+
+                <input class="form-control m-input" type="text" asp-for="@Model.Folk">
+                <span asp-validation-for="Folk" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group m-form__group row">
+            <label for="example-text-input" class="col-2 col-form-label">
+                Tình trạng hôn nhân :
+            </label>
+            <div class="col-7">
+
+                <select class="form-control m-input" asp-for="@Model.Matrimony">
+                    <option value="0">Độc thân</option>
+                    <option value="1">Đã kết hôn</option>
+                </select>
+                <span asp-validation-for="Matrimony" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="m-form__seperator m-form__seperator--dashed m-form__seperator--space-2x"></div>
+        <div class="form-group m-form__group row">
+            <div class="col-10 ml-auto">
+                <h3 class="m-form__section">
+                    2. Contact
+                </h3>
+            </div>
+        </div>
+        <div class="form-group m-form__group row">
+            <label for="example-text-input" class="col-2 col-form-label">
+                Điện thoại :
+            </label>
+            <div class="col-7">
+                <div class="input-group ">
+                    <input class="form-control m-input" type="text" asp-for="@Model.PhoneNumber">
+                    <div class="input-group-prepend m-input">
+                        <span class="input-group-text" style="height: 41px;">
+                            <i class="la la-phone"></i>
+                        </span>
+                    </div>
+                </div>
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group m-form__group row">
+            <label for="example-text-input" class="col-2 col-form-label">
+                Địa chỉ :
+            </label>
+            <div class="col-7">
+                <input class="form-control m-input" type="text" asp-for="@Model.Address" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group m-form__group row">
+            <label for="example-text-input" class="col-2 col-form-label">
+                Thành phố :
+            </label>
+            <div class="col-7">
+                <select class="form-control js-city" asp-for="@Model.Province"></select>
+            </div>
+        </div>
+        <div class="form-group m-form__group row">
+            <label for="example-text-input" class="col-2 col-form-label">
+                Quận :
+            </label>
+            <div class="col-7">
+                <select class="form-control js-distric" asp-for="@Model.District"></select>
+            </div>
+        </div>
+        <div class="form-group m-form__group row">
+            <label for="example-text-input" class="col-2 col-form-label">
+                Quê quán :
+            </label>
+            <div class="col-7">
+                <input class="form-control m-input" type="text" asp-for="@Model.Home">
+                <span asp-validation-for="Home" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="m-form__seperator m-form__seperator--dashed m-form__seperator--space-2x"></div>
+    <div class="form-group m-form__group row">
+        <div class="col-10 ml-auto">
+            <h3 class="m-form__section">
+                3. Identity
+            </h3>
+        </div>
+    </div>
+    <div class="form-group m-form__group row">
+        <label for="example-text-input" class="col-2 col-form-label">
+            CMND :
+        </label>
+        <div class="col-7">
+
+            <input class="form-control m-input" type="text" asp-for="@Model.IdentityCard">
+            <span asp-validation-for="IdentityCard" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group m-form__group row">
+        <label for="example-text-input" class="col-2 col-form-label">
+            Nơi cấp :
+        </label>
+        <div class="col-7">
+
+            <input class="form-control m-input" type="text" asp-for="@Model.IssuedBy">
+            <span asp-validation-for="IssuedBy" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group m-form__group row">
+        <label for="example-text-input" class="col-2 col-form-label">
+            Ngày cấp :
+        </label>
+        <div class="col-7">
+            <div class="input-group ">
+                <input class="form-control m-input" type="date" asp-for="@Model.IssuedDate">
+                <div class="input-group-prepend m-input">
+                    <span class="input-group-text" style="height: 41px;">
+                        <i class="la la-calendar"></i>
+                    </span>
+                </div>
+            </div>
+            <span asp-validation-for="IssuedDate" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group m-form__group row">
+        <label for="example-text-input" class="col-2 col-form-label">
+            Mã BHXH :
+        </label>
+        <div class="col-7">
+
+            <input class="form-control m-input" type="text" asp-for="@Model.NoBHXH">
+            <span asp-validation-for="NoBHXH" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="m-form__seperator m-form__seperator--dashed m-form__seperator--space-2x"></div>
+    <div class="form-group m-form__group row">
+        <div class="col-10 ml-auto">
+            <h3 class="m-form__section">
+                4. Rank
+            </h3>
+        </div>
+    </div>
+    <div class="form-group m-form__group row">
+        <label for="example-text-input" class="col-2 col-form-label">
+            Trình độ :
+        </label>
+        <div class="col-7">
+
+            <input class="form-control m-input" type="text" asp-for="@Model.Level">
+            <span asp-validation-for="Level" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group m-form__group row">
+        <label for="example-text-input" class="col-2 col-form-label">
+            Năm tốt nghiệp :
+        </label>
+        <div class="col-7">
+
+            <input class="form-control m-input" type="text" asp-for="@Model.GraduationYear">
+            <span asp-validation-for="GraduationYear" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group m-form__group row">
+        <label for="example-text-input" class="col-2 col-form-label">
+            Trường :
+        </label>
+        <div class="col-7">
+
+            <input class="form-control m-input" type="text" asp-for="@Model.School">
+            <span asp-validation-for="School" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="m-form__seperator m-form__seperator--dashed m-form__seperator--space-2x"></div>
+    <div class="form-group m-form__group row">
+        <div class="col-10 ml-auto">
+            <h3 class="m-form__section"></h3>
+        </div>
+    </div>
+    <div class="form-group m-form__group row">
+        <label for="example-text-input" class="col-2 col-form-label">
+            Tên bộ phận :
+        </label>
+        <div class="col-7">
+            <select class="form-control" asp-for="@Model.CompanyName">
+                <option value="">Chọn</option>
+                @foreach (var item in CommonService.GetAllDepartment())
+                {
+                    <option value="@item.Name">@item.Note</option>
+                }
+            </select>
+            <span asp-validation-for="CompanyName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group m-form__group row">
+        <label for="example-text-input" class="col-2 col-form-label">
+            Chức vụ :
+        </label>
+        <div class="col-7">
+            <input class="form-control m-input" type="text" asp-for="@Model.Position">
+            <span asp-validation-for="Position" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group m-form__group row">
+        <label for="example-text-input" class="col-2 col-form-label">
+            Ngày vào làm :
+        </label>
+        <div class="col-7">
+            <div class="input-group ">
+                <input class="form-control m-input" type="date" asp-for="@Model.DateWork">
+                <div class="input-group-prepend m-input">
+                    <span class="input-group-text" style="height: 41px;">
+                        <i class="la la-calendar"></i>
+                    </span>
+                </div>
+            </div>
+            <span asp-validation-for="DateWork" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group m-form__group row">
+        <label for="example-text-input" class="col-2 col-form-label">
+            Mã hợp đồng :
+        </label>
+        <div class="col-7">
+
+            <input class="form-control m-input" type="text" asp-for="@Model.NoContract" readonly>
+            <span asp-validation-for="NoContract" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group m-form__group row">
+        <label for="example-text-input" class="col-2 col-form-label">
+            Loại hợp đồng :
+        </label>
+        <div class="col-7">
+            <select class="form-control m-input" name="ContractType" asp-for="@Model.ContractType" readonly>
+                <option value="">Không xác định</option>
+                <option value="0">Vô thời hạn</option>
+                <option value="1">12 tháng</option>
+                <option value="2">24 tháng</option>
+                <option value="3">36 tháng</option>
+            </select>
+            <span asp-validation-for="ContractType" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group m-form__group row">
+        <label for="example-text-input" class="col-2 col-form-label">
+            Thời gian hợp đồng :
+        </label>
+        <div class="col-7">
+
+            <input class="form-control m-input" type="text" asp-for="@Model.TGHD" readonly>
+            <span asp-validation-for="TGHD" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group m-form__group row">
+        <label for="example-text-input" class="col-2 col-form-label">
+            Thời gian BH :
+        </label>
+        <div class="col-7">
+
+            <input class="form-control m-input" type="text" asp-for="@Model.TGBH" readonly>
+            <span asp-validation-for="TGBH" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group m-form__group row">
+        <label for="example-text-input" class="col-2 col-form-label">
+            Hợp đồng hiện tại :
+        </label>
+        <div class="col-7">
+
+            <input class="form-control m-input" type="text" asp-for="@Model.CurrentContract" readonly>
+            <span asp-validation-for="CurrentContract" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group m-form__group row">
+        <label for="example-text-input" class="col-2 col-form-label">
+            Mức lương: 
+        </label>
+        <div class="col-7">
+            <input class="form-control m-input" type="text" asp-for="@Model.Salary">
+            <span asp-validation-for="Salary" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group m-form__group row">
+        <label for="example-text-input" class="col-2 col-form-label">
+            Ngân hàng :
+        </label>
+        <div class="col-7">
+
+            <input class="form-control m-input" type="text" asp-for="@Model.Bank">
+            <span asp-validation-for="Bank" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group m-form__group row">
+        <label for="example-text-input" class="col-2 col-form-label">
+            File :
+        </label>
+        <div class="col-7">
+            <div class="m-dropdown__content">
+                <ul class="m-nav m-nav--skin-light">
+                    <li class="m-nav__section m--hide">
+                        <span class="m-nav__section-text">
+                            Section
+                        </span>
+                    </li>
+                    @foreach (var item in convertFile(Model.Files))
+                    {
+                        <li class="m-nav__item">
+                            <a href="/Account/OnGetAsync?username=@Model.UserName&img=@item.FileName" target="_blank">
+                                <span class="m-nav__link-title">
+                                    <span class="m-nav__link-wrap">
+                                        <span class="m-nav__link-text">
+                                            @item.FileName
+                                        </span>
+                                    </span>
+                                </span>
+                            </a>
+                            <span class="m-nav__link-badge">
+                                @*<span class="m-badge m-badge--brand">
+                                        <i class="la la-remove"></i>
+                                    </span>*@
+                            </span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    @*<div class="form-group m-form__group row">
+
+
+            <label for="example-text-input" class="col-2 col-form-label">
+                Upload file :
+            </label>
+
+            <div class="col-lg-6">
+                <div class="custom-file">
+                    <input type="file" name="VideoLink" id="filecontract" class="custom-file-input">
+                    <label class="custom-file-label" for="customFile">
+                        Chọn file
+                    </label>
+                </div>
+            </div>
+            <div class="col-lg-2 m--padding-left-5">
+                <a class="btn btn-outline-info active btnUploadVideo" id="btnUpload"><span>Upload</span></a>
+            </div>
+        </div>*@
+    <div class="m-portlet__foot m-portlet__foot--fit">
+        <div class="m-form__actions">
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-7">
+                    <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">
+                        Lưu
+                    </button>
+                    &nbsp;&nbsp;
+                    <button type="reset" class="btn btn-secondary m-btn m-btn--air m-btn--custom">
+                        Hủy
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,52 @@
+﻿@using LienPhatERP.Services
+@model LienPhatERP.Entities.NewsPost
+@inject ICommonService CommonService
+
+@{
+    ViewData["Title"] = "NewsShowDetail";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+
+    //var LinkImages = new LienPhatERP.ViewModels.UploadFileApiResult();
+    //if (!string.IsNullOrEmpty(Model.LinkImage))
+    //{
+    //    LinkImages = LienPhatERP.Helper.JsonHelper.DeserializeObject<LienPhatERP.ViewModels.UploadFileApiResult>(@Model.LinkImage);
+    //}
+}
+
+<nav class="navbar fixed-top navbar-expand-lg navbar-light">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <img src="/MediHubTheme/images/LOGO.svg" alt="Medihub logo" class="navbar-brand__logo">
+        </a>
+        <span class="nav-toggle js-menuToggle" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+              aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">toggle navigation</span>
+            <span class="nav-toggle__icon">
+            </span>
+        </span>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#banner">TRANG CHỦ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#intro">GIỚI THIỆU</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#services">SẢN PHẨM & DỊCH VỤ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#news">TIN TỨC</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#clients">KHÁCH HÀNG</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">LIÊN HỆ</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+@Html.Partial("_NewsPostPartial")

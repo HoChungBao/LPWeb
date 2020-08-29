@@ -1,0 +1,36 @@
+.navbar {
+  transition: .3s background-color;
+  &.navbar-light {
+    .nav-link {
+      color: transparentize($color: white, $amount: 0.2);
+      transition: .3s color;
+      font-weight: 600;
+      padding: 0.5em 1em;
+      font-size: 14px;
+      &:hover {
+        color: white;
+      }
+    }
+    &.bg-light {
+      .nav-link {
+        color: transparentize($color: black, $amount: 0.2);
+        transition: .3s color;
+        font-weight: 600;
+        &:hover {
+          color: black;
+        }
+      }
+    }
+  }
+  &.bg-light {
+    box-shadow: 0 1px 15px 1px rgba(153, 153, 153, 0.3);
+  }
+}
+
+.navbar-brand {
+  &__logo {
+    max-height: 30px;
+    max-width: 145px;
+  }
+}
+

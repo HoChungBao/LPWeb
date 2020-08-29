@@ -1,0 +1,109 @@
+﻿@{
+    ViewData["Title"] = "Insert Images";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="m-content">
+    <div class="row" id="app">
+        <div class="col-xl-12">
+            <!--Begin::Main Portlet-->
+            <div class="m-portlet">
+                <!--begin: Portlet Head-->
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                            <h3 class="m-portlet__head-text">
+                                Thêm Mới Hình Ảnh
+
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <!--end: Portlet Head-->
+                <!--begin: Form Wizard-->
+                <div class="m-wizard m-wizard--1 m-wizard--success" id="m_wizard">
+                  
+                
+                    <!--begin: Form Wizard Form-->
+                    <div class="m-wizard__form">
+                        <form action="/UploadImages/UploadFile" class="m-form m-form--label-align-left- m-form--state-" method="post" enctype="multipart/form-data">
+                            <div class="">
+                                <div class="m-form__actions m-form__actions">
+                                    <div class="row">
+                                        <div class="col-xl-8 offset-xl-2">
+                                            <div class="m-form__section m-form__section--first">
+
+                                                <div class="form-group m-form__group row js-containUpload row  js-ajaxUploadImages">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Hình Ảnh :
+                                                    </label>
+                                                    <div class="col-xl-6 col-lg-6">
+                                                        <div class="custom-file row">
+                                                            <input type="file" name="file" id="fileimages" class="custom-file-input" multiple>
+                                                            <label class="custom-file-label" for="customFile">
+                                                                Chọn hình
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2 m--padding-left-5">
+                                                        <button class="btn btn-outline-info active" type="submit"><span>Upload</span></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!--end: Form Wizard Form-->
+                </div>
+                <!--end: Form Wizard-->
+            </div>
+            <!--End::Main Portlet-->
+        </div>
+
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script>
+        $(document).ready(function () {
+            //upload image
+            var images = '';
+
+            $('.btnUpload').on('click', function () {
+
+                var data = new FormData();
+                var parent = $(this).parents(".js-ajaxUploadImages");
+                var uploadFile = $(parent).find("input[name=Images]")[0].files;
+
+                for (var x = 0; x < uploadFile.length; x++) {
+                    data.append("file", uploadFile[x]);
+                }
+                console.log(uploadFile);
+                $.ajax({
+                    type: "POST",
+                    url: "/UploadImages/UploadFile",
+                    contentType: false,
+                    processData: false,
+                    data: data
+                    //success: function (respone) {
+                    //    if (respone != null) {
+                    //        if (respone.data != '') {
+                    //            images = respone.data;
+                    //        }
+                    //    }
+                    //    swal("Upload Hình Ảnh Thành Công!!");
+                    //},
+                    //error: function () {
+                    //    swal("Upload Hình Ảnh Thất Bại!!");
+
+                    //}
+                });
+            });
+        });
+    </script>
+}

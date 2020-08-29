@@ -1,0 +1,872 @@
+﻿@using LienPhatERP.ViewModels
+@using LienPhatERP.Entities
+@model List<LienPhatERP.Entities.Contract>
+@{
+    ViewData["Title"] = "ContractById";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@functions{
+    List<UploadFileApiResult> convertFile(string f)
+    {
+        if (!string.IsNullOrEmpty(f))
+        {
+            return LienPhatERP.Helper.JsonHelper.DeserializeObject<List<UploadFileApiResult>>(f);
+
+        }
+        return new List<UploadFileApiResult>();
+    }
+    string getArray(List<PaymentContract> value)
+    {
+        if (value.Count > 0)
+        {
+            return LienPhatERP.Helper.JsonHelper.SerializeObject(value.Select(x => new { x.Id, x.Name, x.PaymentPeriod, x.TotalMoney, x.ContractId, DatePayment = x.DatePayment.ToShortDateString(), DateUpdate = x.DateUpdate.ToShortDateString(), x.Status }).ToList());
+        }
+        return "";
+
+    }
+}
+<style>
+    .CheckIn {
+        position: relative;
+        padding-left: 35px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 16px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+        .CheckIn input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+    }
+
+    .CheckIn:hover input ~ .checkmark {
+        background-color: #ccc;
+    }
+
+    .CheckIn input:checked ~ .checkmark {
+        background-color: #2196F3;
+    }
+
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    .CheckIn input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    .CheckIn .checkmark:after {
+        left: 9px;
+        top: 5px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+</style>
+<div class="m-content">
+
+    <div class="m-portlet m-portlet--mobile">
+        <div class="m-portlet__head">
+            <div class="form-group m-form__group row align-items-center m--margin-top-30">
+                <div class="col-md-4">
+
+                    <div class="m-input-icon m-input-icon--left">
+                        <input type="text" class="form-control m-input m-input--solid" placeholder="Search..." id="generalSearch">
+                        <span class="m-input-icon__icon m-input-icon__icon--left">
+                            <span>
+                                <i class="la la-search"></i>
+                            </span>
+                        </span>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <a href="#" class="btn btn-accent m-btn m-btn--icon btn-lg m-btn--icon-only"
+                       title="" data-placement="top" data-original-title="Thêm mới" data-dismiss="modal" data-toggle="modal" data-target="#myModalContract">
+                        <i class="fa fa-plus"></i>
+                    </a>
+
+
+                    <div class="m-separator m-separator--dashed d-xl-none"></div>
+                </div>
+            </div>
+            <div class="m-portlet__head-tools">
+
+            </div>
+        </div>
+        <div class="m-portlet__body">
+            <!--begin: Search Form -->
+            <div class="m-form m-form--label-align-right">
+                <div class="row align-items-center">
+                    <div class="col-xl-8 order-2 order-xl-1">
+
+                    </div>
+
+                </div>
+            </div>
+            <!--end: Search Form -->
+            <!--begin: Datatable -->
+
+            <div class="table-responsive">
+                <div class="m-form__section m-form__section--first">
+
+                    <table class="table table-bordered m-table m-table--border-brand m-table--head-bg-brand">
+                        <thead>
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    Tên hợp đồng
+                                </th>
+                                <th>
+                                    Khách hàng
+                                </th>
+                                <th>
+                                    Người tạo
+                                </th>
+                                <th>
+                                    Ngày bắt đầu
+                                </th>
+                                <th>
+                                    Ngày kết thúc
+                                </th>
+                                <th>
+                                    Trạng thái
+                                </th>
+                                <th>
+                                    File
+                                </th>
+                                <th>
+                                    Ghi chú
+                                </th>
+                                <th>
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="customerTable">
+                            @foreach (var d in Model)
+                            {
+                                <tr>
+                                    <th scope="row">
+                                        @int.Parse((Model.FindIndex(a => a.Id == d.Id) + 1).ToString())
+                                    </th>
+                                    <th scope="row">
+                                        @d.Name
+                                    </th>
+                                    <td>@d.Customer.Name</td>
+                                    <td>
+                                        @if (d.UserCreatedNavigation != null)
+                                        {
+                                            if (d.UserCreatedNavigation.Name == null)
+                                            {
+                                                @d.UserCreatedNavigation.UserName
+                                            }
+                                            else
+                                            {
+                                                @d.UserCreatedNavigation.Name
+                                            }
+                                        }
+                                    </td>
+                                    <td> @d.StartDate.Value.ToString("dd-MM-yyyy")</td>
+                                    <td> @d.EndDate.Value.ToString("dd-MM-yyyy")</td>                                  
+                                    <td>
+                                        @if (d.Status.Equals("1"))
+                                        {
+                                        <span style='width: 180px;' class='m-badge m-badge--wide m-badge--brand'>Đang hoạt động</span>
+                                        }
+                                        else
+                                        {
+                                        <span style='width: 180px;' class='m-badge m-badge--wide m-badge--danger'>Không hoạt động</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @foreach (var item in convertFile(d.Files))
+                                        {
+                                            <a href="/Customer/OnGetAsync?id=@d.Id&img=@item.FileName" target="_blank">@item.FileName</a>
+
+                                        }
+                                    </td>
+
+
+                                    <td>@d.Note</td>
+                                    <td>
+                                        @*<div class="dropdown ' + dropup + '">
+                                                <a href="#" class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown">
+                                                    <i class="la la-ellipsis-h"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="/Customer/EditCustomer?Id='+ row.id +'"><i class="la la-edit"></i>Sửa Khách Hàng</a>
+                                                    <a class="dropdown-item" href="/Customer/ContractById?id='+ row.id+ '&userId=' + row.userName +  '"><i class="la la-edit"></i>Hợp Đồng</a>
+                                                    <a class="dropdown-item" href="/Orders/CreateNewOrder?name='+ row.name + '&email=' + row.email + '&phone=' + row.phone + '"><i class="la la-edit"></i>Tạo mới Order</a>
+                                                </div>
+                                            </div>*@
+                                        <a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-dismiss="modal" data-toggle="modal" data-target="#myModalUpdateContract" data-code="@LienPhatERP.Helper.JsonHelper.SerializeObject(new { d.Id,d.Name,d.NoContract,d.Note,d.Status,StartDate=d.StartDate.Value.ToShortDateString(),EndDate=d.EndDate.Value.ToShortDateString(),d.CustomerId,d.TotalMoney,j=(getArray(d.PaymentContract.ToList()))})" title="Sửa hợp đồng">
+                                            <i class="flaticon-edit"></i>
+                                        </a>
+                                        <a href="#" onclick="deleteContract('@d.Id')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Xóa hợp đồng">
+                                            <i class="la la-remove"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <!--end: Datatable -->
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModalContract" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thêm hợp đồng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="#" method="get" id="m_form">
+                <div class="modal-body">
+
+                    <fieldset class="fieldset-group">
+                        <legend class="fieldset-group__legend">
+                            <span class="fieldset-group__title"></span>
+                        </legend>
+                        <div class="form-group m-form__group row">
+                            <div class="col-lg-6">
+                                <label class="">* Số Hợp đồng :</label>
+                                <input type="text" name="NoContract" id="noContract" class="form-control" required />
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="">* Tên hợp đồng :</label>
+                                <input type="text" name="Name" class="form-control " required />
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <div class="col-lg-6">
+                                <label class="">* Ngày bất đầu :</label>                         
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="la la-calendar-check-o"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" name="StartDate" class="form-control js-expected-date" required />
+                                    </div>                                   
+                                </div>                                                                                 
+                            <div class="col-lg-6">
+                                <label class="">* Ngày kết thúc :</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="la la-calendar-check-o"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" name="EndDate" class="form-control js-expected-date" required />
+                                </div>                           
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <div class="col-lg-6">
+                                <label class="">* Giá trị Hợp đồng :</label>
+                                <input type="number" name="TotalMoney" id="totalMoney" class="form-control " required />
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="m-radio-inline">
+                                    <label class="m-radio m-radio--solid">
+                                        <label class="CheckIn radio-select">
+                                            Đang hoạt động
+                                            <input type="radio" name="Status" value="1" checked />
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </label>
+                                    <label class="m-radio m-radio--solid">
+                                        <label class="CheckIn radio-select">
+                                            Không hoạt động
+                                            <input type="radio" name="Status" value="0" />
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <div class="col-lg-12">
+                                <label class="">* Ghi chú :</label>
+                                <textarea type="text" name="Note" class="form-control" row="3"></textarea>
+                            </div>
+                        </div>
+                        <input type="text" name="Files" id="file" hidden />
+                        <div class="form-group m-form__group row">
+                            <div class="col-lg-12">
+                                <div class="custom-file col-lg-10">
+                                    <input type="file" name="FileUrl" id="fileupload" class="custom-file-input js-showUpload" multiple>
+                                    <label class="custom-file-label" for="customFile">
+                                        Choose file
+                                    </label>
+                                </div>
+                                <span class="col-lg-2">
+                                    <input class="btn btn-primary btnupload" type="button" value="Upload" form="m_form" />
+                                </span>
+
+                            </div>
+
+                        </div>
+                        <div class="form-group m-form__group row " id="paymentContract">
+                            <label class="col-xl-3 col-lg-3 col-form-label">
+                                * Các lần thanh toán
+                            </label>
+                            <div class="col-3">
+                                <input class=" form-control memamount" id="Amount" name="Amount" type="number" value="0">
+                            </div>
+                        </div>
+                        <div class="content">
+                        </div>
+                    </fieldset>
+
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn--size btn-primary js-sendReject" id="btnContract">Thêm</a>
+                    <button type="button" class="btn btn--size btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModalUpdateContract" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Sửa hợp đồng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="#" method="get" id="m_form1">
+                <div class="modal-body">
+
+                    <fieldset class="fieldset-group">
+                        <legend class="fieldset-group__legend">
+                            <span class="fieldset-group__title"></span>
+                        </legend>
+                        <input type="text"  id="idUpdateContract" class="form-control " required hidden />
+                        <div class="form-group m-form__group row">
+                            <div class="col-lg-6">
+                                <label class="">* Số Hợp đồng :</label>
+                                <input type="text" name="NoContract" id="noUpdateContract" class="form-control" readonly required />
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="">* Tên hợp đồng :</label>
+                                <input type="text" name="Name" id="nameUpdateContract" class="form-control " required />
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <div class="col-lg-6">
+                                <label class="">* Ngày bắt đầu :</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="la la-calendar-check-o"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" name="StartDate" id="startUpdate" class="form-control js-expected-date" required />
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="">* Ngày kết thúc :</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="la la-calendar-check-o"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" name="EndDate" id="endUpdate" class="form-control js-expected-date" required />
+                                </div>                           
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <div class="col-lg-6">
+                                <label class="">* Giá trị Hợp đồng :</label>
+                                <input type="number" name="TotalMoney" id="totalUpdate" class="form-control " required />
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="m-radio-inline">
+                                    <label class="m-radio m-radio--solid">
+                                        <label class="CheckIn radio-select">
+                                            Đang hoạt động
+                                            <input type="radio" name="Status" id="statusUpdate" value="1" />
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </label>
+                                    <label class="m-radio m-radio--solid">
+                                        <label class="CheckIn radio-select">
+                                            Không hoạt động
+                                            <input type="radio" name="Status" value="0" checked />
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <div class="col-lg-12">
+                                <label class="">* Ghi chú :</label>
+                                <textarea type="text" name="Note" id="noteUpdate" class="form-control" row="3"></textarea>
+                            </div>
+                        </div>
+                        <input type="text" name="Files" id="fileUpdate" hidden />
+                        <div class="form-group m-form__group row">
+                            <div class="col-lg-12">
+                                <div class="custom-file col-lg-10">
+                                    <input type="file" name="FileUrl" id="fileupload" class="custom-file-input js-showUpload" multiple>
+                                    <label class="custom-file-label" for="customFile">
+                                        Choose file
+                                    </label>
+                                </div>
+                                <span class="col-lg-2">
+                                    <input class="btn btn-primary btnupload" type="button" value="Upload" form="m_form1" />
+                                </span>
+
+                            </div>
+
+                        </div>
+                        <div id="payment"></div>
+                        <div class="form-group m-form__group row ">
+                            <label class="col-xl-3 col-lg-3 col-form-label">
+                                * Các lần thanh toán :
+                            </label>
+                            <div class="col-3">
+                                <input class=" form-control memamount" name="AmountUpdate" type="number" value="0">
+                            </div>
+                        </div>
+                        <div class="updateContent">
+                        </div>
+                    </fieldset>
+
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn--size btn-primary js-sendReject" id="btnUpdateContract">Lưu</a>
+                    <button type="button" class="btn btn--size btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/assets/js/checkForm.js"></script>
+    <script>
+        var k = 0;
+        var filename = "";
+        var c = $(".content");
+        var m = $(".memamount");
+        var p = $("#payment");
+        var u = $(".updateContent");
+        var f = $("#fileupload");
+        var amount = $('input[name="AmountUpdate"]')
+        var totalTableUpdate = 0;
+        function AjaxSubmitCreateContract() {
+            if (checkInputContract($('#m_form')).result) {
+                $("#btnContract").addClass("m-loader m-loader--light m-loader--right disable");
+                var formData = new FormData($('#m_form')[0]);          
+                formData.append("CustomerId", @ViewData["K"]);
+                formData.append("StrStartDate", $('input[name="StartDate"]').val());
+                formData.append("StrEndDate", $('input[name="EndDate"]').val());           
+                formData.append("Files", filename);
+             
+                var array = [];
+                var total = 0;
+                for (var i = 0; i < m.val(); i++) {
+                    var count = i + 1;
+                    var paymentContract = {
+                        Name: "",
+                        ContractId: "1",
+                        TotalMoney: "",
+                        PaymentPeriod: "",
+                        StrDatePayment: "",
+                        Status: ""
+                    };
+                    total += parseInt($('#totalMoneyPayment' + count).val());
+                    paymentContract.TotalMoney = $('#totalMoneyPayment' + count).val();
+                    paymentContract.PaymentPeriod = "Lần " + count;
+                    paymentContract.Name = $('#Name' + count).val();
+                    paymentContract.StrDatePayment = $('#datePayment' + count).val();
+                    paymentContract.Status = $('input[name = "StatusPayment' + count + '"]').is(":checked") ? "1" : "0";
+                    array.push(paymentContract);
+                }
+                if (total > parseInt($('#totalMoney').val())) {
+                    swal("Tiền hợp đồng nhỏ hơn đợt tổng các đợt thanh toán", "", "warning");
+                    return;
+                }
+                formData.append("paymentContract", JSON.stringify(array));
+                $.ajax({
+                    url: '/Customer/InsertContract',
+                    type: 'POST',
+                    data: formData, // serializes the form's elements.
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response.result) {
+                            swal("", response.message, "success");
+                            setTimeout(function () {
+
+                                location.reload();
+
+                                //End
+                            }, 5000);
+                        }
+                        else {
+                            swal("", response.message, "warning");
+
+                        }
+
+                    },
+                    error: function (error) {
+                        alert("Đã bị lỗi");
+                    }
+                })
+            }
+        }
+        $("#btnContract").on("click", AjaxSubmitCreateContract);
+
+        $("#btnUpdateContract").on("click", function () {
+            if (checkInputContract($('#m_form1')).result) {
+                $("#btnUpdateContract").addClass("m-loader m-loader--light m-loader--right disable");
+                var formData = new FormData();
+                formData.append("Name", $('#nameUpdateContract').val());
+                formData.append("Id", $('#idUpdateContract').val());
+                formData.append("StrStartDate", $('#startUpdate').val());
+                formData.append("StrEndDate", $('#endUpdate').val());
+                formData.append("Note", $('#noteUpdate').val());
+                formData.append("Status", $('input[name="Status"]:checked').val());
+                if (filename != "" || filename != "[]") {
+                    formData.append("Files", filename);
+                }
+                formData.append("NoContract", $('#noUpdateContract').val());
+                formData.append("TotalMoney", $('#totalUpdate').val());
+                var array = [];
+                var total = 0;
+                for (var i = 0; i < amount.val(); i++) {
+                    var count = i + 1;
+                    var paymentContract = {
+                        Name: "1",
+                        ContractId: "1",
+                        TotalMoney: "1",
+                        PaymentPeriod: "",
+                        StrDatePayment: "01/03/2018",
+                        Status: ""
+                    };
+                    if (count > k) {
+                        total += parseInt($('#totalMoneyPayment' + count).val());
+                        paymentContract.TotalMoney = $('#totalMoneyPayment' + count).val();
+                        paymentContract.PaymentPeriod = "Lần " + count;
+                        paymentContract.Name = $('#Name' + count).val();
+                        paymentContract.StrDatePayment = $('#datePayment' + count).val();
+                    }
+                    paymentContract.Status = $('input[name = "StatusPayment' + count + '"]').is(":checked") ? "1" : "0";
+                    array.push(paymentContract);
+                }
+                if ((total + totalTableUpdate) > parseInt($('#totalUpdate').val())) {
+                    swal("Tiền hợp đồng nhỏ hơn đợt tổng các đợt thanh toán", "", "warning");
+                    return;
+                }
+                formData.append("paymentContract", JSON.stringify(array));
+                $.ajax({
+                    url: '/Customer/UpdateContract',
+                    type: 'POST',
+                    data: formData, // serializes the form's elements.
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response.result) {
+                            swal("", response.message, "success");
+                        }
+                        else {
+                            swal("", response.message, "warning");
+
+                        } setTimeout(function () {
+
+                            location.reload();
+
+                            //End
+                        }, 5000);
+
+                    },
+                    error: function (error) {
+                        alert("Đã bị lỗi");
+                    }
+                });
+            }
+    });
+
+        $('#generalSearch').on('keyup', function () {
+        var inputValue = $('#generalSearch').val().toLowerCase();
+            $("#customerTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(inputValue) > -1)
+            });
+        });
+
+        $(".btnupload").click(function () {
+        $(this).addClass("m-loader m-loader--light m-loader--right disable");
+        var data = new FormData();
+            var uploadFile = f[0].files;
+        if (uploadFile.length <= 0) {
+            return;
+        }
+        for (var x = 0; x < uploadFile.length; x++) {
+            data.append("files", uploadFile[x]);
+        }
+        $.ajax({
+        type: "POST",
+                url: "/Customer/UploadFile",
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function (respone) {
+            if (respone != null && respone.data != '') {
+                isUploadContract = true;
+                filename = respone.data;
+                $(".btnupload").removeClass("m-loader m-loader--light m-loader--right disable");
+                swal("Upload Giấy tờ liên quan", "Thành công", "success");
+            }
+
+        },
+                error: function () {
+            window.alert("Upload Error!!");
+        }
+        });
+    });
+        $("#myModalContract, #myModalUpdateContract").on("hidden.bs.modal", function () {
+            f.val("");
+            $(".custom-file-label").html("");
+            c.html("");
+            m.val("");
+            p.html("");
+            $("input[name=Status][value='0']").prop("checked", true);
+            k = 0;
+            m.val(k);
+            u.html("");
+        });
+
+        $("#myModalUpdateContract").on("show.bs.modal", function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            
+            var value = button.data('code');          
+            $('#nameUpdateContract').val(value.Name);         
+            $('#startUpdate').datepicker('setDate', new Date(value.StartDate));
+            $('#endUpdate').datepicker('setDate', new Date(value.EndDate));        
+            $('#noteUpdate').val(value.Note);
+            if (value.Status == "1") {
+                    $("#statusUpdate").prop("checked", true);
+            }
+            $('#noUpdateContract').val(value.NoContract);
+            $('#totalUpdate').val(value.TotalMoney);
+            $('#idUpdateContract').val(value.Id);
+            if (value.j.length > 0) {
+            var contract = JSON.parse(value.j);
+            k = contract.length;
+            var html = '<table class="table table-bordered m-table m-table--border-brand m-table--head-bg-brand">\
+                    <thead>\
+                            <tr>\
+                                <th>\
+                                    #\
+                                </th>\
+                                <th>\
+                                    Tên\
+                                </th>\
+                                <th>\
+                                    Tiền\
+                                </th>\
+                                <th>\
+                                    Kì hạn\
+                                </th>\
+                                <th>\
+                                    Ngày trả\
+                                </th>\
+                                <th>\
+                                    Ngày tạo\
+                                </th>\
+                                <th>\
+                                    Đã trả\
+                                </th>\  </tr>\
+                        </thead>\
+                <tbody>' ;
+            for (var i = 0; i < contract.length; i++) {
+                totalTableUpdate+= contract[i].TotalMoney;
+                var count = i + 1;
+                var tra = "";
+                if (contract[i].Status == "1") {
+                    tra = "checked";
+                }
+                var row = ' <tr>\
+                                <th scope="row">'+ count + ' </th >\
+                                    <th id="Name' + count + '">'+ contract[i].Name + '</th >\
+                                    <td id="totalMoneyPayment' + count + '">'+ contract[i].TotalMoney + '</td>\
+                                    <td>'+ contract[i].PaymentPeriod + '</td >\
+                                    <td id="datePayment' + count + '">' + convertDay(contract[i].DatePayment) + '</td>\
+                                    <td>'+ convertDay(contract[i].DateUpdate) + '</td>\
+                                    <td><label class= "CheckIn radio-select" >\
+                                        <input type="checkbox" name="StatusPayment'+ count+'" value="1" '+ tra + '/><span class="checkmark"></span></label></td>\
+                            </tr >' ;
+                    html+=(row);
+                }
+                html += '</tbody > </table > ';
+                p.append(html);
+                m.val(k);
+            }
+        });
+        
+        $(document).ready(function () {
+        $("#Amount").on("change", function () {
+            c.html("");
+            var text2 = parseInt(this.value);
+            if (k >= parseInt(this.value)) {
+                return;
+            }
+            htmlContract($(".content"), this.value);
+        })
+
+            amount.on("change", function () {
+            u.html("");
+            var text2 = parseInt(this.value);
+            if (k >= parseInt(this.value)) {
+                return;
+            }
+            htmlContract(u, this.value);
+        })
+
+        function htmlContract(d,v) {
+
+            if (k >= parseInt(v)) {
+                return;
+            }
+            if (parseInt(v) >= 1) {
+                for (var i = 0; i < parseInt(v) - k; i++) {
+                    var count = i + 1 + k;
+                    d.append(
+                        '<label class= "col-xl-3 col-lg-3 col-form-label">Lần  ' + count + '</label >\
+                                <div class= "form-group m-form__group row" >\
+                                <div class="col-lg-6">\
+                                        <label class="">* Tên :</label>\
+                                        <input type="text" Name="namePayment" id="Name' + count + '" class="form-control " placeholder="Điền tên" required />\
+                                </div>\
+                                <div class="col-lg-6">\
+                                    <label class="">* Tổng tiền :</label>\
+                                    <input type="number" Name="TotalMoneyPayment" id="totalMoneyPayment' + count + '" class="form-control " required />\
+                                </div>\
+                            </div>\
+                                <div class="form-group m-form__group row">\
+                                    <div class="col-lg-6">\
+                                        <label class="">* Ngày trả :</label>\
+                                <div class="input-group">\
+                                    <div class= "input-group-prepend" >\
+                                        <span class="input-group-text">\
+                                            <i class="la la-calendar-check-o"></i>\
+                                        </span>\
+                                        </div >\
+                                    <input type="text" Name="DatePayment" id="datePayment' + count + '" class="form-control" required />\
+                                    </div>\
+                                    </div>\
+                                    <div class="col-lg-6">\
+                            <label class= "CheckIn radio-select m--margin-40" >\
+                            Đã trả\
+                            <input type="checkbox" name="StatusPayment'+ count + '" value="1" />\
+                            <span class="checkmark"></span>\
+                                        </label >\
+                                    </div >\
+                                </div >\
+                                <hr>'
+                    );
+                    $('#datePayment' + count).datepicker({
+                            orientation: "bottom left",
+                        todayHighlight: true,
+                        format: "dd/mm/yyyy",
+                        templates: {
+                        leftArrow: '<i class="la la-angle-left"></i>',
+                            rightArrow: '<i class="la la-angle-right"></i>',
+                        }
+                    });
+                }
+
+            }
+        }
+        });
+        function deleteContract(k) {
+            swal({
+                title: "Are you sure?",
+                text: "Bạn có muốn xóa hợp đồng này không?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: 'Có',
+                cancelButtonText: "Không",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            }).then(function (isConfirm) {
+                if (isConfirm.value) {
+                    $.ajax({
+                        url: '/Customer/DeleteContract?id=' + k,
+                        type: 'GET',
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+                            if (response.result) {
+                                swal("", response.message, "success");
+                            }
+                            else {
+                                swal("", response.message, "warning");
+
+                            }
+                            location.reload();
+                        },
+                        error: function (err) {
+                            alert("Đã bị lỗi");
+                        }
+                    })
+                }
+                else {
+                    swal("Your imaginary file is safe!");
+                }
+            });
+        }
+        function convertDay(value) {
+            var date = new Date(value);
+            var month = date.getMonth() + 1;
+            return date.getDate() + "/" + (month.length > 1 ? month : "0" + month) + "/" + date.getFullYear();
+        }
+    </script>
+}
+
+
+
+
+
+
+

@@ -1,0 +1,110 @@
+﻿@using LienPhatERP.ViewModels
+@inject LienPhatERP.Services.IInformationService InformationService
+@{
+    var info = InformationService.GetInfomationById(Model);
+    var address = info.Address??"";
+    var p1 = info.MainPhone ?? "";
+    var p2 = info.Phone ?? "";
+    var mail = info.Email ?? "";
+    var work = new WorkModel();
+    if (!string.IsNullOrEmpty(info.Work))
+    {
+        work = LienPhatERP.Helper.JsonHelper.DeserializeObject<WorkModel>(info.Work);
+    }
+}
+
+    <footer class="page-footer">
+    <div class="container">
+        <div class="row text-md-left">
+            <div class="col-12 col-md-3">
+                <img src="~/Lienphat/assets/img/logo.png" class="img-fluid page-footer__logo" alt="image">
+            </div>
+            @if (Model == 1)
+            {
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="page-footer__section">
+                        <h5 class="page-footer__title">
+                            <strong>Liên hệ chúng tôi</strong>
+                        </h5>
+                        <ul class="page-footer__list">
+                            <li>Địa chỉ: @address</li>
+                            <li>Điện thoại: <br /><a href="tel:@p1">@p1</a> @(!string.IsNullOrEmpty(p2)?"-":"") <a href='tel:@p2'>@p2</a> </li>
+                            <li>Email: <a href="mailto:@mail" class="page-footer__link">@mail</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="page-footer__section">
+                        <h5 class="page-footer__title">
+                            <strong>Giờ làm việc</strong>
+                        </h5>
+                        <ul class="page-footer__list">
+                            <li>@work?.InWeek</li> @*Thứ hai - thứ sáu: 8:30 - 17:30*@
+                            <li>@work?.Saturday</li> @*Thứ bảy: 8:30 - 12:00*@
+                            <li>@work?.WeedKed</li> @*Chủ nhật: Nghỉ*@
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-3">
+                    <div class="page-footer__section">
+                        <h5 class="page-footer__title">
+                            <strong>Về chúng tôi</strong>
+                        </h5>
+                        <p>
+                            @info.About
+                            @*Liên Phát là một trong những công ty chuyên lĩnh vực sản xuất các vật phẩm quảng cáo, Mô hình  quảng cáo, Event, Activation.*@
+                        </p>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="page-footer__section">
+                        <h5 class="page-footer__title">
+                            <strong>Contact Us</strong>
+                        </h5>
+                        <ul class="page-footer__list">
+                            <li>Address: @address</li>
+                            <li>Phone: <br /><a href="tel:@p1">@p1</a> @(!string.IsNullOrEmpty(p2)?"-":"") <a href='tel:@p2'>@p2</a> </li>
+                            <li>Email: <a href="mailto:@mail" class="page-footer__link">@mail</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="page-footer__section">
+                        <h5 class="page-footer__title">
+                            <strong>Work time</strong>
+                        </h5>
+                        <ul class="page-footer__list">
+                            <li>@work.InWeek</li> @*Thứ hai - thứ sáu: 8:30 - 17:30*@
+                            <li>@work.Saturday</li> @*Thứ bảy: 8:30 - 12:00*@
+                            <li>@work.WeedKed</li> @*Chủ nhật: Nghỉ*@
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-3">
+                    <div class="page-footer__section">
+                        <h5 class="page-footer__title">
+                            <strong>About us</strong>
+                        </h5>
+                        <p>
+                            @info.About
+                            @*Liên Phát là một trong những công ty chuyên lĩnh vực sản xuất các vật phẩm quảng cáo, Mô hình  quảng cáo, Event, Activation.*@
+                        </p>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <p class="text-center mt-5">
+            © @DateTime.Now.Year Lien Phat. All Rights Reserved
+        </p>
+    </div>
+</footer>
+
+

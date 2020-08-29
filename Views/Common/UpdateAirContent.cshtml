@@ -1,0 +1,554 @@
+﻿@using LienPhatERP.Services 
+@inject ICommonService CommonService
+@model LienPhatERP.Entities.AirContents
+@{
+    ViewData["Title"] = "UpdateAirContent";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var i = Html.Raw(LienPhatERP.Helper.JsonHelper.SerializeObject(Model.AirContentDetail.Where(x=>x.CsScreen.IsHospital).Select(m => m.CsScreenId.ToString()).ToList()));
+    var j = Html.Raw(LienPhatERP.Helper.JsonHelper.SerializeObject(Model.AirContentDetail.Where(x => !x.CsScreen.IsHospital).Select(x => x.CsScreenId.ToString()).ToList()));
+    }
+<div class="m-content">
+    <div class="row" id="app">
+        <div class="col-xl-12">
+            <!--Begin::Main Portlet-->
+            <div class="m-portlet">
+                <!--begin: Portlet Head-->
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                            <h3 class="m-portlet__head-text">
+                                Thông tin Air
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <!--end: Portlet Head-->
+                <!--begin: Form Wizard-->
+                <div class="m-wizard m-wizard--1 m-wizard--success" id="m_wizard">
+                    <!--begin: Message container -->
+                    <div class="m-portlet__padding-x">
+                        <!-- Here you can put a message or alert -->
+                    </div>
+                    <!--end: Message container -->
+                    <!--begin: Form Wizard Head -->
+                    <!--end: Form Wizard Head -->
+                    <!--begin: Form Wizard Form-->
+                    <div class="m-wizard__form">
+                        <!--
+                                    1) Use m-form--label-align-left class to alight the form input lables to the right
+                                    2) Use m-form--state class to highlight input control borders on form validation
+                                    -->
+                        <form class="m-form m-form--label-align-left- m-form--state-" id="m_form">
+                            <!--begin: Form Body -->
+                            <!--begin: Form Wizard -->
+                            <div class="m-portlet__foot m-portlet__foot--fit">
+                                <div class="m-form__actions m-form__actions">
+                                    <div class="row">
+                                        <div class="col-xl-8 offset-xl-2">
+                                            <div class="m-form__section m-form__section--first">
+                                                <div class="m-form__heading">
+                                                    <h3 class="m-form__heading-title">
+                                                        Thông tin nội dung
+                                                    </h3>
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <input id="VideoLink" name="Files" type="hidden" value="">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Tên nội dung:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <input type="text" name="Name" class="form-control m-input" value="@Model.Name" required>
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền tên
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Ngày bắt đầu:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <input type="text" name="StrStartDate" class="form-control m-input js-expected-date" value="@Model.StartDate.ToString("dd/MM/yyyy")" required>
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền ngày bắt đầu
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group m-form__group row">
+
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Ngày kết thúc:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <input type="text" name="StrEndDate" class="form-control m-input js-expected-date" value="@Model.EndDate.ToString("dd/MM/yyyy")" required>
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền ngày kết thúc
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Thời lượng:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <select class="form-control" name="Durations" asp-for="@Model.Durations">
+                                                            <option value="5">5 giây</option>
+                                                            <option value="10">10 giây</option>
+                                                            <option value="15">15 giây</option>
+                                                            <option value="30">30 giây</option>
+                                                            <option value="60">60 giây</option>
+                                                        </select>
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền thời lượng
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Loại nội dung:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <select class="form-control" name="Type" id="typeAirContent" asp-for="@Model.Type">
+                                                            <option value="NOIDUNGBV">Nội dụng bệnh viện</option>
+                                                            <option value="QUANGCAO">Quảng cáo</option>
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Nhãn hàng:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <select class="form-control" name="Brand" asp-for="@Model.Brand">
+                                                            @foreach (var item in CommonService.GetAllDictionary())
+                                                            {
+                                                                <option value="@item.Name">@item.Name</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Trạng thái:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <div class="m-radio-inline">
+
+                                                            <label class="m-checkbox m-checkbox--single m-checkbox--all m-checkbox--solid m-checkbox--brand m--margin-right-40">
+                                                                <input type="radio" name="Status" value="1" class="js-checkbox-allHos">
+                                                                <span></span>
+                                                                <label class="radio-select" style="width: 80px;">
+                                                                    Đã air
+                                                                </label>
+                                                            </label>
+
+                                                            <label class="m-checkbox m-checkbox--single m-checkbox--all m-checkbox--solid m-checkbox--brand">
+                                                                <input type="radio" name="Status" value="0" class="js-checkbox-allHos">
+                                                                <span></span>
+                                                                <label class="radio-select" style="width: 80px;">
+                                                                    Chưa air
+                                                                </label>
+                                                            </label>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group m-form__group row js-containUpload row js-ajaxUploadFileVideo">
+
+                                                    <div class="col-lg-12">
+                                                        <label class="form-control-label">
+                                                            * Film Quảng cáo của Quý khách
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-lg-10">
+                                                        <div class="custom-file">
+                                                            <input type="file" name="VideoLink" id="filevideo" class="custom-file-input">
+                                                            <label class="custom-file-label" for="customFile">
+                                                                Chọn file
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2 m--padding-left-5">
+                                                        <a class="btn btn-outline-info active btnUploadVideo" id="btnUploadVideo"><span>Upload</span></a>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group m-form__group row">
+                                                    <div class="col-lg-12">
+                                                        <label class="form-control-label">
+                                                            * Chọn bệnh viện và Nhà thuốc
+                                                        </label>
+                                                    </div>
+                                                    <div class="m-accordion m-accordion--default" id="m_accordion_1" role="tablist">
+                                                        <!--begin::Item-->
+                                                        <div class="m-accordion__item">
+                                                            <div class="m-accordion__item-head collapsed" role="tab" id="m_accordion_1_item_1_head" data-toggle="collapse" href="#m_accordion_1_item_1_body"
+                                                                 aria-expanded="false">
+                                                                <span class="m-accordion__item-icon">
+                                                                    <i class="fa fa-hospital-o fa-10x"></i>
+                                                                </span>
+                                                                <span class="m-accordion__item-title">
+                                                                    1. Bệnh viện
+                                                                </span>
+                                                                <span class="m-accordion__item-mode"></span>
+                                                            </div>
+
+                                                            <div class="m-accordion__item-body collapse" id="m_accordion_1_item_1_body" class="" role="tabpanel" aria-labelledby="m_accordion_1_item_1_head"
+                                                                 data-parent="#m_accordion_1">
+                                                                <!--begin::Content-->
+                                                                <div class="tab-content m--padding-30">
+                                                                    <div class="filter-zone row">
+                                                                        <div class="col-lg-5 m--margin-bottom-15">
+                                                                            <input class="form-control m-input" id="js-hospital-search" placeholder="Nhập tên bệnh viện" v-model="txtHospital">
+                                                                        </div>
+
+                                                                        <div class="col-lg-4">
+                                                                            <select class="form-control" id="js-hospital-specialty" v-model="selectSpecias1">
+                                                                                <option value="0">Tất cả</option>
+                                                                                <option v-for="Specia in Specials1" :value="Specia">{{Specia}}</option>
+                                                                            </select>
+                                                                        </div>
+
+                                                                        <!-- <div class="col-lg-3">
+                                                                          <select class="form-control" id="js-hospital-district">
+                                                                            <option value="">Quận</option>
+                                                                            <option value="1">Quận 1</option>
+                                                                            <option value="2">Quận 2</option>
+                                                                            <option value="3">Quận 3</option>
+                                                                          </select>
+                                                                        </div> -->
+                                                                    </div>
+
+                                                                    <div class="m_datatable m-datatable m-datatable--default m-datatable--loaded" id="local_data" style="">
+
+                                                                        <table class="m-datatable__table" style="display: block; min-height: 300px; overflow-x: auto;">
+                                                                            <thead class="m-datatable__head">
+                                                                                <tr class="m-datatable__row">
+                                                                                    <th style="width: 50px;" data-field="Id" class="m--padding-left-25 m-datatable__cell m-datatable__cell--check">
+                                                                                        <span>
+                                                                                            <label class="m-checkbox m-checkbox--single m-checkbox--all m-checkbox--solid m-checkbox--brand">
+                                                                                                <input type="checkbox" v-model="selectedAllHospital">
+                                                                                                <span></span>
+                                                                                            </label>
+                                                                                        </span>
+                                                                                    </th>
+
+                                                                                    <th style="width: 132px;" data-field="Name" class="m-datatable__cell">
+                                                                                        <span>Tên Bệnh viện</span>
+                                                                                    </th>
+                                                                                    <th style="width: 100px;" class="m-datatable__cell">
+                                                                                        <span>Địa chỉ</span>
+                                                                                    </th>
+                                                                                    <th style="width: 100px;" class="m-datatable__cell">
+                                                                                        <span>Chuyên khoa</span>
+                                                                                    </th>
+                                                                                    <th style="width: 100px;" class="m-datatable__cell">
+                                                                                        <span>Số lượng</span>
+                                                                                    </th>
+                                                                                    <th style="width: 100px;" data-field="TrafficDaily" class="m-datatable__cell">
+                                                                                        <span>Số lượt xem/ngày</span>
+                                                                                    </th>
+
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody class="m-datatable__body" style="" v-for="Hospital in hosFilter" id="tableTask">
+                                                                                <tr class="m-datatable__row">
+                                                                                    <td style="width: 50px;" class="m--padding-left-25 m-datatable__cell m-datatable__cell--check">
+                                                                                        <span>
+                                                                                            <label class="m-checkbox m-checkbox--single m-checkbox--all m-checkbox--solid m-checkbox--brand">                                                           
+                                                                                                <input type="checkbox" name="CsCreensHospital" v-bind:value="Hospital.id" class="js-checkbox-childHos" v-model="checkedHospital">
+                                                                                                <span></span>
+                                                                                            </label>
+                                                                                        </span>
+                                                                                    </td>
+
+                                                                                    <td style="width: 132px;" class="m-datatable__cell" id="Name">
+                                                                                        <a :href="Hospital.linkProfile" target="_blank"><span>{{Hospital.name}}</span></a>
+                                                                                    </td>
+                                                                                    <td style="width: 132px;" class="m-datatable__cell" id="address">
+                                                                                        <span>{{Hospital.address}}</span>
+                                                                                    </td>
+                                                                                    <td style="width: 100px;" class="m-datatable__cell" id="Speciality">
+                                                                                        <span>{{Hospital.speciality}}</span>
+                                                                                    </td>
+                                                                                    <td style="width: 100px;" class="m-datatable__cell" id="TotalLed">
+                                                                                        <span>{{Hospital.totalLed}}</span>
+                                                                                    </td>
+                                                                                    <td style="width: 100px;" class="m-datatable__cell" id="TrafficDaily">
+                                                                                        <span>{{Hospital.trafficDaily}}</span>
+                                                                                    </td>
+
+                                                                                </tr>
+
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                                <!--end::Content-->
+                                                            </div>
+                                                        </div>
+                                                        <!--end::Item-->
+                                                        <!--begin::Item-->
+                                                        <div class="m-accordion__item">
+                                                            <div class="m-accordion__item-head collapsed" role="tab" id="m_accordion_1_item_2_head" data-toggle="collapse" href="#m_accordion_1_item_2_body"
+                                                                 aria-expanded="false">
+                                                                <span class="m-accordion__item-icon">
+                                                                    <i class="fa flaticon-placeholder"></i>
+                                                                </span>
+                                                                <span class="m-accordion__item-title">
+                                                                    2. Nhà thuốc
+                                                                </span>
+                                                                <span class="m-accordion__item-mode"></span>
+                                                            </div>
+                                                            <div class="m-accordion__item-body collapse" id="m_accordion_1_item_2_body" class=" " role="tabpanel" aria-labelledby="m_accordion_1_item_2_head"
+                                                                 data-parent="#m_accordion_1">
+                                                                <!--begin::Content-->
+
+                                                                <div class="tab-content m--padding-30">
+                                                                    <div class="filter-zone row">
+                                                                        <div class="col-lg-5 m--margin-bottom-15">
+                                                                            <input class="form-control m-input" id="js-hospital-search" placeholder="Nhập tên nhà thuốc" v-model="txtPharmacy">
+                                                                        </div>
+                                                                        <div class="col-lg-4">
+                                                                            <select id="js-pharmacy-city" class="form-control m-input" v-model="selectProvince2" v-on:click="filterDistrict()">
+                                                                                <option :value="-1">Tất cả</option>
+                                                                                <option v-for="City2 in ArrayProvince" :value="City2">{{City2.text}}</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="col-lg-3">
+                                                                            <select class="form-control m-input" v-model="selectDistrict2">
+                                                                                <option :value="-1">Tất cả</option>
+                                                                                <option v-for="district2 in ArrayDistrict2 " :value="district2">{{district2.text}}</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="m_datatable m-datatable m-datatable--default m-datatable--loaded" id="local_data" style="">
+                                                                        <table class="m-datatable__table" style="display: block; min-height: 300px; overflow-x: auto;">
+                                                                            <thead class="m-datatable__head">
+                                                                                <tr class="m-datatable__row">
+                                                                                    <th style="width: 50px;" data-field="RecordID" class="m--padding-left-25 m-datatable__cell m-datatable__cell--check">
+                                                                                        <span>
+                                                                                            <label class="m-checkbox m-checkbox--single m-checkbox--all m-checkbox--solid m-checkbox--brand">
+                                                                                                <input type="checkbox" v-model="selectedPharmacy">
+                                                                                                <span></span>
+                                                                                            </label>
+                                                                                        </span>
+                                                                                    </th>
+
+                                                                                    <th style="text-align: center" data-field="UserName" class="m-datatable__cell">
+                                                                                        <span>Tỉnh/thành phố</span>
+                                                                                    </th>
+                                                                                    <th style="text-align: center" data-field="UserName" class="m-datatable__cell">
+                                                                                        <span>Số lượng</span>
+                                                                                    </th>
+                                                                                    <th style="text-align: center" data-field="Email" class="m-datatable__cell">
+                                                                                        <span>Số lượt xem/ngày</span>
+                                                                                    </th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody class="m-datatable__body" style="" v-for="Pharmacy in PharFilter" id="tableTask">
+                                                                                <tr class="m-datatable__row">
+                                                                                    <td style="width: 50px;" class="m--padding-left-25 m-datatable__cell m-datatable__cell--check">
+                                                                                        <span>
+                                                                                            <label class="m-checkbox m-checkbox--single m-checkbox--all m-checkbox--solid m-checkbox--brand">
+                                                                                                <input type="checkbox" name="CsCreensPharmacy" v-bind:value="Pharmacy.id" class="js-checkbox-childPhar" v-model="checkedPharmacy">
+                                                                                                <span></span>
+                                                                                            </label>
+                                                                                        </span>
+                                                                                    </td>
+                                                                                    <td style="width: 132px;" class="m-datatable__cell">
+                                                                                        {{Pharmacy.name}}
+                                                                                    </td>
+                                                                                    <td style="width: 132px;" class="m-datatable__cell" :data-totalLed="Pharmacy.totalLed">
+                                                                                        {{Pharmacy.totalLed}}
+                                                                                    </td>
+                                                                                    <td style="width: 100px;" class="m-datatable__cell">
+                                                                                        <span>{{Pharmacy.trafficDaily}}</span>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+
+                                                                    </div>
+                                                                </div>
+                                                                <!--end::Content-->
+                                                            </div>
+                                                        </div>
+
+                                                        <!--end::Item-->
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!--end: Form Wizard Step 2-->
+                                        <!--end: Form Body -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!--begin: Form Actions -->
+                            <div class="m-portlet__foot m-portlet__foot--fit">
+                                <div class="m-form__actions m-form__actions">
+                                    <div class="row">
+                                        <div class="col-lg-2"></div>
+                                        <div class="col-lg-4 m--align-right">
+                                            <a href="#" class="btn btn-warning m-btn m-btn--custom m-btn--icon" id="butSubmitAirContent">
+                                                <span>
+                                                    <span>
+                                                        Submit
+                                                    </span>
+                                                    &nbsp;&nbsp;
+                                                    <i class="la la-arrow-right"></i>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end: Form Actions -->
+                        </form>
+
+                    </div>
+                    <!--end: Form Wizard Form-->
+                </div>
+                <!--end: Form Wizard-->
+            </div>
+            <!--End::Main Portlet-->
+        </div>
+
+    </div>
+</div>
+@section Scripts {
+    <script src="~/assets/js/checkForm.js"></script>
+    <script src="~/assets/js/VueResource.js"></script>
+    <script src="~/assets/js/axios.min.js"></script>
+    <script src="~/assets/js/vue.js"></script>
+    <script src="~/assets/js/vue-router.min.js"></script>
+    <script src="~/assets/js/wizardOrder.js"></script>
+    <script src="~/assets/js/Common.js"></script>
+    <script>
+            var isUploadVideo = false;
+
+        $(document).ready(function () {
+            var filenameVideo = '';
+            var filenameUpload = '';
+            /////
+
+            $('.btnUploadVideo').on('click', function () {
+                $(this).addClass("m-loader m-loader--light m-loader--right disable");
+                var data = new FormData();
+                var parent = $(this).parents(".js-ajaxUploadFileVideo");
+                var uploadFile = $(parent).find("input[type=file]")[0].files;
+
+                if (uploadFile.length) {
+                    for (var x = 0; x < uploadFile.length; x++) {
+                        data.append("file", uploadFile[x]);
+                    }
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/Common/UploadFileVideo",
+                        contentType: false,
+                        processData: false,
+                        data: data,
+                        success: function (respone) {
+                            if (respone != null && respone.data != '') {
+                                isUploadVideo = true;
+                                filenameVideo = respone.data;
+                                //console.log(respone.d;ata);
+                                $('#VideoLink').val(filenameVideo);
+                            }
+                            $(".btnUploadVideo").removeClass("m-loader m-loader--light m-loader--right disable");
+                            swal("Upload Video", "Thành công", "success");
+                        },
+                        error: function () {
+                            window.alert("Upload Video Error!!");
+
+                        }
+                    });
+                } else {
+                    swal("Bạn chưa chọn file", "", "error");
+                }
+            });
+
+            // Check value Hospital
+            function getCheckBoxVar() {
+                var checkbox = $("input[name=CsCreensHospital]:checked");
+                var checkboxVal = [];
+                checkbox.each(function (index) {
+                    checkboxVal.push($(this).val());
+                });
+                return checkboxVal;
+            }
+
+            //Get value checkbox pharmacy name
+            function getVarPhamacyNameChk() {
+                var chkb = $("input[name=CsCreensPharmacy]:checked");
+                var chkbVal = [];
+                chkb.each(function (indexs) {
+                    chkbVal.push($(this).val());
+                });
+                return chkbVal;
+            }
+
+            function ajaxSubmitCreateOrderForm(event) {
+                event.preventDefault();
+                if (checkInputAirContent($('#m_form')).result) {
+                    $("#butSubmitAirContent").addClass("m-loader m-loader--light m-loader--right disable");
+                    var formData = new FormData($('#m_form')[0]);
+                    var checkboxValString = app.getHospital().join(",");
+                    var chboxValPhamacyString = app.getPharmacy().join(",");
+                    //formData.append("Files", $('#VideoLink').val());
+                    formData.append("CsCreenId", checkboxValString + "," + chboxValPhamacyString);
+                    formData.append("Id", @Model.Id);
+                    $.ajax({
+                        url: '/Common/UpdateAirContent/',
+                        type: 'POST',
+                        data: formData, // serializes the form's elements.
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+
+                            if (response != null) {
+                                $("#js-reason").text("");
+                                $("#butSubmitAirContent").removeClass("m-loader m-loader--light m-loader--right disable");
+                                if (!response.result) {
+
+                                    swal("", response.message, "warning");
+
+
+                                } else {
+
+                                    swal("", response.message, "success");
+                                    setTimeout(function () {
+
+                                        window.location.href = window.location.origin + "/Common/AirContent";
+
+                                        //End
+                                    }, 5000);
+
+
+                                }
+                            }
+                        },
+                        fail: function () {
+                        }
+                    });
+                }
+
+            }
+
+            $("#butSubmitAirContent").on("click", ajaxSubmitCreateOrderForm);
+            $("input[name=Status][value='@Model.Status']").prop("checked", true);
+        });
+        app.checkedHospital= @i  ;
+        app.checkedPharmacy = @j  ;
+    </script>
+}
+

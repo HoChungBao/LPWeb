@@ -1,0 +1,14 @@
+// Your variable overrides
+$theme-colors: (
+  "primary": #2467a4,
+  "success": #67A424
+);
+
+$btn-font-weight: 600;
+$input-btn-border-width:  2px;
+$btn-border-radius: 30px;
+$btn-border-radius-lg: 30px;
+$navbar-toggler-border-radius: 5px;
+
+// Bootstrap and its default variables
+@import "node_modules/bootstrap/scss/bootstrap";

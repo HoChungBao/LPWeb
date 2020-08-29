@@ -1,0 +1,402 @@
+﻿@using LienPhatERP.Helper
+@using LienPhatERP.ViewModels
+@model List<LienPhatERP.ViewModels.MeetingRoomViewModel>
+@{
+    ViewData["Title"] = "AppointmentMeetingRoom";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var room1s = Model.Where(x => x.room.Equals("1")).ToList().Select(x=>new {x.title,x.id,x.description,x.start,x.end});
+    var room2s = Model.Where(x => x.room.Equals("2")).ToList().Select(x=>new {x.title,x.id,x.description,x.start,x.end});
+}
+<div class="row">
+    <div class="col-xl-12">
+        <!--begin::Portlet-->
+        <div class="m-portlet" id="m_portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon">
+                            <i class="flaticon-map-location"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            Calendar
+                        </h3>
+                    </div>
+                </div>
+                <div class="m-portlet__head-tools">
+                    <ul class="nav nav-pills nav-pills--brand m-nav-pills--align-right m-nav-pills--btn-pill m-nav-pills--btn-sm" role="tablist">
+                        <li class="nav-item m-tabs__item">
+                            <a class="nav-link m-tabs__link active show" data-toggle="tab" href="#mh_calender_1" role="tab" aria-selected="true">
+                               Phòng 1
+                            </a>
+                        </li>
+                        <li class="nav-item m-tabs__item">
+                            <a class="nav-link m-tabs__link" data-toggle="tab" href="#mh_calender_2" role="tab" aria-selected="false">
+                               Phòng 2
+                            </a>
+                        </li>
+                      
+                    </ul>
+                </div>
+            </div>
+            <div class="m-portlet__body">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="mh_calender_1" role="tabpanel" aria-labelledby="home-tab">
+                        <div id="m_calendar1" data-room="1"></div>
+                    </div>
+                    <div class="tab-pane fade" id="mh_calender_2" role="tabpanel" aria-labelledby="profile-tab">
+                        <div id="m_calendar2" data-room="2"></div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <!--end::Portlet-->
+    </div>
+</div>
+<div class="modal fade" id="newEvent" tabindex="-1" role="dialog" aria-labelledby="newEvent" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+   <div class="modal-content">
+    <div class="modal-header">
+     <h5 class="modal-title" id="exampleModalLongTitle">Tạo mới sự kiện</h5>
+     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+     </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="inputEmail4">Nội dung cuộc họp</label>
+            <input type="text" class="form-control" id="mh_name_event" placeholder="Nội dung cuộc họp">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputAddress2">Thời Gian Bắt Đầu</label>
+                <div class='input-group timepicker'>
+                    <input type='text' class="form-control m-input" id='mh_timepicker_start_modal' readonly placeholder="Thời Gian Bắt Đầu" value="09:00" type="text" />
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <i class="la la-clock-o"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputAddress2">Số giờ cần họp</label>
+                <div class='input-group timepicker'>
+                    <input type='number' class="form-control m-input" id='mh_timepicker_end_modal' placeholder="Số giờ cần họp" value="1" type="text" />
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <i class="la la-clock-o"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputAddress2">Ngày đặt</label>
+            <input type="text" class="form-control" disabled id="mh_datepicker_modal" readonly="" placeholder="Ngày/Tháng/Năm">
+        </div>
+    </div>
+    <div class="modal-footer">
+     <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+     <button type="button" class="btn btn-primary" id="mh-add-event">Tạo Sự Kiện</button>
+    </div>
+   </div>
+  </div>
+ </div>
+@section Scripts {
+
+<script>
+
+        var data = @Html.Raw(JsonHelperData.SerializeObject(room1s));
+        var data2 = @Html.Raw(JsonHelperData.SerializeObject(room2s));
+        var CalendarBasic = function () {
+            var modalEl = $("#newEvent");
+            var inputStartTime = $('#mh_timepicker_start_modal');
+
+            var inputDate = $('#mh_datepicker_modal');
+            var inputName = $('#mh_name_event');
+            var inputDuration = $('#mh_timepicker_end_modal');
+            var currentTable;
+            function initDatepicker() {
+                inputStartTime.timepicker({
+                    minuteStep: 1,
+                    defaultTime: '',
+                    snapToStep: true
+                });
+
+                inputDate.datepicker({
+                    todayHighlight: true,
+                    orientation: "bottom left",
+                    templates: {
+                        leftArrow: '<i class="la la-angle-left"></i>',
+                        rightArrow: '<i class="la la-angle-right"></i>'
+                    }
+                });
+            }
+            function initTableCalender() {
+                var todayDate = moment().startOf('day');
+                var YM = todayDate.format('YYYY-MM');
+                var YESTERDAY = todayDate.clone().subtract(1, 'day').format('YYYY-MM-DD');
+                var TODAY = todayDate.format('YYYY-MM-DD');
+                var TOMORROW = todayDate.clone().add(1, 'day').format('YYYY-MM-DD');
+
+                $('#m_calendar1').fullCalendar({
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay,listWeek'
+                    },
+                    editable: true,
+                    eventLimit: true, // allow "more" link when too many events
+                    navLinks: true,
+                    selectable: true,
+                    events:
+                        data
+                    ,
+                    eventDrop: function(event, delta, revertFunc) {
+                        if (confirm("Are you sure about this change?")) {
+                            updateTable(event)
+                                .catch((err) => {
+                                    revertFunc();
+                                });
+                        }
+                    },
+                    eventRender: function (event, element) {
+                        if (element.hasClass('fc-day-grid-event')) {
+                            element.data('content', event.description);
+                            element.data('placement', 'top');
+                            mApp.initPopover(element);
+                        } else if (element.hasClass('fc-time-grid-event')) {
+                            element.find('.fc-title').append('<div class="fc-description">' + event.description + '</div>');
+                        } else if (element.find('.fc-list-item-title').lenght !== 0) {
+                            element.find('.fc-list-item-title').append('<div class="fc-description">' + event.description + '</div>');
+                        }
+                    },
+                    select: function (start, end) {
+                        $('#newEvent').modal('show');
+                        inputDate.val(start.format('DD/MM/YYYY'));
+                        currentTable = $('#m_calendar1');
+                    },
+                    eventClick: function (calEvent, jsEvent, view) {
+                        swal({
+                            title: 'Are you sure?',
+                            text: "You won't be able to revert this!",
+                            type: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes, delete it!'
+                        }).then((result) => {
+                            if (result.value) {
+                                $.ajax(
+                                    {
+                                        url: '/Common/DeleteAppointmentMeetingRoom?id='+ calEvent.id,
+                                        type: 'Delete',
+                                        contentType: false,
+                                        processData: false,
+                                        success: function (response) {
+                                            if (response.result) {
+                                                $('#m_calendar1').fullCalendar('removeEvents', calEvent._id);
+                                                swal(
+                                                    'Deleted!',
+                                                    'Your file has been deleted.',
+                                                    'success'
+                                                );
+                                            } else {
+                                                swal({
+                                                    type: 'error',
+                                                    title: response.message
+                                                });
+                                            }
+
+                                        },
+                                        error: function(error) {
+                                            swal({
+                                                type: 'error',
+                                                title: error.message
+                                            });
+                                        }
+                                    }
+                                );
+                              
+                               
+                            }
+                        })
+                       
+
+                    },
+                });
+                $('#m_calendar2').fullCalendar({
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay,listWeek'
+                    },
+                    editable: true,
+                    eventLimit: true, // allow "more" link when too many events
+                    navLinks: true,
+                    selectable: true,
+                    events:
+                        data2
+                    ,
+                    eventDrop: function(event, delta, revertFunc) {
+                        if (confirm("Are you sure about this change?")) {
+                            updateTable(event)
+                                .catch((err) => {
+                                    revertFunc();
+                                });
+                        }
+                    },
+                    eventRender: function (event, element) {
+                        if (element.hasClass('fc-day-grid-event')) {
+                            element.data('content', event.description);
+                            element.data('placement', 'top');
+                            mApp.initPopover(element);
+                        } else if (element.hasClass('fc-time-grid-event')) {
+                            element.find('.fc-title').append('<div class="fc-description">' + event.description + '</div>');
+                        } else if (element.find('.fc-list-item-title').lenght !== 0) {
+                            element.find('.fc-list-item-title').append('<div class="fc-description">' + event.description + '</div>');
+                        }
+                    },
+                    select: function (start) {
+                        $('#newEvent').modal('show');
+                        inputDate.val(start.format('DD/MM/YYYY'));
+                        currentTable = $('#m_calendar2');
+                    }
+                });
+            }
+
+            function  updateTable(event) {
+                var formData = new FormData();
+                formData.append("Id", event.id);
+                formData.append("AppointmentDateStr", event.start.format("DD/MM/YYYY"));
+
+                // GOI AJAX
+                return new Promise((resolve, reject) => {
+                    $.ajax(
+                        {
+                            url: '/Common/UpdateMeetingRoom',
+                            type: 'POST',
+                            data: formData, // serializes the form's elements.
+                            contentType: false,
+                            processData: false,
+                            success: function(response) {
+                                if (response.result) {
+                                    currentTable.fullCalendar('renderEvent',
+                                        {
+                                            id: response.result.id,
+                                            title: inputName.val(),
+                                            start: response.result.title,
+                                            description: response.result.description,
+                                        });
+                                    resolve(response);
+                                } else {
+                                    swal({
+                                        type: 'error',
+                                        title: response.message
+                                    });
+                                    reject(response);
+                                }
+                            },
+                            error: function(error) {
+                                swal({
+                                    type: 'error',
+                                    title: error.message
+                                });
+                            }
+                        }
+                    );
+                });
+            }
+            function handleAddEvent() {
+                if (!inputName.val()) {
+                    swal({
+                        type: 'error',
+                        title: 'Thiếu tên sự kiện'
+                    });
+                    return false;
+                }
+                if (!inputStartTime.val()) {
+                    swal({
+                        type: 'error',
+                        title: 'Thiếu thời gian bắt đầu'
+                    });
+                    return false;
+                }
+                if (!inputDate.val()) {
+                    swal({
+                        type: 'error',
+                        title: 'Thiếu khoản thời gian sự kiện diễn ra'
+                    });
+                    return false;
+                }
+
+                if (!inputDuration.val()) {
+                    swal({
+                        type: 'error',
+                        title: 'Thiếu thoi luong chuong trinh'
+                    });
+                    return false;
+                }
+                var formData = new FormData() ;
+                formData.append("Name", inputName.val());
+                formData.append("Hour", inputStartTime.val());
+                formData.append("Durations", inputDuration.val());
+                formData.append("AppointmentDateStr", inputDate.val());
+                formData.append("Room", currentTable.data("room"));
+                // GOI AJAX
+                $.ajax(
+                    {
+                        url: '/Common/UpdateMeetingRoom',
+                        type: 'POST',
+                        data: formData, // serializes the form's elements.
+                        contentType: false,
+                        processData: false,
+                        success: function(response) {
+                            currentTable.fullCalendar('renderEvent',
+                                {
+                                    id:response.result.id,
+                                    title: inputName.val(),
+                                    start: response.result.title,
+                                    description:response.result.description,
+                                });
+                            closeModal();
+                        },
+                        error: function(error) {
+                            swal({
+                                type: 'error',
+                                title: error.data.error
+                            });
+                        }
+                    }
+                );
+            }
+
+            function addEvents() {
+                $("#mh-add-event").on("click",
+                    function(element) {
+                        handleAddEvent();
+                    });
+            }
+
+            function closeModal() {
+                $('#newEvent').modal('hide');
+                $('#mh_name_event').val('');
+                $('#mh_timepicker_start_modal').val('');
+            }
+
+            return {
+                //main function to initiate the module
+                init: function () {
+                    initDatepicker();
+                    initTableCalender();
+                    addEvents();
+                }
+            };
+        }();
+
+        jQuery(document).ready(function () {
+            CalendarBasic.init();
+        });
+</script>
+}

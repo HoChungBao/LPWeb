@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewData["Title"] = "Success";
+    Layout = "~/Views/Shared/_LayoutMediHub.cshtml";
+}
+
+@{
+    Layout = "~/Views/Shared/_LayoutGuest.cshtml";
+    ViewData["Title"] = "Thành công";
+}
+
+@*<header>
+        <h2 class="text-danger">@ViewData["Title"]</h2>
+        <p class="text-danger">You do not have access to this resource.</p>
+    </header>*@
+
+<div class="m-content">
+    <div class="row">
+        <div class="col-xl-12">
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+
+                <div class="m-portlet__body">
+                    <!--begin::Section-->
+                    <div class="m-section__content">
+                        <div class="alert alert-success" role="alert">
+                            <strong>
+                                @ViewData["Title"]!
+                            </strong>
+                            Bạn đã duyệt thành công!!!
+                        </div>
+                    </div>
+                    <!--end::Section-->
+                </div>
+            </div>
+            <!--end::Portlet-->
+
+        </div>
+
+    </div>
+</div>

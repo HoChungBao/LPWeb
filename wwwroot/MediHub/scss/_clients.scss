@@ -1,0 +1,24 @@
+.clients {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  &__item {
+    height: 120px;
+    display: flex;
+    padding: 15px 0;
+    @include setFlexBasis(180px);
+    img {
+      margin: auto;
+      max-height: 100%;
+      max-width: 80%;
+    }
+    @media (max-width: 576px) {
+      @include setFlexBasis(80px);
+    }
+  }
+}
+
+.slick-initialized .slick-slide {
+  display: flex;
+}

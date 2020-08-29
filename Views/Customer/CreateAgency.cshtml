@@ -1,0 +1,365 @@
+﻿@using LienPhatERP.Services ;
+@inject ICommonService CommonService
+@model  List<LienPhatERP.Entities.AspNetUsers>
+@{
+    ViewData["Title"] = "CreateCustomer";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="m-content">
+    <div class="row" id="app">
+        <div class="col-xl-12">
+            <!--Begin::Main Portlet-->
+            <div class="m-portlet">
+                <!--begin: Portlet Head-->
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                            <h3 class="m-portlet__head-text">
+                                Client Registration
+
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <!--end: Portlet Head-->
+                <!--begin: Form Wizard-->
+                <div class="m-wizard m-wizard--1 m-wizard--success" id="m_wizard">
+                    <!--begin: Message container -->
+                    <div class="m-portlet__padding-x">
+                        <!-- Here you can put a message or alert -->
+                    </div>
+                    <!--end: Message container -->
+                    <!--begin: Form Wizard Head -->
+                    <!--end: Form Wizard Head -->
+                    <!--begin: Form Wizard Form-->
+                    <div class="m-wizard__form">
+                        <!--
+                                    1) Use m-form--label-align-left class to alight the form input lables to the right
+                                    2) Use m-form--state class to highlight input control borders on form validation
+                                    -->
+                        <form class="m-form m-form--label-align-left- m-form--state-" id="m_form">
+                            <!--begin: Form Body -->
+                            <!--begin: Form Wizard -->
+                            <div class="m-portlet__foot m-portlet__foot--fit">
+                                <div class="m-form__actions m-form__actions">
+                                    <div class="row">
+                                        <div class="col-xl-8 offset-xl-2">
+                                            <div class="m-form__section m-form__section--first">
+                                                <div class="m-form__heading">
+                                                    <h3 class="m-form__heading-title">
+                                                        Thông Tin Khách Hàng
+                                                    </h3>
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Nhân viên chăm sóc:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <select class="form-control" name="type" id="typePic">
+                                                            <option value="">Chọn tên</option>
+                                                            @foreach (var item in Model)
+                                                            {
+                                                                if (User.Identity.Name.Equals(item.UserName))
+                                                                {
+                                                                    <option value="@item.Id" selected="selected">@item.Name</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@item.Id">@item.Name</option>
+                                                                }
+
+                                                            }
+                                                        </select>
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền tên
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Tên Khách Hàng:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <input type="text" name="customerName" class="form-control m-input" value="" required>
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền tên
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group m-form__group row">
+
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Liên hệ:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <input type="text" name="Contact" class="form-control m-input" placeholder="" value="" required>
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền liên hệ
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Vị trí:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <input type="text" name="customerPosition" class="form-control m-input" value="" required>
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền vị trí
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Loại Khách Hàng:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <select class="form-control" name="type" id="typeCustomer">
+                                                            @foreach (var item in CommonService.GetAllDictionary())
+                                                            {
+                                                                <option value="@item.Name">@item.Name</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group m-form__group row">
+
+
+                                                        <label class="col-xl-3 col-lg-3 col-form-label">
+                                                            * Email:
+                                                        </label>
+                                                        <div class="col-xl-9 col-lg-9">
+                                                            <input type="email" name="Email" class="form-control m-input" placeholder="" value="" required>
+                                                            <span class="m-form__help">
+                                                                Vui lòng điền email
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                <div class="form-group m-form__group row">
+
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Số điện thoại:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">
+                                                                    <i class="la la-phone"></i>
+                                                                </span>
+                                                            </div>
+                                                            <input type="number" name="Phone" class="form-control m-input" placeholder="" value="" required>
+                                                        </div>
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền số điện thoại
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                @*<div class="form-group m-form__group row">
+
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Địa chỉ:
+                                                    </label>
+
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <label class="form-label"> Tỉnh/Thành Phố</label>
+                                                        <div class="m-input">
+                                                            <select class="form-control js-city" name="Province"></select>
+                                                        </div>
+                                                        <label class="form-label"> Quận/huyện</label>
+                                                        <div class="m-input">
+                                                            <select class="form-control js-distric" name="District"></select>
+                                                        </div>*@
+                                                        @*<label class="form-label" > Phường, xã</label>
+                                                            <div class="m-input">
+                                                                <select class="form-control js-ward"></select>
+                                                            </div>*@
+                                                        @*<label class="form-label">Chính Xác địa chỉ "Số nhà, đường"</label>
+                                                        <div class="m-input">
+                                                            <textarea class="form-control " rows="3 " name="Address"></textarea>
+                                                        </div>
+
+
+
+
+
+                                                    </div>
+                                                </div>*@
+
+
+                                                @*<div class="form-group m-form__group row">
+
+                                                        <label class="col-xl-3 col-lg-3 col-form-label">
+                                                            * Tên sản phẩm:
+                                                        </label>
+                                                        <div class="col-xl-9 col-lg-9">
+                                                            <input type="text" name="ProductName" class="form-control m-input" placeholder="" value="" required>
+                                                            <span class="m-form__help">
+                                                                Vui lòng điền tên sản phẩm
+                                                            </span>
+                                                        </div>
+                                                    </div>*@
+                                                @*<div class="form-group m-form__group row">
+
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Loại Sản phẩm:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <select name="ProductType" class="form-control m-input selectpicker" id="ProductType" required>
+                                                            <option value="">
+                                                                Chọn sản phẩm
+                                                            </option>*@
+                                                @*@foreach (var item in Model)
+                                                        {
+                                                    <option value="@item.Name">
+                                                        @item.Name
+                                                    </option>
+
+                                                        }*@
+                                                @*</select>
+                                                        </div>
+                                                    </div>*@
+
+                                                @*<div class="m-form__section">
+
+                                                        <div class="form-group m-form__group row js-containUpload row js-ajaxUploadFileVideo">
+
+
+                                                            <label class="col-xl-3 col-lg-3 col-form-label">
+                                                                * Video
+                                                            </label>
+
+                                                            <div class="col-xl-6 col-lg-6">
+                                                                <div class="custom-file row">
+                                                                    <input type="file" name="VideoLink" id="filevideo" class="custom-file-input">
+                                                                    <label class="custom-file-label" for="customFile">
+                                                                        Choose file
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+
+                                                            <input class="btn btn-primary btnUploadVideo" type="button" value="Upload" id="btnUploadVideo" />
+
+                                                        </div>
+                                                        <div class="form-group m-form__group permission-doc row">
+                                                            <div class="col-lg-12">
+                                                                <div class="permission-doc__container"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>*@
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Ghi chú:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <textarea name="Note" class="form-control m-input" placeholder="" value="" rows="3"></textarea>
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền ghi chú
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Trạng thái:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <select class="form-control" name="type" id="statusCustomer">
+                                                            @foreach (var item in CommonService.GetAllStatus())
+                                                            {
+                                                                <option value="@item.Name">@item.Name</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--end: Form Wizard Step 2-->
+                                        <!--end: Form Body -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!--begin: Form Actions -->
+                            <div class="m-portlet__foot m-portlet__foot--fit">
+                                <div class="m-form__actions m-form__actions">
+                                    <div class="row">
+                                        <div class="col-lg-2"></div>
+                                        <div class="col-lg-4 m--align-right">
+                                            <a href="#" class="btn btn-warning m-btn m-btn--custom m-btn--icon" id="butSubmitCustomer">
+                                                <span>
+                                                    <span>
+                                                        Submit
+                                                    </span>
+                                                    &nbsp;&nbsp;
+                                                    <i class="la la-arrow-right"></i>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end: Form Actions -->
+                        </form>
+
+                    </div>
+                    <!--end: Form Wizard Form-->
+                </div>
+                <!--end: Form Wizard-->
+            </div>
+            <!--End::Main Portlet-->
+        </div>
+
+    </div>
+</div>
+@section Scripts {
+    <script src="~/assets/js/checkForm.js"></script>
+    <script>
+        $(document).ready(function () {
+            function AjaxSubmitCreateCustomer() {
+                if (checkInput().result) {
+                    $("#butSubmitCustomer").addClass("m-loader m-loader--light m-loader--right disable");
+                    var formData = new FormData() ;
+                    formData.append("Name", $("input[name=customerName]").val()) ;
+                    formData.append("Type", $("#typeCustomer option:selected").text()) ;
+                    formData.append("Email",$("input[name=Email]").val()) ;
+                    formData.append("Phone", $("input[name=Phone]").val()) ;
+                    formData.append("Status", $("#statusCustomer option:selected").text()) ;
+                    formData.append("Contact", $('input[name=Contact]').val()) ;
+                    formData.append("Note", $('textarea[name=Note]').val()) ;
+                    formData.append("Pic", $("#typePic option:selected").text());
+                    formData.append("UserPic", $("#typePic option:selected").val());
+                    formData.append("Position", $('input[name=customerPosition]').val());
+                    $.ajax({
+                        url: '/Customer/InsertAgency',
+                        type: 'POST',
+                        data: formData, // serializes the form's elements.
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+                            if (response.result) {
+                                swal("", response.message, "success");
+                            }
+                            else {
+                                swal("", response.message, "warning");
+
+                            } setTimeout(function () {
+
+                                location.reload();
+
+                                //End
+                            }, 5000);
+
+                        },
+                        error: function (error) {
+                            alert("Đã bị lỗi");
+                        }
+                    })
+                }
+                   }
+            $("#butSubmitCustomer").on("click", AjaxSubmitCreateCustomer);
+        });
+    </script>
+}

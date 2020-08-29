@@ -1,0 +1,18 @@
+.fadeInLeftSubtle {
+  -webkit-animation-name: fadeInLeftSubtle;
+  animation-name: fadeInLeftSubtle;
+}
+
+@keyframes fadeInLeftSubtle  {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(-25px);
+    transform: translateX(-25px);
+    visibility: visible;
+  }
+  100% {
+      opacity: 1;
+      -webkit-transform: translateX(0);
+      transform: translateX(0);
+  }
+}

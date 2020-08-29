@@ -1,0 +1,60 @@
+﻿@if (this.Model.TotalPages > 1)
+{
+    var urlTemplate = Url.Action() + "?page={0}";
+    var request = ViewContext.HttpContext.Request;
+    foreach (var key in request.Query.Keys)
+    {
+        if (key == "page")
+        {
+            continue;
+        }
+
+        urlTemplate += "&" + key + "=" + request.Query[key];
+
+    }
+<ul class="pagination pagination-sm justify-content-end">
+    @if (this.Model.HasPreviousPage)
+    {
+        <li class="page-item">
+            <a href="@urlTemplate.Replace("{0}", Convert.ToString((Model.PageIndex - 1)))" aria-label="Previous" class="page-link">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+    }
+    @{int d = 4;
+      int j = Model.PageIndex - Model.PageIndex % d + d;
+      int k = Model.PageIndex - Model.PageIndex % d + 1;
+    }
+    @if (Model.PageIndex % d == 0)
+    {
+        <li class="page-item active">
+            <a href="@urlTemplate.Replace("{0}",Model.PageIndex.ToString())" aria-label="@Model.PageIndex" class="page-link">
+                <span aria-hidden="true">@Model.PageIndex</span>
+            </a>
+        </li>
+    }
+    @for (int i = k; i <= j; i++)
+    {
+        if (Model.TotalPages >= i)
+        {
+            <li class="page-item @((Model.PageIndex == i) ? "active" : null)">
+                <a href="@urlTemplate.Replace("{0}",i.ToString())" aria-label="@i" class="page-link">
+                    <span aria-hidden="true">@i</span>
+                </a>
+            </li>
+        }
+    }
+
+    @if (this.Model.HasNextPage)
+    {
+        <li class="page-item">
+            <a href="@urlTemplate.Replace("{0}", Convert.ToString((Model.PageIndex+1)))" aria-label="Next" class="page-link">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    }
+
+
+
+</ul>
+}

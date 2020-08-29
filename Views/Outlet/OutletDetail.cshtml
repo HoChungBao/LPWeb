@@ -1,0 +1,283 @@
+﻿@using LienPhatERP.Helper
+@model LienPhatERP.Models.OutletViewModel
+@{
+    ViewData["Title"] = "OutletDetail";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css" />
+
+
+<link href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+<link href="~/assets/demo/default/Autocomlete.css" rel="stylesheet" />
+<div class="row">
+    <div class="col-xl-12">
+        <!--begin:: Widgets/Best Sellers-->
+        <div class="m-portlet m-portlet--full-height ">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <h3 class="m-portlet__head-text">
+                            Thông tin chi tiết
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="m-input-icon m-input-icon--left m-portlet__head-tools" style="width: 60%">
+                    <input type="text" class="form-control m-input" placeholder="Search..." id="generalSearch">
+                    <span class="m-input-icon__icon m-input-icon__icon--left">
+                        <span>
+                            <i class="la la-search"></i>
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <div class="m-portlet__body">
+                <!--begin::Content-->
+                <div class="tab-content">
+                    <div class="tab-pane active" id="m_widget5_tab1_content" aria-expanded="true">
+                        <!--begin::m-widget5-->
+                        <div class="m-widget5">
+                            <div class="m-widget5__item">
+                                <div class="m-widget4__pic" style="max-width: 400px">
+                                    <img class="m-widget4__img" src="/image/460/w/@Model?.Outlet?.AvatarUrl?.Replace("[\"","").Replace("\"]","") " alt="">
+                                </div>
+                                <div class="m-widget5__content">
+                                    <h4 class="m-widget5__title">
+                                        Tên nhà thuốc: @Model?.Outlet?.DrugStoreName
+                                    </h4>
+                                    <span class="m-widget5__desc">
+                                        Địa chỉ: 302 Lê Văn Sỹ, P11, Q. Tân bình
+                                    </span>
+                                    <div class="m-widget5__info">
+                                        <span class="m-widget5__author">
+                                            Quận: @Model?.Outlet?.District
+                                        </span>
+
+
+                                    </div>
+                                    <div class="m-widget5__info">
+                                        <span class="m-widget5__author">
+                                            Thành Phố: @Model?.Outlet?.Province
+                                        </span>
+
+
+                                    </div>
+                                    <div class="m-widget5__info">
+                                        <span class="m-widget5__author">
+                                            Vùng miền:@Model?.Outlet?.Area
+                                        </span>
+
+
+                                    </div>
+                                </div>
+                                <div class="m-widget5__stats1">
+
+                                </div>
+
+                            </div>
+                            <div class="m_datatable m-datatable m-datatable--default m-datatable--loaded" id="scrolling_vertical" style="">
+                                <table class="m-datatable__table" style="display: block; min-height: 300px; overflow-x: auto;">
+                                    <thead class="m-datatable__head">
+                                        <tr class="m-datatable__row">
+
+                                            <th data-field="name" class="m-datatable__cell m-datatable__cell--sort"><span style="width: 120px;">Tên</span></th>
+                                            <th data-field="isCompleted" class="m-datatable__cell m-datatable__cell--sort"><span style="width: 120px;">Loại dự án</span></th>
+                                            <th data-field="projectType" class="m-datatable__cell m-datatable__cell--sort"><span style="width: 120px;">Nhãn hiệu</span></th>
+               
+                                            <th data-field="customerName" class="m-datatable__cell m-datatable__cell--sort"><span style="width: 120px;">Hạng mục</span></th>
+                                            <th data-field="customerType" class="m-datatable__cell m-datatable__cell--sort"><span style="width: 120px;">KT ngang</span></th>
+                                            <th data-field="customerPhone" class="m-datatable__cell m-datatable__cell--sort"><span style="width: 120px;">KT Cao</span></th>
+                                            <th data-field="customerEmail" class="m-datatable__cell m-datatable__cell--sort"><span style="width: 70px;">Hình ảnh</span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="m-datatable__body" style="">
+                                        @if (Model != null && Model.Projects != null && Model.Projects.Count > 0)
+                                        {
+                                            int i = 1;
+                                            foreach (var item in Model.Projects)
+                                            {
+                                                if (i % 2 == 0)
+                                                {
+                                                    <tr data-row="0" class="m-datatable__row">
+
+                                                        <td data-field="name" class="m-datatable__cell"><span style="width: 120px;">@item.Project.Name</span></td>
+                                                        <td data-field="projectType" class="m-datatable__cell">
+                                                            <span style="width: 120px;">
+                                                                <span class="m-badge m-badge--brand m-badge--wide">@DictionaryData.GetDataType(@item.Project.ProjectType)</span>
+                                                            </span>
+                                                        </td>
+                                                        <td data-field="customerName" class="m-datatable__cell"><span style="width: 120px;">@item.Label</span></td>
+
+                                                        <td data-field="customerType" class="m-datatable__cell"><span style="width: 120px;">@item.Component</span></td>
+
+
+                                                        <td data-field="customerPhone" class="m-datatable__cell"><span style="width: 120px;">@item.Hsize</span></td>
+                                                        <td data-field="customerEmail" class="m-datatable__cell"><span style="width: 120px;">@item.Vsize</span></td>
+                                                        <td data-field="customerEmail" class="m-datatable__cell">
+                                                            <span style="width: 70px;">
+                                                                @if (!string.IsNullOrEmpty(item.Images))
+                                                                {
+                                                                    foreach (var img in item.Images.Split(','))
+                                                                    {
+                                                                        <a data-fancybox="gallery" href="/@img" data-caption="Caption for single image">
+                                                                            <img src="/image/70/w/@img" alt="">
+                                                                        </a>
+                                                                    }
+                                                                 
+                                                                }
+
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                                else
+                                                {
+                                                    <tr data-row="0" class="m-datatable__row m-datatable__row--even">
+
+                                                        <td data-field="name" class="m-datatable__cell"><span style="width: 120px;">@item.Project.Name</span></td>
+                                                        <td data-field="projectType" class="m-datatable__cell">
+                                                            <span style="width: 120px;">
+                                                                <span class="m-badge m-badge--brand m-badge--wide">@DictionaryData.GetDataType(@item.Project.ProjectType)</span>
+                                                            </span>
+                                                        </td>
+                                                        <td data-field="customerName" class="m-datatable__cell"><span style="width: 120px;">@item.Label</span></td>
+
+                                                        <td data-field="customerType" class="m-datatable__cell"><span style="width: 120px;">@item.Component</span></td>
+
+
+                                                        <td data-field="customerPhone" class="m-datatable__cell"><span style="width: 120px;">@item.Hsize</span></td>
+                                                        <td data-field="customerEmail" class="m-datatable__cell"><span style="width: 120px;">@item.Vsize</span></td>
+                                                        <td data-field="customerEmail" class="m-datatable__cell">
+                                                            <span style="width: 70px;height: 70px">
+                                                                @if (!string.IsNullOrEmpty(item.Images))
+                                                                {
+                                                                    foreach (var img in item.Images.Split(','))
+                                                                    {
+                                                                        <a data-fancybox="gallery" href="/@img" data-caption="Caption for single image">
+                                                                            <img src="/image/70/w/@img" alt="">
+                                                                        </a>
+                                                                    }
+                                                                 
+                                                                }
+
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                                i++;
+                                            }
+                                        }
+
+
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                        <!--end::m-widget5-->
+                    </div>
+
+
+                </div>
+                <!--end::Content-->
+            </div>
+        </div>
+        <!--end:: Widgets/Best Sellers-->
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+    <script type="text/javascript">
+
+        $(function () {
+            $.widget("custom.catcomplete", $.ui.autocomplete, {
+                _create: function () {
+                    this._super();
+                    this.widget().menu("option", "items", "> :not(.ui-autocomplete-category)");
+                },
+                _renderMenu: function (ul, items) {
+                    var that = this,
+                        currentCategory = "";
+                    $.each(items, function (index, item) {
+                        var li;
+                        if (item.category != currentCategory) {
+                            ul.append("<li class='ui-autocomplete-category'>" + item.category + "</li>");
+                            currentCategory = item.category;
+                        }
+                        li = that._renderItemData(ul, item);
+                        if (item.category) {
+                            li.attr({
+                                "aria-label": item.category + " : " + item.label,
+                                "data-id": item.id
+                            });
+                        }
+                    });
+                }
+            });
+
+
+            $("#generalSearch").catcomplete({
+                delay: 300,
+                source: "/Outlet/GetJsonDataOutletStore?",
+                select: function (event, ui) {
+                    //set tagids to save
+
+                    $("#generalSearch").val(ui.item.id);
+
+                    console.log(ui.item.id);
+                    //Tags for display
+                    this.value = ui.item.value;
+                    setTimeout(function () {
+
+                        window.location.href = window.location.origin + "/Outlet/OutletDetail?id=" + ui.item.id;
+
+                        //End
+                    }, 0);
+
+
+                },
+                //close: function (event, ui) {
+                //    console.log(ui);
+                //    $.ajax({
+                //        url: '/Outlet/OutletDetail?id=' + ui.item.id,
+                //        type: 'Get',
+                //        success: function (response) {
+
+                //            if (response != null) {
+                //                console.log('aaaaa');
+                //            }
+                //        },
+
+                //    });
+                //}
+
+            });
+        });
+    </script>
+    //$(document).ready(function () {
+
+
+    //    $('#generalSearch').autocomplete({
+
+    //        //source: countries
+    //        source: '/Outlet/GetJsonDataOutletStore',
+    //        select: function (event, ui) {
+    //            //set tagids to save
+    //            console.log(ui);
+    //            $("#generalSearch").val(ui.item.id);
+
+
+    //            //Tags for display
+    //            this.value = ui.item.value;
+    //            return false;
+    //        }
+    //    });
+    //});
+
+}

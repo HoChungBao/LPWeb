@@ -1,0 +1,70 @@
+.banner {
+  height: 100vh;
+  background-image: url("../images/banner-img.jpg");
+  background-position: center;
+  // background-image: url("https://steamuserimages-a.akamaihd.net/ugc/269463939060302273/8180D4BA76BB9EEFCCD9CCAD5B4C4DD1228BA302/");
+  background-size: cover;
+  background-attachment: fixed;
+  position: relative;
+  display: flex;
+  align-items: center;
+  &:before {
+    content: "";
+    opacity: .5;
+    background: linear-gradient(135deg, #301c08 0%, #301c08 9%, #f4d03f 43%, #16a084 75%, #16a084 100%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__intro {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__message {
+    color: white;
+    font-size: 3em;
+    margin-bottom: $space-m;
+    text-align: center;
+    font-weight: 300;
+    @media (max-width: 768px) {
+      font-size: 2em;
+    }
+    @media (max-width: 576px) {
+      font-size: 1.25em;
+    }
+  }
+
+  &__highlight {
+    font-weight: 600;
+  }
+
+  &__description {
+    font-size: 1.25em;
+    color: white;
+    text-align: center;
+    @media (max-width: 768px) {
+      font-size: 1em;
+    }
+  }
+
+  &__buttons {
+    text-align: center;
+  }
+
+  &__video {
+    background: url(http://zozothemes.com/html/layer/new-variants/video-bg/demo2/images/video_bg.png) no-repeat center center;
+    background-size: 100%;
+    max-width: 700px;
+    max-height: 390px;
+    margin: 0px auto;
+    position: relative;
+    padding: 20px 0px 70px 0;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+  }
+}

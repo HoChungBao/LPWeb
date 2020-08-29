@@ -1,0 +1,509 @@
+﻿@model JsonResult
+@using LienPhatERP.Services
+@inject ICommonService CommonService
+@{
+    ViewData["Title"] = "CreateDrugStore";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="m-content">
+    <div class="row" id="app">
+        <div class="col-xl-12">
+            <!--Begin::Main Portlet-->
+            <div class="m-portlet">
+                <!--begin: Portlet Head-->
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                            <h3 class="m-portlet__head-text">
+                                Thông tin cửa hàng
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <!--end: Portlet Head-->
+                <!--begin: Form Wizard-->
+                <div class="m-wizard m-wizard--1 m-wizard--success" id="m_wizard">
+                    <!--begin: Message container -->
+                    <div class="m-portlet__padding-x">
+                        <!-- Here you can put a message or alert -->
+                    </div>
+                    <!--end: Message container -->
+                    <!--begin: Form Wizard Head -->
+                    <!--end: Form Wizard Head -->
+                    <!--begin: Form Wizard Form-->
+                    <div class="m-wizard__form">
+                        <!--
+                        1) Use m-form--label-align-left class to alight the form input lables to the right
+                        2) Use m-form--state class to highlight input control borders on form validation
+                        -->
+                        <form class="m-form m-form--label-align-left- m-form--state-" id="m_form">
+                            <!--begin: Form Body -->
+                            <!--begin: Form Wizard -->
+                            <div class="m-portlet__foot m-portlet__foot--fit">
+                                <div class="m-form__actions m-form__actions">
+                                    <div class="row">
+                                        <div class="col-xl-8 offset-xl-2">
+                                            <div class="m-form__section m-form__section--first">
+                                                <div class="m-form__heading">
+                                                    <h3 class="m-form__heading-title">
+                                                        Thông tin cửa hàng
+                                                    </h3>
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Tên cửa hàng:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <input type="text" name="DrugStoreName" class="form-control m-input" value="" required>
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền tên cửa hàng
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Chủ cửa hàng
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <input type="text" name="StoreOwner" class="form-control m-input" value="" required>
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền chủ cửa hàng
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Loại cửa hàng:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                         <select class="form-control" name="Type">
+                                                               @foreach(var item in CommonService.GetAllDictionaryByType("Outlet"))
+                                                               {                                                                
+                                                                   <option value="@item.Name">@item.Note</option>
+                                                               }
+                                                           </select>
+                                                           
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền loại cửa hàng
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Khu vực:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <input type="text" name="Area" class="form-control m-input" value="" required>
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền khu vực
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Thành phố :
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <input type="text" name="Province" class="form-control m-input" value="" required>
+                                                        @*<select class="form-control js-city" name="ProvinceCode" id="Province"></select>*@
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền thành phố
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Quận :
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <input type="text" name="District" class="form-control m-input" value="" required>
+                                                        @*<select class="form-control js-distric" name="DistrictCode" id="District"></select>*@
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền quận
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Phường, xã :
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <input type="text" name="Ward" class="form-control m-input" value="" required>
+                                                        @*<select class="form-control js-ward" name="WardCode" id="Ward"></select>*@
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền phường, xã
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Địa chỉ:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <input type="text" name="DrugStoreAddress" class="form-control m-input" value="" required>
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền địa chỉ
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Số điện thoại:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <input type="number" name="StorePhoneNumber" class="form-control m-input" value="" required>
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền số điện thoại
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Diện tích :
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <input type="text" name="SizeCode" class="form-control m-input" value="" required>
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền diện tích
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Tài khoản ngân hàng:
+                                                    </label>
+                                                    <div class="col-xl-5 col-lg-4">
+                                                        <input type="text" id="Bank1" class="form-control m-input" value="" required>
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền tên tài khoản
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-xl-4 col-lg-4">
+                                                        <input type="number" id="Bank2" class="form-control m-input" value="" required>
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền số tài khoản ngân hàng
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                    </label>
+                                                    <div class="col-xl-5 col-lg-4">
+                                                        <input type="text" id="Bank3" class="form-control m-input" value="" required>
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền tên ngân hàng
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-xl-4 col-lg-4">
+                                                        <input type="text" id="Bank4" class="form-control m-input" value="" required>
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền chi nhánh
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Trạng thái:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <select class="form-control" name="Status">
+                                                            <option value="0">Không hoạt động</option>
+                                                            <option value="1" selected>Hoạt động</option>
+                                                        </select>
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền trạng thái
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Standard Level Code:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <input type="text" name="StandardLevelCode" class="form-control m-input" value="" required>
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền standard level code
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Số lượng nhân viên:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <input type="text" name="StaffNumm" class="form-control m-input" value="" required>
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền số lượng nhân viên
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Giá thuê:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <input type="text" name="UnitCost" class="form-control m-input numeric" value="" required>
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền giá
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label for="example-text-input" class="col-3 col-form-label">
+                                                        * Upload file :
+                                                    </label>
+                                                    <div class="col-lg-6">
+                                                        <div class="custom-file">
+                                                            <input type="file" id="filecontract" class="custom-file-input">
+                                                            <label class="custom-file-label" for="customFile">
+                                                                Chọn file
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2 m--padding-left-5">
+                                                        <a class="btn btn-outline-info active btnUploadVideo" id="btnUpload"><span>Upload</span></a>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">
+                                                        * Ghi chú:
+                                                    </label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <input type="text" name="Note" class="form-control m-input" value="" required>
+                                                        <span class="m-form__help">
+                                                            Vui lòng điền ghi chú
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!--end: Form Wizard Step 2-->
+                                <!--end: Form Body -->
+                            </div>
+                            <!--begin: Form Actions -->
+                            <div class="m-portlet__foot m-portlet__foot--fit">
+                                <div class="m-form__actions m-form__actions">
+                                    <div class="row">
+                                        <div class="col-lg-2"></div>
+                                        <div class="col-lg-4 m--align-right">
+                                            <a href="#" class="btn btn-warning m-btn m-btn--custom m-btn--icon" id="butSubmitDrugStore">
+                                                <span>
+                                                    <span>
+                                                        Submit
+                                                    </span>
+                                                    &nbsp;&nbsp;
+                                                    <i class="la la-arrow-right"></i>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end: Form Actions -->
+                        </form>
+
+                    </div>
+                    <!--end: Form Wizard Form-->
+                </div>
+                <!--end: Form Wizard-->
+            </div>
+            <!--End::Main Portlet-->
+        </div>
+
+    </div>
+</div>
+@section Scripts {
+<script>
+    var arrayLocationFormatSelect2 =  @Html.Raw(Json.Serialize(Model.Value)) ;
+
+
+            var citySelect = $(".js-city");
+            var districtSelect = $(".js-distric");
+            var wardSelect = $(".js-ward");
+
+            var districtOptions = arrayLocationFormatSelect2[0].districts; // current distric value
+            var wardOptions = districtOptions[0].wards; // current ward value
+
+
+            citySelect.select2({
+                data: arrayLocationFormatSelect2
+            });
+
+            districtSelect.select2({
+                data: districtOptions
+            });
+
+            wardSelect.select2({
+                data: wardOptions
+            })
+
+            // Methods
+            // cityChange
+            function cityChange(elEvent) {
+                var cityValue = citySelect.val();
+
+                arrayLocationFormatSelect2.forEach(function (city) {
+                    if (city.id == cityValue) {
+                        districtOptions = city.districts;
+                    }
+                })
+
+                districtSelect.find("option").remove();
+                districtOptions.forEach(function (district) {
+                    var option = new Option(district.text, district.id);
+
+                    districtSelect.append(option);
+                })
+            }
+            // districChange
+            function districChange(elEvent) {
+                var districtValue = districtSelect.val();
+
+                districtOptions.forEach(function (distric, index) {
+
+                    if (distric.id == districtValue) {
+                        wardOptions = distric.wards;
+                    }
+                })
+
+                wardSelect.find("option").remove();
+                wardOptions.forEach(function (ward) {
+                    var option = new Option(ward.text, ward.id);
+
+                    wardSelect.append(option);
+                })
+
+        };
+            //AddEventListenser
+            citySelect.on("change", function () {
+                cityChange();
+                districChange();
+        });
+            districtSelect.on("change", function () {
+                districChange();
+            });
+    var uploadFile="";
+    function f(d) {
+        uploadFile= d;
+    }
+    $("#btnUpload").click(function () {
+
+        var data = new FormData();
+        var uploadFile = $("#filecontract")[0].files;
+        if (uploadFile.length <= 0) {
+            return;
+        }
+        for (var x = 0; x < uploadFile.length; x++) {
+            //if (uploadFile[x].name.match(/\.(jpg|jpeg|png|gif)$/)) {
+            //    return;
+            //}
+            data.append("files", uploadFile[x]);
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/Outlet/UploadFile",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (respone) {
+                if (respone != null) {
+                    if (respone.Data != '') {
+                        f(respone.data);
+                        swal("Upload", "Thành công", "success");
+                    }
+                }
+
+            },
+            error: function () {
+                swal("Upload", "Lỗi file", "error");
+
+            }
+
+        });
+    });
+        $(document).ready(function () {
+            function ajaxSubmitCreate(event) {
+                event.preventDefault();
+                $("#butSubmitDrugStore").addClass("m-loader m-loader--light m-loader--right disable");
+                var formData = new FormData($('#m_form')[0]);
+                formData.append("AvatarUrl", uploadFile);               
+                //formData.append("Province", $("#Province option:selected").text());
+                //formData.append("District", $("#District option:selected").text());
+                //formData.append("Ward", $("#Ward option:selected").text());
+                var d = {
+                    AccountName:$("#Bank1").val(),
+                    AccountNumber:$("#Bank2").val(),
+                    BankName:$("#Bank3").val(),
+                    BankBranch:$("#Bank4").val(),
+                };
+                formData.append("BankAccount", JSON.stringify(d));
+                $.ajax({
+                    url: '/Drug/CreateDrugStore/',
+                    type: 'POST',
+                    data: formData, // serializes the form's elements.
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+
+                        if (response != null) {
+                            $("#js-reason").text("");
+                            $("#butSubmitDrugStore").removeClass("m-loader m-loader--light m-loader--right disable");
+                            if (!response.result) {
+
+                                swal("", response.message, "warning");
+
+
+                            } else {
+
+                                swal("", response.message, "success");
+                                setTimeout(function () {
+
+                                    window.location.href = window.location.origin + "/Drug/Index";
+
+                                    //End
+                                }, 5000);
+
+
+                            }
+                        }
+                    },
+                    fail: function () {
+                    }
+                });
+            }
+
+            $("#butSubmitDrugStore").on("click", ajaxSubmitCreate);
+        });
+</script>
+}
+
+
+
+
+
+
+
+
+

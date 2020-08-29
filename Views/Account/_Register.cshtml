@@ -1,0 +1,309 @@
+﻿@model LienPhatERP.Models.AccountViewModels.RegisterModel
+@using LienPhatERP.ViewModels
+@using LienPhatERP.Services
+@inject ICommonService CommonService
+<div class="m-portlet m-portlet--mobile">
+    <div class="m-portlet__head">
+        <div class="form-group m-form__group row align-items-center m--margin-top-30">
+            <div class="col-md-4">
+
+                <div class="m-input-icon m-input-icon--left">
+                    <input type="text" class="form-control m-input m-input--solid" placeholder="Search..." id="generalSearch">
+                    <span class="m-input-icon__icon m-input-icon__icon--left">
+                        <span>
+                            <i class="la la-search"></i>
+                        </span>
+                    </span>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <a href="#" class="btn btn-accent m-btn m-btn--icon btn-lg m-btn--icon-only"
+                   title="" data-placement="top" data-original-title="Thêm mới" data-dismiss="modal" data-toggle="modal" data-target="#myModalRegisterDateOff">
+                    <i class="fa fa-plus"></i>
+                </a>
+
+
+                <div class="m-separator m-separator--dashed d-xl-none"></div>
+            </div>
+        </div>
+        <div class="m-portlet__head-tools">
+
+        </div>
+    </div>
+    <div class="m-portlet__body">
+        <!--begin: Search Form -->
+        <div class="m-form m-form--label-align-right">
+            <div class="row align-items-center">
+                <div class="col-xl-8 order-2 order-xl-1">
+
+                </div>
+
+            </div>
+        </div>
+        <!--end: Search Form -->
+        <!--begin: Datatable -->
+
+        <div class="m_datatable m-datatable m-datatable--default m-datatable--brand m-datatable--subtable m-datatable--loaded" id="scrolling_vertical" style="">
+            <table class="m-datatable__table" style="display: block; min-height: 300px; overflow-x: auto;">
+                <thead class="m-datatable__head">
+                    <tr class="m-datatable__row">
+                        <td class="m-datatable__cell m-datatable__cell--sort">
+                            #
+                        </td>
+                        <th class="m-datatable__cell m-datatable__cell--sort">
+                            <span style="width: 110px;">Tên</span>
+                        </th>
+                        <th class="m-datatable__cell m-datatable__cell--sort">
+                            <span style="width: 110px;">Lý do</span>
+                        </th>
+                        <th class="m-datatable__cell m-datatable__cell--sort">
+                            <span style="width: 110px;">Ngày tạo</span>
+                        </th>
+                        <th class="m-datatable__cell m-datatable__cell--sort">
+                            <span style="width: 110px;">Từ ngày</span>
+                        </th>
+                        <th class="m-datatable__cell m-datatable__cell--sort">
+                            <span style="width: 110px;">Đến ngày</span>
+                        </th>
+                        <th class="m-datatable__cell m-datatable__cell--sort">
+                            <span style="width: 110px;">Tổng ngày nghỉ</span>
+                        </th>
+                        <th class="m-datatable__cell m-datatable__cell--sort">
+                            <span style="width: 110px;">Người duyệt</span>
+                        </th>
+                        <th class="m-datatable__cell m-datatable__cell--sort">
+                            <span style="width: 110px;">Lý do từ chối</span>
+                        </th>
+                        <th class="m-datatable__cell m-datatable__cell--sort">
+                            <span style="width: 110px;">Ngày duyệt</span>
+                        </th>
+                        <th class="m-datatable__cell m-datatable__cell--sort">
+                            <span style="width: 110px;">Trạng thái</span>
+                        </th>
+                        <th class="m-datatable__cell m-datatable__cell--sort">
+                            <span style="width: 110px;">Action</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="m-datatable__body" id="customerTable">
+                    @{ var rs = CommonService.GetRegisterDateOffByUser(Model.Id); }
+                    @foreach (var d in rs)
+                    {
+                        <tr class="m-datatable__row m-datatable__row--even">
+                            <td scope="row" class="m-datatable__cell">
+                                @int.Parse((rs.FindIndex(a => a.Id == d.Id) + 1).ToString())
+                            </td>
+                            <td class="m-datatable__cell">
+                                <span style="width: 110px;">@d.Name</span>
+                            </td>
+                            <td class="m-datatable__cell">
+                                <span style="width: 110px;">@d.Reason</span>
+                            </td>
+                            @*<td class="m-datatable__cell">
+                                    <span style="width: 110px;">@d.DateOffNumber</span>
+                                </td>*@
+                            <td class="m-datatable__cell">
+                                <span style="width: 110px;">@d.DateCreated.ToString("dd-MM-yyyy HH:mm:ss")</span>
+                            </td>
+                            <td class="m-datatable__cell">
+                                <span style="width: 110px;">@d.FromDateOff.ToString("dd-MM-yyyy")</span>
+                            </td>
+                            <td class="m-datatable__cell">
+                                <span style="width: 110px;">@d.ToDateOff.ToString("dd-MM-yyyy")</span>
+                            </td>
+                            <td class="m-datatable__cell">
+                                <span style="width: 110px;">@d.DateOffNumber</span>
+                            </td>
+
+
+
+                            <td class="m-datatable__cell">
+                                <span style="width: 110px;">
+                                    @if (d.UserApprovedNavigation != null)
+                                    {
+                                        if (d.UserApprovedNavigation.Name == null)
+                                        {
+                                            @d.UserApprovedNavigation.UserName
+                                        }
+                                        else
+                                        {
+                                            @d.UserApprovedNavigation.Name
+                                        }
+                                    }
+                                </span>
+                            </td>
+                            <td class="m-datatable__cell">
+                                <span style="width: 110px;">@d.Refuse</span>
+                            </td>
+                            <td class="m-datatable__cell">
+                                <span style="width: 110px;">
+                                    @if (d.UserApprovedNavigation != null)
+                                    {
+                                        @d.DateApproved.Value.ToString("d")
+                                    }
+                                </span>
+                            </td>
+                            <td class="m-datatable__cell">
+                                <span style="width: 110px;" class="m-badge m-badge--wide @(d.Status.Equals("1") ? "m-badge--brand" : d.Status.Equals("2") ? "m-badge--danger" : "m-badge")">@(d.Status.Equals("1") ? "Đã duyệt" : d.Status.Equals("2") ? "Từ chối" : "Chưa duyệt")</span>
+                            </td>
+
+                            <td class="m-datatable__cell">
+                                <span style="width: 110px;">
+                                    @if (d.Status.Equals("0"))
+                                    {
+                                        <a href="#" onclick="deleteContract('@d.Token')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Xóa">
+                                            <i class="la la-remove"></i>
+                                        </a>
+                                    }
+                                </span>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+        <!--end: Datatable -->
+    </div>
+</div>
+<div class="modal fade" id="myModalRegisterDateOff" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="#" method="get" id="m_form">
+                <div class="modal-body">
+
+                    <fieldset class="fieldset-group">
+                        <legend class="fieldset-group__legend">
+                            <span class="fieldset-group__title"></span>
+                        </legend>
+                        <div class="form-group m-form__group row">
+                            <div class="col-lg-6">
+                                <label class="">* Tên :</label>
+                                <input type="text" name="Name" id="nameRegister" class="form-control" required placeholder="Điền thông tin" />
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="">* Loại nghỉ :</label>
+                                <select class="form-control" name="Type" id="typeRegister">
+
+                                    <option value="1">Nghỉ nữa buổi</option>
+                                    <option value="2" selected="selected">Nghỉ một ngày</option>
+                                    <option value="3">Nghỉ hơn một ngày</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <div class="col-lg-6">
+                                <label class="">* Từ ngày :</label>
+                                <div class="input-group">
+                                    <input type="text" id="StrFromDateOff" name="StrFromDateOff" class="form-control js-date" required placeholder="1/03/2018" />
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="la la-calendar-check-o"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="">* Đến ngày :</label>
+                                <div class="input-group">
+                                    <input type="text" id="StrToDateOff" name="StrToDateOff" disabled="disabled" class="form-control js-date-1" required placeholder="Nghỉ tối đa 6 ngày" />
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="la la-calendar-check-o"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <div class="col-lg-3">
+                                <label class="fromdate">* Bắt đầu nghỉ :</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="m-radio-inline">
+                                    <label class="m-checkbox m-checkbox--single m-checkbox--all m-checkbox--solid m-checkbox--brand m--margin-right-40" id="click1">
+                                        <input type="radio" name="from" value="1" checked />
+                                        <span class="checkmark"></span>
+                                        <label class="radio-select">
+                                            8h
+                                        </label>
+                                    </label>
+                                    <label class="m-checkbox m-checkbox--single m-checkbox--all m-checkbox--solid m-checkbox--brand m--margin-right-40" id="click">
+                                        <input type="radio" name="from" value="0" />
+                                        <span class="checkmark"></span>
+                                        <label class="radio-select">
+                                            13h
+                                        </label>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row" id="work">
+                            <div class="col-lg-3">
+                                <label class="">* Đi làm lại :</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="m-radio-inline">
+                                    <label class="m-checkbox m-checkbox--single m-checkbox--all m-checkbox--solid m-checkbox--brand working" style="margin-right: 180px;">
+                                        <input type="radio" name="status" value="1" />
+                                        <span class="checkmark"></span>
+                                        <label class="radio-select todate" style="width: 130px;">
+
+                                        </label>
+                                    </label>
+                                    <label class="m-checkbox m-checkbox--single m-checkbox--all m-checkbox--solid m-checkbox--brand m--margin-right-40">
+                                        <input type="radio" name="status" value="0" checked />
+                                        <span class="checkmark"></span>
+                                        <label class="radio-select todate1">
+                                        </label>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <div class="col-lg-6">
+                                <label class="">* Tên bộ phận :</label>
+                                <select class="form-control" name="Department" id="departmentRegister">
+                                    <option value="">Chọn</option>
+                                    @foreach (var item in CommonService.GetAllDepartment())
+                                    {
+                                        <option value="@item.Name">@item.Note</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <div class="col-lg-6">
+                                <label class="">* Loại lý do :</label>
+                                <select class="form-control" id="reasonRegister">
+                                    <option value="">Chọn lý do</option>
+                                    <option value="Thai sản">Thai sản</option>
+                                    <option value="Bận việc gia đình">Bận việc gia đình</option>
+                                    <option value="Kết hôn">Kết hôn</option>
+                                    <option value="1">Lý do khác</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <div class="col-lg-12">
+                                <textarea type="text" name="Reason" class="form-control" row="3" id="reason"></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn--size btn-primary js-sendReject" id="btnRegister">Thêm</a>
+                    <button type="button" class="btn btn--size btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

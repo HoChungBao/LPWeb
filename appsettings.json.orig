@@ -1,0 +1,26 @@
+﻿{
+  "ConnectionStrings": {
+<<<<<<< Updated upstream
+    "MediHubCSDBConnectionString": "Server=DESKTOP-M67QVLB;Database=MediHubCS;persist security info=True;user id=sa;password=123456;MultipleActiveResultSets=true",
+    "MediHubSConnectionString": "Server=DESKTOP-M67QVLB;Database=MediHubSCApp;persist security info=True;user id=sa;password=123456;MultipleActiveResultSets=true"
+=======
+    "MediHubCSDBConnectionString": "Server=DESKTOP-M67QVLB;Database=LienPhat;persist security info=True;user id=sa;password=123456;MultipleActiveResultSets=true",
+
+>>>>>>> Stashed changes
+  },
+  "Logging": {
+    "IncludeScopes": false,
+    "LogLevel": {
+      "Default": "Warning"
+    }
+  },
+  "JWT": {
+    "JwtKey": "MediHubCSBookingOnline",
+    "JwtIssuer": "https://localhost:44335/",
+    "JwtExpireDays": 30
+  },
+  "Email": {
+    "Cs": "lienhe@medihub.com.vn",
+    "Som": "som@medihub.com.vn"
+  }
+}

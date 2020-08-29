@@ -1,0 +1,248 @@
+﻿@using LienPhatERP.Services
+@inject ICategoryService CategoryService
+@model ReflectionIT.Mvc.Paging.PagingList<LienPhatERP.Entities.Files>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link href="~/assets/vendors/base/blueimp-gallery-min.css" rel="stylesheet" />
+<div class="m-content" id="app">
+
+    <div class="m-portlet m-portlet--mobile">
+        <div class="m-portlet__head">
+            <div class="m-portlet__head-caption">
+                <div class="m-portlet__head-title">
+                    <h3 class="m-portlet__head-text">
+                        Quản lý file Hiển thị: @Model.Where(x=>x.IsPublic==true&&x.IsPublic==true).Count()
+                    </h3>
+
+                </div>
+            </div>
+            <div class="m-portlet__head-tools">
+
+            </div>
+        </div>
+        <div class="m-portlet__body">
+            <!--begin: Search Form -->
+            <div class="m-form m-form--label-align-right m--margin-bottom-5">
+                <form action="/FileAdmin/Index" class="d-md-flex justify-md-content-between">
+                    <div class="col-xl-12">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <select class="form-control" name="cateId" id="cateId">
+                                    <option value="" disabled="" selected="">Chọn danh mục</option>
+                                    @foreach (var item in CategoryService.GetCategorie())
+                                    {
+                                        if (ViewBag.CateId == item.Id)
+                                        {
+                                            <option selected="selected" value="@item.Id">@item.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.Id">@item.Name</option>
+                                        }
+
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-control" name="categoryId" id="categoryId">
+                                    <option value="" disabled="" selected="">Chọn</option>
+                                    @if (ViewBag.CateId != Guid.Empty)
+                                    {
+                                        foreach (var item in CategoryService.GetAllSubCategory(ViewBag.CateId))
+                                        {
+                                            if (item.Id == ViewBag.CategoryId)
+                                            {
+                                                <option selected="selected" value="@item.Id">@item.Name</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.Id">@item.Name</option>
+                                            }
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <select class="form-control" name="type">
+                                    <option value="Image">Image</option>
+                                    <option value="Word">Word</option>
+                                    <option value="Excel">Excel</option>
+                                    <option value="PowerPoint">PowerPoint</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-primary" type="submit">Tìm kiếm</button>
+                                <div class="m-separator m-separator--dashed d-xl-none"></div>
+                            </div>
+                        </div>
+                    </div>
+            </form>
+            </div>
+            <!--end: Search Form -->
+            <!--begin: Datatable -->
+            <div class="table-responsive">
+                <div class="m-form__section m-form__section--first">
+                    <table class="table table-bordered m-table m-table--border-success m-table--head-bg-success">
+                        <thead>
+                            <tr>
+                                <th>
+                                 Tên
+                                </th>
+                                <th>
+                                   Hình
+                                </th>
+                                <th>
+                                    Ưu tiên
+                                </th>
+                                <th>
+                                    Public
+                                </th>
+                                <th>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="customerTable">
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>
+                                    <span style="width: 110px;">@item.FileName</span>
+                                </td>
+                                <td>
+                                    <span style="width: 110px;"><a href="@item.Url">Hình</a></span>
+                                </td>
+                                <td>
+                                    @if (item.IsPrioritize == true)
+                                    {
+                                        <span class="m-badge m-badge--brand m-badge--brand">true</span>
+
+                                    }
+                                    else
+                                    {
+                                        <span class="m-badge m-badge--brand m-badge--danger">false</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.IsPublic == true)
+                                    {
+                                        <span class="m-badge m-badge--brand m-badge--brand">true</span>
+
+                                    }
+                                    else
+                                    {
+                                        <span class="m-badge m-badge--brand m-badge--danger">false</span>
+                                    }
+                                </td>
+                                <td>
+                                    <span style="width: 110px;">
+                                        <a href="/FileAdmin/UpdateFile?id=@item.Id" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Update">
+                                            <i class="flaticon-edit"></i>
+                                        </a>
+                                        <a href="#" onclick="publicFile('@item.Id')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Public">
+                                            <i class="flaticon-plus"></i>
+                                        </a>
+                                        <a href="#" onclick="prioritizeFile('@item.Id')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Ưu tiên">
+                                            <i class="flaticon-add"></i>
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @Html.Partial("_Pager", Model)
+                </div>
+            </div>
+            </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $("#cateId").on("change", function (e) {
+            //GetLesson($(this).val());
+            if ($("#cateId").val()) {
+                $.ajax({
+                    url: '/CategoryAdmin/GetCategory?categoryId=' + $("#cateId").val(),
+                    type: 'GET',
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response.result) {
+                            var data = response.data;
+                            var nameHtml = '<option value="">Chọn danh mục</option>';
+                            for (var i = 0; i < data.length; i++) {
+                                nameHtml += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
+                            }
+                            $("#categoryId").html(nameHtml);
+                            $("#categoryId").removeClass("d-none");
+                        }
+                        else {
+                            $("#categoryId").html('<option value="">Không có dữ liệu</option>');
+                            //$("#nameSurvey").removeClass("d-none");
+                        };
+
+                    },
+                    error: function () {
+                        swal("Đã bị lỗi!!");
+                    }
+                });
+            }
+        });
+
+        function prioritizeFile(id) {
+            $.ajax({
+                url: '/FileAdmin/PrioritizeFile?id=' + id,
+                type: 'GET',
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.result) {
+                        swal("", response.message, "success");
+                        setTimeout(function () {
+
+                            window.location.href = window.location.origin + "/FileAdmin/Index";
+
+                            End
+                        }, 5000);
+                    }
+                    else {
+                      
+                    };
+
+                },
+                error: function () {
+                    swal("Đã bị lỗi!!");
+                }
+            });
+        }
+        function publicFile(id) {
+            $.ajax({
+                url: '/FileAdmin/PublicFile?id=' + id,
+                type: 'GET',
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.result) {
+                        swal("", response.message, "success");
+                        setTimeout(function () {
+
+                            window.location.href = window.location.origin + "/FileAdmin/Index";
+
+                            End
+                        }, 5000);
+                    }
+                    else {
+
+                    };
+
+                },
+                error: function () {
+                    swal("Đã bị lỗi!!");
+                }
+            });
+        }
+    </script>
+}

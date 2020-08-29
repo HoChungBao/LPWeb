@@ -1,0 +1,12 @@
+[{
+  "name": "Nhà thuốc số 1",
+  "address": "def",
+  "city": "ghi",
+  "district": "1"
+}, {
+  "name": "Nhà thuốc số 2",
+  "address": "efgh",
+  "city": "ijkl",
+  "district": "2"
+}
+]

@@ -1,0 +1,248 @@
+﻿@{
+    ViewData["Title"] = "FileUpload";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="m-content" id="app">
+
+    <div class="m-portlet m-portlet--mobile">
+        <div class="m-portlet__head">
+            <div class="m-portlet__head-caption">
+                <div class="m-portlet__head-title">
+                    <h3 class="m-portlet__head-text">
+                        Quản lý file
+                    </h3>
+
+                </div>
+            </div>
+            <div class="m-portlet__head-tools">
+            </div>
+        </div>
+        <div class="m-portlet__body">
+            <!--begin: Search Form -->
+            <div class="m-form m-form--label-align-right m--margin-bottom-5">
+                <div class="row align-items-center">
+                    <div class="col-xl-12 order-2 order-xl-1">
+                        <div class="form-group m-form__group row align-items-center">
+                            <div class="col-md-4 d-inline-flex">
+                                <div class="m-input-icon m-input-icon--left" style="width:80%;">
+                                    <input type="text" class="form-control m-input m-input--solid" placeholder="Search..." id="generalSearch">
+                                    <span class="m-input-icon__icon m-input-icon__icon--left">
+                                        <span>
+                                            <i class="la la-search"></i>
+                                        </span>
+                                    </span>
+                                </div>
+                                <a href="#" class="btn btn-accent m-btn m-btn--icon btn-lg m-btn--icon-only m--margin-left-10"
+                                    title="" data-placement="top" data-original-title="Thêm mới" data-dismiss="modal" data-toggle="modal" data-target="#myModelFileUpload">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!--end: Search Form -->
+            <!--begin: Datatable -->
+            <div class="m_datatable" id="scrolling_vertical"></div>
+
+            <!--end: Datatable -->
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModelFileUpload" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="#" method="get" id="m_form">
+                <div class="modal-body">
+                    <div class="form-group m-form__group row">
+                        <div class="col-lg-12">
+                            <label for="name" class="col-form-label">*Tên :</label>
+                            <input type="text" class="form-control" name="Name" required>
+                        </div>
+                    </div>
+                    <div class="form-group m-form__group row">
+                        <div class="col-lg-12">
+                            <label for="description" class="col-form-label">*File :</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="fileupload" multiple required>
+                                <label class="custom-file-label" for="customFile">
+                                    Chọn file
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group m-form__group row">
+                        <div class="col-lg-12">
+                            <div class="m-radio-inline">
+                                <label class="m-checkbox m-checkbox--single m-checkbox--all m-checkbox--solid m-checkbox--brand m--margin-right-40">
+                                    <input type="checkbox" id="isPublic" value="true"checked />
+                                    <span class="checkmark"></span>
+                                    <label class="radio-select">
+                                        Public
+                                    </label>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn--size btn-info js-sendReject" id="btnUpload">Upload</a>
+                    <button type="button" class="btn btn--size btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModalFileUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="#" method="get" id="m_form1">
+                <div class="modal-body">
+                    <div class="form-group m-form__group row">
+                        <input type="text" class="form-control" name="Id" required readonly hidden>
+                        <div class="col-lg-12">
+                            <label for="name" class="col-form-label">*Tên :</label>
+                            <input type="text" class="form-control" name="Name" required>
+                        </div>
+                    </div>
+                    <div class="form-group m-form__group row">
+                        <div class="col-lg-12">
+                            <ul class="m-nav m-nav--skin-light" id="fileNameUpload"></ul>
+                        </div>
+                    </div>
+                    <div class="form-group m-form__group row">
+                        <div class="col-lg-12">
+                            <label for="description" class="col-form-label">*File :</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="fileUpdate" multiple required>
+                                <label class="custom-file-label" for="customFile">
+                                    Chọn file
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group m-form__group row">
+                        <div class="col-lg-12">
+                            <div class="m-radio-inline">
+                                <label class="m-checkbox m-checkbox--single m-checkbox--all m-checkbox--solid m-checkbox--brand m--margin-right-40">
+                                    <input type="checkbox" name="IsPublic" value="true" />
+                                    <span class="checkmark"></span>
+                                    <label class="radio-select">
+                                        Public
+                                    </label>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn--size btn-info js-sendReject" id="btnUploadFile">Upload</a>
+                    <button type="button" class="btn btn--size btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+</form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/assets/js/fileupload.js"></script>
+    <script>
+        $("#btnUpload").click(function () {
+            var formData = new FormData($('#m_form')[0]);
+            formData.append("IsPublic", $("#isPublic").is(":checked"));
+            var uploadFile = $("#fileupload")[0].files;
+            if (uploadFile.length <= 0) {
+                swal("Chưa chọn file", "", "warning");
+                return;
+            }
+            for (var x = 0; x < uploadFile.length; x++) {
+                formData.append("Files", uploadFile[x]);
+            }
+            $(this).addClass("m-loader m-loader--light m-loader--right disable");
+            $.ajax({
+                type: "POST",
+                url: "/Common/FileUpload",
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function (respone) {
+                    $("#btnUpload").removeClass("m-loader m-loader--light m-loader--right disable");
+                    if (respone != null && respone.result) {
+                        swal("Upload File", respone.message, "success");
+                        setTimeout(function () {
+
+                            window.location.href = window.location.origin + "/Common/FileUpload";
+
+                            //End
+                        }, 5000);
+                    }
+                    else{
+                        swal("Upload File", respone.message, "warning");
+                    }
+
+                },
+                error: function () {
+                    window.alert("Upload Error!!");
+                }
+            });
+        });
+        $("#btnUploadFile").click(function () {
+            var formData = new FormData($('#m_form1')[0]);
+            var uploadFile = $("#fileUpdate")[0].files;
+            formData.append("IsPublic", $('input[name="IsPublic"]').is(":checked"));
+            for (var x = 0; x < uploadFile.length; x++) {
+                formData.append("Files", uploadFile[x]);
+            }
+            $(this).addClass("m-loader m-loader--light m-loader--right disable");
+            $.ajax({
+                type: "POST",
+                url: "/Common/UpdateFile",
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function (respone) {
+                    $("#btnUpload").removeClass("m-loader m-loader--light m-loader--right disable");
+                    if (respone != null && respone.result) {
+                        swal("Upload File", respone.message, "success");
+                        setTimeout(function () {
+
+                            window.location.href = window.location.origin + "/Common/FileUpload";
+
+                            //End
+                        }, 5000);
+                    }
+                    else {
+                        swal("Upload File", respone.message, "warning");
+                    }
+
+                },
+                error: function () {
+                    window.alert("Upload Error!!");
+                }
+            });
+        });
+    </script>
+}
+
+
+
+
+
+
+
+
+
+

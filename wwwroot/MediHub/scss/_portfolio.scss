@@ -1,0 +1,125 @@
+$portfolio-space: $space-s;
+$portfolio-img-width: 25%;
+$portfolio-control-item-padding-x: $space-xs;
+$portfolio-control-item-padding-y: $space-s;
+$portfolio-control-bg: $brand-01;
+$portfolio-bg-circle-size-sm: 350px;
+$portfolio-bg-circle-size-md: 400px;
+$portfolio-bg-circle-size-lg: 500px;
+.portfolio {
+  position: relative;
+  &__control {
+    text-align: center;
+    margin-bottom: $space-l;
+  }
+  &__control-item {
+    display: inline-block;
+    padding: $portfolio-control-item-padding-x $portfolio-control-item-padding-y;
+    border: 1px solid $portfolio-control-bg;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: .3s background-color, .3s color;
+    font-weight: 400;
+    &:hover {
+      background-color: $portfolio-control-bg;
+      color: white;
+    }
+  }
+  &__images {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -$portfolio-space;
+  }
+  &__item {
+    @include setFlexBasis($portfolio-img-width);
+    margin-bottom: $portfolio-space * 2;
+    padding: 0 $portfolio-space;
+    position: relative;
+    @media (max-width: 575px) {
+      $portfolio-img-width: 50%;
+      @include setFlexBasis($portfolio-img-width);
+    }
+  }
+  &__wrap {
+    position: relative;
+  }
+  &__image {}
+  &__bg {
+    position: absolute;
+    border-width: 35px;
+    border-style: solid;
+    border-radius: 50%;
+    &--color-1 {
+      border-color: #FFAA99;
+    }
+    &--color-2 {
+      border-color: #AACC77;
+    }
+    &--sm {
+      width: $portfolio-bg-circle-size-sm;
+      height: $portfolio-bg-circle-size-sm;
+      @media (max-width: 767px) {
+        width: $portfolio-bg-circle-size-sm - 100;
+        height: $portfolio-bg-circle-size-sm - 100;
+      }
+      @media (max-width: 575px) {
+        width: $portfolio-bg-circle-size-sm - 150;
+        height: $portfolio-bg-circle-size-sm - 150;
+      }
+    }
+    &--md {
+      width: $portfolio-bg-circle-size-md;
+      height: $portfolio-bg-circle-size-md;
+      @media (max-width: 767px) {
+        width: $portfolio-bg-circle-size-md - 100;
+        height: $portfolio-bg-circle-size-md - 100;
+      }
+      @media (max-width: 575px) {
+        width: $portfolio-bg-circle-size-md - 150;
+        height: $portfolio-bg-circle-size-md - 150;
+      }
+    }
+    &--lg {
+      width: $portfolio-bg-circle-size-lg;
+      height: $portfolio-bg-circle-size-lg;
+      @media (max-width: 767px) {
+        width: $portfolio-bg-circle-size-lg - 100;
+        height: $portfolio-bg-circle-size-lg - 100;
+      }
+      @media (max-width: 575px) {
+        width: $portfolio-bg-circle-size-lg - 150;
+        height: $portfolio-bg-circle-size-lg - 150;
+      }
+    }
+    &--pos-1 {
+      top: 90px;
+      right: -90px;
+      overflow: hidden;
+      @media (max-width: 575px) {
+        top: 65px;
+        right: -80px;
+      }
+    }
+    &--pos-2 {
+      bottom: -180px;
+      right: 165px;
+      overflow: hidden;
+      @media (max-width: 767px) {
+        right: 0;
+      }
+      @media (max-width: 767px) {
+        bottom: -125px;
+      }
+    }
+    &--pos-3 {
+      bottom: -145px;
+      left: -105px;
+      overflow: hidden;
+    }
+  }
+}
+
+.mixitup-control-active {
+  background-color: $portfolio-control-bg;
+  color: white;
+}

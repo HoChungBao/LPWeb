@@ -1,0 +1,43 @@
+﻿@using LienPhatERP.ViewModels
+@model LienPhatERP.ViewModels.ContactFormPlanModel
+<section class="section section--contact" id="contact">
+    <h2 class="section__headline">
+        <span class="section__headline-box">LIÊN HỆ</span>
+    </h2>
+    <p class="section__description">
+        Vui lòng gọi Hotline  (028) 73 099 939 nếu quý khách cần hỗ trợ gấp hoặc gửi thông tin theo mẫu dưới đây.
+    </p>
+    <div class="section__content">
+        <div class="contact">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-6 col-md-8 m-auto">
+                        <form class="contact__form " id="contact-form">
+                           @Html.AntiForgeryToken()
+                            <div class="form-group form-row">
+                                <label class="col-3 contact__label">Họ và tên</label>
+                                <input type="text" class="form-control col-9" asp-for="Name" aria-describedby="name" placeholder="Tên đầy đủ của bạn" required="Vui lòng nhập tên">
+
+                            </div>
+                            <div class="form-group form-row">
+                                <label class="col-3 contact__label">Số điện thoại</label>
+                                <input type="number" class="form-control col-9" name="Phone" placeholder="Số điện thoại của bạn" required>
+                            </div>
+                            <div class="form-group form-row">
+                                <label for="email" class="col-3 contact__label">Email</label>
+                                <input type="email" class="form-control col-9" name="Email" placeholder="Email giúp chúng tôi liên lạc" required>
+                            </div>
+                            <div class="form-group form-row">
+                                <label for="note" class="col-3 contact__label">Nội dung</label>
+                                <textarea class="form-control col-9" name="Note" placeholder="Chúng tôi có thể giúp gì cho bạn?" required></textarea>
+                            </div>
+                            <div class="form-row">
+                                <input type="submit" value="Gửi" class="ml-auto btn btn-red wow bounceIn" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

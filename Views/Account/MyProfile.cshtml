@@ -1,0 +1,785 @@
+﻿@model LienPhatERP.Models.AccountViewModels.RegisterModel
+@using LienPhatERP.ViewModels
+@{
+    ViewData["Title"] = "MyProfile";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.4.1/cropper.min.css" rel="stylesheet" type="text/css" />
+
+<style>
+    .custom-avatar-upload input {
+        display: none;
+    }
+
+    .custom-avatar-upload {
+        position: absolute;
+        left: 20px;
+    }
+</style>
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- BEGIN: Subheader -->
+    <!-- END: Subheader -->
+    <div class="m-content">
+        <div class="row">
+            <div class="col-xl-3 col-lg-4">
+                <div class="m-portlet m-portlet--full-height  ">
+                    <div class="m-portlet__body">
+                        <div class="m-card-profile">
+                            <div class="m-card-profile__title m--hide">
+                                Your Profile
+                            </div>
+                            <div class="m-card-profile__pic">
+                                <div class="m-card-profile__pic-wrapper js-avatar">
+                                    <img src="@(!string.IsNullOrEmpty(Model.Image)?Model.Image:"/assets/app/media/img/users/user4.jpg")" alt="" id="imgFileUpload" />
+                                    @*<input type="file" id="image" style="display: none" accept="image/gif, image/jpeg, image/png" />*@
+                                </div>
+                            </div>
+                            <div class="m-card-profile__details">
+                                <span class="m-card-profile__name">
+                                    @Model.Name
+                                </span>
+                                <a href="" class="m-card-profile__email m-link">
+                                    @Model.Email
+                                </a>
+                                @*<div class="upload-btn-wrapper">
+                                        <button class="btn" id="upload">Upload Image</button>
+                                        <input type="file" name="myfile" id="image" />
+                                    </div>*@
+                            </div>
+                        </div>
+                        @*<ul class="m-nav m-nav--hover-bg m-portlet-fit--sides">
+                                <li class="m-nav__separator m-nav__separator--fit"></li>
+                                <li class="m-nav__section m--hide">
+                                    <span class="m-nav__section-text">
+                                        Section
+                                    </span>
+                                </li>
+                                <li class="m-nav__item" style="height: 40px;">
+                                    <a href="header/profile&amp;demo=default.html" class="m-nav__link">
+                                        <i class="m-nav__link-icon flaticon-profile-1"></i>
+                                        <span class="m-nav__link-title">
+                                            <span class="m-nav__link-wrap">
+                                                <span class="m-nav__link-text">
+                                                    My Profile
+                                                </span>
+                                                <span class="m-nav__link-badge">
+                                                    <span class="m-badge m-badge--success">
+                                                        2
+                                                    </span>
+                                                </span>
+                                            </span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="m-nav__item" style="height: 40px;">
+                                    <a href="header/profile&amp;demo=default.html" class="m-nav__link">
+                                        <i class="m-nav__link-icon flaticon-share"></i>
+                                        <span class="m-nav__link-text">
+                                            Activity
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="m-nav__item" style="height: 40px;">
+                                    <a href="header/profile&amp;demo=default.html" class="m-nav__link">
+                                        <i class="m-nav__link-icon flaticon-chat-1"></i>
+                                        <span class="m-nav__link-text">
+                                            Messages
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="m-nav__item" style="height: 40px;">
+                                    <a href="header/profile&amp;demo=default.html" class="m-nav__link">
+                                        <i class="m-nav__link-icon flaticon-graphic-2"></i>
+                                        <span class="m-nav__link-text">
+                                            Sales
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="m-nav__item" style="height: 40px;">
+                                    <a href="header/profile&amp;demo=default.html" class="m-nav__link">
+                                        <i class="m-nav__link-icon flaticon-time-3"></i>
+                                        <span class="m-nav__link-text">
+                                            Events
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="m-nav__item" style="height: 40px;">
+                                    <a href="header/profile&amp;demo=default.html" class="m-nav__link">
+                                        <i class="m-nav__link-icon flaticon-lifebuoy"></i>
+                                        <span class="m-nav__link-text">
+                                            Support
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="m-portlet__body-separator"></div>
+                            <div class="m-widget1 m-widget1--paddingless">
+                                <div class="m-widget1__item">
+                                    <div class="row m-row--no-padding align-items-center">
+                                        <div class="col">
+                                            <h3 class="m-widget1__title">
+                                                Member Profit
+                                            </h3>
+                                            <span class="m-widget1__desc">
+                                                Awerage Weekly Profit
+                                            </span>
+                                        </div>
+                                        <div class="col m--align-right">
+                                            <span class="m-widget1__number m--font-brand">
+                                                +$17,800
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="m-widget1__item">
+                                    <div class="row m-row--no-padding align-items-center">
+                                        <div class="col">
+                                            <h3 class="m-widget1__title">
+                                                Orders
+                                            </h3>
+                                            <span class="m-widget1__desc">
+                                                Weekly Customer Orders
+                                            </span>
+                                        </div>
+                                        <div class="col m--align-right">
+                                            <span class="m-widget1__number m--font-danger">
+                                                +1,800
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="m-widget1__item">
+                                    <div class="row m-row--no-padding align-items-center">
+                                        <div class="col">
+                                            <h3 class="m-widget1__title">
+                                                Issue Reports
+                                            </h3>
+                                            <span class="m-widget1__desc">
+                                                System bugs and issues
+                                            </span>
+                                        </div>
+                                        <div class="col m--align-right">
+                                            <span class="m-widget1__number m--font-success">
+                                                -27,49%
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-9 col-lg-8">
+                <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-tools">
+                            <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
+                                <li class="nav-item m-tabs__item">
+                                    <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
+                                        <i class="flaticon-share m--hide"></i>
+                                        Cập nhật thông tin Nhân viên
+                                    </a>
+                                </li>
+                                <li class="nav-item m-tabs__item">
+                                    <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_user_profile_tab_2" role="tab">
+                                        Nghỉ phép
+                                    </a>
+                                </li>
+                                <li class="nav-item m-tabs__item">
+                                    <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_user_profile_tab_3" role="tab">
+                                        Cài đặt
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        @*<div class="m-portlet__head-tools">
+                                <ul class="m-portlet__nav">
+                                    <li class="m-portlet__nav-item m-portlet__nav-item--last">
+                                        <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" data-dropdown-toggle="hover" aria-expanded="true">
+                                            <a href="#" class="m-portlet__nav-link btn btn-lg btn-secondary  m-btn m-btn--icon m-btn--icon-only m-btn--pill  m-dropdown__toggle">
+                                                <i class="la la-gear"></i>
+                                            </a>
+                                            <div class="m-dropdown__wrapper">
+                                                <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+                                                <div class="m-dropdown__inner">
+                                                    <div class="m-dropdown__body">
+                                                        <div class="m-dropdown__content">
+                                                            <ul class="m-nav">
+                                                                <li class="m-nav__section m-nav__section--first">
+                                                                    <span class="m-nav__section-text">
+                                                                        Quick Actions
+                                                                    </span>
+                                                                </li>
+                                                                <li class="m-nav__item">
+                                                                    <a href="" class="m-nav__link">
+                                                                        <i class="m-nav__link-icon flaticon-share"></i>
+                                                                        <span class="m-nav__link-text">
+                                                                            Create Post
+                                                                        </span>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="m-nav__item">
+                                                                    <a href="" class="m-nav__link">
+                                                                        <i class="m-nav__link-icon flaticon-chat-1"></i>
+                                                                        <span class="m-nav__link-text">
+                                                                            Send Messages
+                                                                        </span>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="m-nav__item">
+                                                                    <a href="" class="m-nav__link">
+                                                                        <i class="m-nav__link-icon flaticon-multimedia-2"></i>
+                                                                        <span class="m-nav__link-text">
+                                                                            Upload File
+                                                                        </span>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="m-nav__section">
+                                                                    <span class="m-nav__section-text">
+                                                                        Useful Links
+                                                                    </span>
+                                                                </li>
+                                                                <li class="m-nav__item">
+                                                                    <a href="" class="m-nav__link">
+                                                                        <i class="m-nav__link-icon flaticon-info"></i>
+                                                                        <span class="m-nav__link-text">
+                                                                            FAQ
+                                                                        </span>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="m-nav__item">
+                                                                    <a href="" class="m-nav__link">
+                                                                        <i class="m-nav__link-icon flaticon-lifebuoy"></i>
+                                                                        <span class="m-nav__link-text">
+                                                                            Support
+                                                                        </span>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="m-nav__separator m-nav__separator--fit m--hide"></li>
+                                                                <li class="m-nav__item m--hide">
+                                                                    <a href="#" class="btn btn-outline-danger m-btn m-btn--pill m-btn--wide btn-sm">
+                                                                        Submit
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>*@
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="m_user_profile_tab_1">
+                            @Html.Partial("_User", Model)
+                        </div>
+                        <div class="tab-pane " id="m_user_profile_tab_2">
+                            @Html.Partial("_Register", Model)
+                        </div>
+                        <div class="tab-pane " id="m_user_profile_tab_3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="editAvatar" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Upload Hình Ảnh</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body p-0">
+                <img id="image" src="@(!string.IsNullOrEmpty(Model.Image)?Model.Image:"/assets/app/media/img/users/user4.jpg")">
+            </div>
+            <div class="modal-footer">
+                <label class="custom-avatar-upload">
+                    <input type="file" id="img-uploader">
+                    <i class="fa fa-cloud-upload" aria-hidden="true"></i> Upload hình ảnh
+                </label>
+
+                <!--         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button> -->
+                <button id="btn-crop" type="button" class="btn btn-primary">Lưu Hình</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.4.1/cropper.min.js"></script>
+@section scripts{
+    <script>
+        (function () {
+            var avatar = document.querySelector('.js-avatar');
+            var btnCrop = document.querySelector('#btn-crop');
+            var uploadInput = document.querySelector('#img-uploader');
+            var modal = document.querySelector('#editAvatar');
+            var cropper;
+
+            avatar.addEventListener('click', function () {
+                var image = document.getElementById('image');
+                cropper = new Cropper(image, {
+                    aspectRatio: 1 / 1,
+                    minContainerHeight: 200,
+                });
+            }, { once: true })
+
+            btnCrop.addEventListener('click', function () {
+                cropper.getCroppedCanvas().toBlob(function (blob) {
+                    var newImg = document.createElement('img');
+                    var url = URL.createObjectURL(blob);
+                    var form = new FormData();
+                    form.append('File', blob, uploadInput.files[0] ? uploadInput.files[0].name : $('#imgFileUpload').attr('src').split('/').pop());
+                    form.append('Id',  '@Model.Email');
+
+                    newImg.onload = function () {
+                        // no longer need to read the blob so it's revoked
+                        URL.revokeObjectURL(url);
+                    };
+
+                    // upload img
+                    $.ajax('/Account/ChangeImage', {
+                        method: 'post',
+                        data: form,
+                        processData: false,
+                        contentType: false,
+                        beforeSend: function () {
+                            // dms
+                            console.log('loading...')
+                        },
+                        complete: function (rs) {
+                            $('#imgFileUpload').attr('src', rs.responseText);
+                        }
+                    })
+
+
+                    // update avatar
+
+                    // off modal
+                    $('#editAvatar').modal('hide')
+                })
+            })
+
+            avatar.addEventListener('click', function () {
+                $('#editAvatar').modal('show')
+            })
+
+            uploadInput.addEventListener('change', function (evt) {
+                var tgt = evt.target || window.event.srcElement,
+                    files = tgt.files;
+
+                // FileReader support
+                if (FileReader && files && files.length) {
+                    var fr = new FileReader();
+                    fr.onload = function () {
+                        cropper.replace(fr.result);
+                    }
+                    fr.readAsDataURL(files[0]);
+                }
+
+                // Not supported
+                else {
+                    // fallback -- perhaps submit the input to an iframe and temporarily store
+                    // them on the server until the user's session ends.
+                }
+            })
+        })()
+
+
+    </script>
+    <script>
+        var arrayLocationFormatSelect2 = "";
+        var citySelect = $(".js-city");
+        var districtSelect = $(".js-distric");
+        $.ajax({
+            url: '/Common/Province',
+            type: 'GET',
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                if (response != null) {
+                    arrayLocationFormatSelect2 = response.provinces;
+
+                    var districtOptions = arrayLocationFormatSelect2[1].districts; // current distric value
+                    var wardOptions = districtOptions; // current ward value
+
+
+                    citySelect.select2({
+                        data: arrayLocationFormatSelect2
+                    });
+
+                    districtSelect.select2({
+                        data: districtOptions
+                    });
+                    function cityChange(elEvent) {
+                        var cityValue = citySelect.val();
+
+                        arrayLocationFormatSelect2.forEach(function (city) {
+                            if (city.id == cityValue) {
+                                districtOptions = city.districts;
+                            }
+                        })
+
+                        districtSelect.find("option").remove();
+                        districtOptions.forEach(function (district) {
+                            var option = new Option(district.text, district.id);
+
+                            districtSelect.append(option);
+                        })
+                    }
+
+
+                    //AddEventListenser
+                    citySelect.on("change", function () {
+                        cityChange();
+                        //districChange();
+                    });
+                    citySelect.val("@Model.Province").trigger('change');
+                    districtSelect.val("@Model.District").trigger('change');
+                }
+            }
+        });
+
+        $("#btnUpload").click(function () {
+
+            var data = new FormData();
+            var uploadFile = $("#filecontract")[0].files;
+            if (uploadFile.length <= 0) {
+                return;
+            }
+            for (var x = 0; x < uploadFile.length; x++) {
+                //if (uploadFile[x].name.match(/\.(jpg|jpeg|png|gif)$/)) {
+                //    return;
+                //}
+                data.append("files", uploadFile[x]);
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/Customer/UploadFile",
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function (respone) {
+                    if (respone != null) {
+                        if (respone.data != '') {
+                            $("#filecontract").val("");
+                            $("#file").val(respone.data);
+                            //console.log($('#OrderModel_RelatedDocuments').text());
+
+                            swal("Upload", "Thành công", "success");
+                        }
+                    }
+
+                },
+                error: function () {
+                    swal("Upload", "Lỗi file", "error");
+
+                }
+
+            });
+        });
+        var uploadFile;
+        var fileupload = $("#image");
+        var image = $("#imgFileUpload");
+        image.click(function () {
+            fileupload.click();
+        });
+        fileupload.change(function () {
+            uploadFile = fileupload[0].files;
+            if (uploadFile) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    e.preventDefault();
+                    image.attr('src', e.target.result);
+                };
+                reader.readAsDataURL(uploadFile[0]);
+            }
+            var data = new FormData();
+            if (uploadFile.length <= 0) {
+                return;
+            }
+            for (var x = 0; x < uploadFile.length; x++) {
+                //if (uploadFile[x].name.match(/\.(jpg|jpeg|png|gif)$/)) {
+                //    return;
+                //}
+                data.append("file", uploadFile[x]);
+            }
+            $("#fileImg")[0].files = fileupload[0].files;
+            swal("Upload", "Bấm SaveChange để hoàn tất", "success");
+            //$.ajax({
+            //    type: "POST",
+            //    url: "/Common/UploadFileImage",
+            //    contentType: false,
+            //    processData: false,
+            //    data: data,
+            //    success: function (respone) {
+            //        if (respone != null) {
+            //            if (respone.data != '') {
+            //                fileupload.val("");
+            //                $("#img").val($("#img").val()+","+respone.data);
+            //                swal("Upload", "Bám SaveChange để hoàn tất", "success");
+            //            }
+            //        }
+
+            //    },
+            //    error: function () {
+            //        swal("Upload", "Lỗi file", "error");
+
+            //    }
+            //});
+        });
+        var k = $("#work");
+        var type = $("#typeRegister");
+        var f = $('input[name="StrFromDateOff"]');
+        var t = $('input[name="StrToDateOff"]');
+        var d = $(".js-date-1");
+        valueDay(getDefault(new Date()));
+        type.on("change", function(e) {
+            var value = e.target.value;
+            console.log(value);
+            if (value === "3") {
+                t.prop('disabled', false);
+                valueDay("");
+                var from = f.val().split("/");
+                var day = from[1] + "/" + from[0] + "/" + from[2];
+                getDate(day);
+
+            } else {
+                t.prop('disabled', true);
+                valueDay(f.val());
+                $("#click1").unbind('click');
+            }
+        });
+        f.on("change", function () {
+            var from = $(this).val().split("/");
+            var day = from[1] + "/" + from[0] + "/" + from[2];
+            getDate(day);
+            var i = getDefault(new Date(day));
+            valueDay("");
+            if (type.val() != 3) {
+                t.val(i);
+            }
+            f.val(i);
+        });
+
+        t.on("change", function (event) {
+            var from = f.val();
+            var to = $(this).val().split("/");
+            var day = to[1] + "/" + to[0] + "/" + to[2];
+            getDate1(day, 6);
+            display(day, $(this).val());
+            k.show();
+            $("input[name=status][value='0']").prop("checked", true);
+            if (from == $(this).val()) {
+                $(".working").hide();
+                $("#click").on("click", function () {
+                    $("input[name=status][value='0']").prop("checked", true);
+                });
+                $("#click1").on("click", function () {
+                    k.show();
+                });
+                k.show();
+            } else {
+                $("#click").unbind('click');
+                k.show();
+            }
+            if ($(this).val() == "")
+                k.hide();
+        });
+
+        function getDateWork(d,m,k,i) {
+            d.setDate(d.getDate() + k);
+            $(".todate").text("12h " + convertDay(new Date(m)) + " " + i);
+            $(".todate1").text(convertDay(d) + " " + d.getDate() + "/" + parseInt(d.getMonth() + 1) + "/" + d.getFullYear());
+
+        };
+
+        function display(day,k) {
+            var todate = new Date(day);
+            var value = new Date(day);
+            if (value.getDay() != 6 && value.getDay() != 0) {
+                getDateWork(todate, day, 1, k)
+                $(".working").show();
+            } else {
+                var h = value.getDay() == 6 ? 2 : 1;
+                getDateWork(todate, day, h, k);
+                $(".working").hide();
+            }
+        };
+
+        function getDefault(i)  {
+            if(i.getDay() == 0) {
+                i.setDate(i.getDate() + 1);
+            }
+            var month = i.getMonth()+1;
+            var day = i.getDate();
+
+            var output = (day < 10 ? '0' : '') + day + '/' + (month < 10 ? '0' : '') + month + '/' + i.getFullYear();
+            f.val(output);
+            var from = output.split("/");
+            var day = from[1] + "/" + from[0] + "/" + from[2];
+            $(".fromdate").text("* Bắt đầu nghỉ :" + convertDay(new Date(day)) + " ngày " + output);
+            return output;
+        };
+
+        function getDate(day) {
+            var nextDay = new Date(day);
+            var dayf =new Date(day);
+            if (nextDay.getDay() == 0) {
+                dayf.setDate(dayf.getDate() + 1);
+                f.datepicker('setDate',dayf);
+            }
+            nextDay.setDate(nextDay.getDate() + 6);
+            d.datepicker("destroy");
+            var DateOptions = {
+                format: "dd/mm/yyyy",
+                startDate: dayf,
+                endDate: nextDay,
+            };
+            d.datepicker(DateOptions);
+        };
+
+        function getDate1(day,k) {
+            var nextDay = new Date(day);
+            if (nextDay.getDay() == 0) {
+                nextDay.setDate(nextDay.getDate() - 1);
+                t.datepicker('setDate', nextDay);
+            }
+            nextDay.setDate(nextDay.getDate() - k+1);
+            //$(".js-date").datepicker("destroy");
+            var DateOptions = {
+                format: "dd/mm/yyyy",
+                startDate: nextDay,
+            };
+            $(".js-date").datepicker(DateOptions);
+        };
+        function valueDay(d) {
+            t.val(d);
+            k.hide();
+        }
+        t.on('keyup', function (event) {
+            var key = event.charCode || event.keyCode || event.which;
+            var char = String.fromCharCode(event.key);
+            if (key === 8 || key === 46) {
+                //event.preventDefault();
+                t.val("");
+            }
+        });
+
+        $("#btnRegister").on("click", function () {
+            //if (checkInput1().result) {
+            $("#btnRegister").addClass("m-loader m-loader--light m-loader--right disable");
+            var day = 0;
+            if ($('input[name="from"]:checked').val() == 0)
+                day = 0.5;
+            if ($('input[name="status"]:checked').val() == 1)
+                day += 0.5;
+            var formData = new FormData($("#m_form")[0]);
+
+            formData.append("DateOffNumber", day);
+
+            $.ajax({
+                url: '/Account/InsertRegisterDateOff',
+                type: 'POST',
+                data: formData, // serializes the form's elements.
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    $("#btnRegister").removeClass("m-loader m-loader--light m-loader--right disable");
+                    if (response.result) {
+                        swal("", response.message, "success");
+                        setTimeout(function () {
+
+                            location.reload();
+
+                            //End
+                        }, 5000);
+                    }
+                    else {
+                        swal("", response.message, "warning");
+
+                    }
+
+                },
+                error: function (error) {
+                    alert("Đã bị lỗi");
+                }
+            })
+            //}
+        });
+
+        function convertDay(value){
+            var weekday = ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"];
+            return weekday[value.getDay()];
+        }
+        var r = $("#reason");
+        var rs = $("#reasonRegister");
+        r.hide();
+        rs.on("change", function () {
+            var reason = rs.val();
+            if (reason) {
+                if (reason != "1") {
+                    r.val(rs.val());
+                    r.hide();
+                    return;
+                }
+                r.val("Vui lòng điền lý do!");
+                r.show();
+                return;
+            }
+            r.val("");
+            r.hide();
+        });
+
+        function deleteContract(k) {
+            swal({
+                title: "Are you sure?",
+                text: "Bạn có muốn xóa đơn nghỉ này không?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: 'Có',
+                cancelButtonText: "Không",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            }).then(function (isConfirm) {
+                if (isConfirm.value) {
+                    $.ajax({
+                        url: '/Account/DeleteRegisterDateOff?id=' + k,
+                        type: 'GET',
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+                            if (response.result) {
+                                swal("", response.message, "success");
+                                setTimeout(function () {
+                                    location.reload();
+                                }, 5000);
+                            }
+                            else {
+                                swal("", response.message, "warning");
+
+                            }
+                        },
+                        error: function (err) {
+                            alert("Đã bị lỗi");
+                        }
+                    })
+                }
+                else {
+                    swal("Your imaginary file is safe!");
+                }
+            });
+        }
+
+        $('#generalSearch').on('keyup', function () {
+            var inputValue = $('#generalSearch').val().toLowerCase();
+            $("#customerTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(inputValue) > -1)
+            });
+        });
+</script>
+}

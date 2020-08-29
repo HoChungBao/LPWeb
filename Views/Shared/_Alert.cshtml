@@ -1,0 +1,34 @@
+﻿@using LienPhatERP.ViewModels
+@{
+    var genericMessage = new GenericMessageViewModel();
+    if (TempData["GenericMessage"] != null)
+    {
+        genericMessage = (GenericMessageViewModel)TempData["GenericMessage"];
+    }
+    else if (ViewData["GenericMessage"] != null)
+    {
+        genericMessage.Message = (string) ViewData["GenericMessage"];
+    }
+    var delayTime = genericMessage.ConstantMessage ? 600000 : 4500;
+}
+@if (!string.IsNullOrEmpty(genericMessage.Message))
+{
+    <script type="text/javascript"> $(function () { $('div.alert').delay(@delayTime).fadeOut(); });</script>
+    <div class="m-alert m-alert--icon m-alert--icon-solid m-alert--outline alert alert-brand alert-dismissible fade show alert-@genericMessage.MessageType.ToString()" role="alert" >
+        <div class="m-alert__icon">
+            <i class="flaticon-exclamation-1"></i>
+            <span></span>
+        </div>
+        <div class="m-alert__text">
+            <strong>
+                Well done!
+            </strong>
+            @Html.Raw(genericMessage.Message)
+        </div>
+        <div class="m-alert__close">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+  
+}
+

@@ -1,0 +1,129 @@
+﻿@using LienPhatERP.Services
+@inject ICategoryService CategoryService
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var cate = CategoryService.GetAll();
+}
+<link href="~/assets/vendors/base/blueimp-gallery-min.css" rel="stylesheet" />
+<div class="m-content" id="app">
+
+    <div class="m-portlet m-portlet--mobile">
+        <div class="m-portlet__head">
+            <div class="m-portlet__head-caption">
+                <div class="m-portlet__head-title">
+                    <h3 class="m-portlet__head-text">
+                        Quản lý danh mục
+                    </h3>
+
+                </div>
+            </div>
+            <div class="m-portlet__head-tools">
+
+            </div>
+        </div>
+        <div class="m-portlet__body">
+            <!--begin: Search Form -->
+            <div class="m-form m-form--label-align-right m--margin-bottom-5">
+                <div class="row align-items-center">
+                    <div class="col-xl-12 ">
+                    </div>
+
+                </div>
+            </div>
+            <!--end: Search Form -->
+            <!--begin: Datatable -->
+            <div class="table-responsive">
+                <div class="m-form__section m-form__section--first">
+                    <table class="table table-bordered m-table m-table--border-success m-table--head-bg-success">
+                        <thead>
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    Tên
+                                </th>
+                                <th>
+                                    Mô tả
+                                </th>
+                                <th>
+                                    Delete
+                                </th>
+                                <th>
+                                    Published
+                                </th>
+                                <th>
+
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="m-datatable__body" id="customerTable">
+                            @foreach (var item in cate)
+                            {
+                            <tr>
+                                <td>
+                                    @int.Parse((cate.FindIndex(a => a.Id == item.Id) + 1).ToString())
+                                </td>
+                                <td>
+                                   @item.Name
+                                </td>
+                                <td>
+                                    <span style="width: 110px;">@item.Description</span>
+                                </td>
+                                <td>
+                                    @if (item.IsDeleted)
+                                    {
+                                        <span class="m-badge m-badge--danger m-badge--wide">true</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="m-badge m-badge--brand m-badge--wide">false</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.IsPublished)
+                                    {
+                                        <span class="m-badge m-badge--danger m-badge--wide">true</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="m-badge m-badge--brand m-badge--wide">false</span>
+                                    }
+                                </td>
+                                <td>
+                                    <span style="width: 110px;">
+                                        <a href="/CategoryAdmin/UpdateCategory?id=@item.Id" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Update">
+                                            <i class="flaticon-edit"></i>
+                                        </a>
+                                        <a href="/CategoryAdmin/DeleteCategory?id=@item.Id" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Bật/Tắt xóa">
+                                            <i class="flaticon-delete"></i>
+                                        </a>
+                                        <a href="/CategoryAdmin/PublishCategory?id=@item.Id" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Bật/Tắt">
+                                            <i class="flaticon-plus"></i>
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        </div>
+</div>
+
+@section Scripts {
+}
+
+
+
+
+
+
+
+
+
+
+
